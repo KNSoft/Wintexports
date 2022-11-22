@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <MASM Include="except1.asm" />
+    <MASM Include="$(VCToolsInstallDir)crt\src\i386\llmul.asm" />
+    <MASM Include="$(VCToolsInstallDir)crt\src\i386\llshl.asm" />
+    <MASM Include="$(VCToolsInstallDir)crt\src\i386\llshr.asm" />
+    <MASM Include="$(VCToolsInstallDir)crt\src\i386\ullshr.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="isa.c" />
+  </ItemGroup>
+</Project>

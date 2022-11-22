@@ -1,0 +1,16 @@
+.vs
+*.user
+
+/x86
+/x64
+
+/WIE_MSCRT/x86
+/WIE_MSCRT/x64
+
+/WIE_MSCRT_x86/x86
+
+/WIE_Ntdll/x86
+/WIE_Ntdll/x64
+
+/WIE_Kernel32/x86
+/WIE_Kernel32/x64
