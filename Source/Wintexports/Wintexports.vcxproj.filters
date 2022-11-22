@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="UserMode">
+      <UniqueIdentifier>{754c8d2a-c9c8-4a53-9873-8a3e2c08655e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{85425eaa-4739-49ee-9da2-aab3f31ce163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KernelMode">
+      <UniqueIdentifier>{721bfea9-18ec-4e6b-95be-5b643a7ee2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extended">
+      <UniqueIdentifier>{58302495-caeb-4e30-a71c-dc8d1cca154e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{eda32232-0bbd-4ab6-87d3-b892c3e0b0f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext.h">
+      <Filter>Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext_CPU.h">
+      <Filter>Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_fltKernel.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_ntddk.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_ntifs.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_wdm.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_ntddk.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_ntifs.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Ex.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Ke.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Rtl.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Internal.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_ntdef.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_WinSta.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_winternl.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Kernel32.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Ntdll.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Ntdll_Hash.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_User32.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_CommCtrl.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Windows.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_winnt.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_WinSta_API.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_WinUser.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_MakeLib Include="Lib\Ntdll_Hash.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_MakeLib>
+    <Precomp4C_MakeLib Include="Lib\WIE_WinAPI.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_MakeLib>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

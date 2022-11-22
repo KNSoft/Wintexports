@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MSVCRT">
+      <UniqueIdentifier>{75048101-6aba-4c22-98e0-119ce1de3bb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExportMSVCRT">
+      <UniqueIdentifier>{4f47436e-9b0a-465c-a5f4-08f907538d92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExportMSVCRT\x86">
+      <UniqueIdentifier>{f40fb0aa-f3f8-472c-8b1f-5df67fb31c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExportMSVCRT\x64">
+      <UniqueIdentifier>{bcfcedee-3841-4956-93ad-c6adfda84f02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp">
+      <Filter>MSVCRT</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup_DllMain.c" />
+    <ClCompile Include="Startup_wmain.c" />
+    <ClCompile Include="Startup_wWinMain.c" />
+    <ClCompile Include="Startup_ExeMain.c" />
+    <ClCompile Include="Startup_Init.c" />
+    <ClCompile Include="GS.c" />
+    <ClCompile Include="RTC.cpp" />
+    <ClCompile Include="Except.c" />
+    <ClCompile Include="Startup_DllMain_Stub.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Startup.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExportMSVCRT\x64\libcmt.lib.lst">
+      <Filter>ExportMSVCRT\x64</Filter>
+    </None>
+    <None Include="ExportMSVCRT\x86\libcmt.lib.lst">
+      <Filter>ExportMSVCRT\x86</Filter>
+    </None>
+    <None Include="ExportMSVCRT\x86\msvcrt.lib.lst">
+      <Filter>ExportMSVCRT\x86</Filter>
+    </None>
+    <None Include="Startup_Exe.inl" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_MakeLib Include="Ntdll_CRT.xml">
+      <Filter>MSVCRT</Filter>
+    </Precomp4C_MakeLib>
+  </ItemGroup>
+</Project>
