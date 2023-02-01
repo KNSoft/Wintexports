@@ -14,3 +14,6 @@
 
 /WIE_Kernel32/x86
 /WIE_Kernel32/x64
+
+/Wintexports/x86
+/Wintexports/x64
