@@ -69,18 +69,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,7 +143,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\Wintexports\WIE_Arch_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_CommCtrl.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Extended.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_ExTypes_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Internal_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Kernel32_API.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_KeTypes_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_ntddk.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_ntdef.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Ntdll_API.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_ntifs.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_RtlTypes_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_User32_API.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_wdm.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Windows.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Winnt_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_WinSta.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_WinSta_API.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_WinUser.h" />
     <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

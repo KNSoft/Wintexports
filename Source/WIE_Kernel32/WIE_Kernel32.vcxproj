@@ -77,9 +77,6 @@
   <ItemGroup>
     <None Include="Exports.def" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Include\Wintexports\WIE_Kernel32.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

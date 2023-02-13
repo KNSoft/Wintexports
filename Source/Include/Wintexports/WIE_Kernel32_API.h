@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
-#ifndef _WINDOWS_
-#include <Windows.h>
-#endif
+#include "WIE_Windows.h"
+
+EXTERN_C_START
 
 WINBASEAPI
 BOOL
@@ -19,5 +19,6 @@ CreateProcessInternalW(
     _In_opt_ LPCWSTR lpCurrentDirectory,
     _In_ LPSTARTUPINFOW lpStartupInfo,
     _Out_ LPPROCESS_INFORMATION lpProcessInformation,
-    _Out_opt_ PHANDLE hNewToken
-);
+    _Out_opt_ PHANDLE hNewToken);
+
+EXTERN_C_END
