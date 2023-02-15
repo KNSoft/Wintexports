@@ -53,11 +53,17 @@
 #define Int64ShrlMod32 MS_Int64ShrlMod32
 #endif
 
+#define _ENUM_FLAG_SIZED_INTEGER _MS_ENUM_FLAG_SIZED_INTEGER
+#define _ENUM_FLAG_INTEGER_FOR_SIZE _MS_ENUM_FLAG_INTEGER_FOR_SIZE
+
 #endif /* _WINDOWS_ */
 
 #include <ntdef.h>
 
 #ifdef _WINDOWS_
+
+#undef _ENUM_FLAG_SIZED_INTEGER
+#undef _ENUM_FLAG_INTEGER_FOR_SIZE
 
 #undef Int64ShllMod32
 #undef Int64ShraMod32

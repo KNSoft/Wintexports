@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿/* Include this file before and after winnt.h */
 
 #ifdef _WINNT_
 

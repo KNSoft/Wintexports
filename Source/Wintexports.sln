@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WIE_Ntdll", "WIE_Ntdll\WIE_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wintexports", "Wintexports\Wintexports.vcxproj", "{C16DA7FB-302A-4C32-BF56-346585ECD3AD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WIE_ComCtl32", "WIE_ComCtl32\WIE_ComCtl32.vcxproj", "{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -63,6 +65,14 @@ Global
 		{C16DA7FB-302A-4C32-BF56-346585ECD3AD}.Release|x64.Build.0 = Release|x64
 		{C16DA7FB-302A-4C32-BF56-346585ECD3AD}.Release|x86.ActiveCfg = Release|Win32
 		{C16DA7FB-302A-4C32-BF56-346585ECD3AD}.Release|x86.Build.0 = Release|Win32
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Debug|x64.ActiveCfg = Release|x64
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Debug|x64.Build.0 = Release|x64
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Debug|x86.ActiveCfg = Release|Win32
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Debug|x86.Build.0 = Release|Win32
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Release|x64.ActiveCfg = Release|x64
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Release|x64.Build.0 = Release|x64
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Release|x86.ActiveCfg = Release|Win32
+		{B984C1BA-C62A-442B-8CFD-CB4C6AED8053}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

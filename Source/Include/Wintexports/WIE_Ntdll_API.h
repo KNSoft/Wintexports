@@ -319,12 +319,14 @@ RtlGetUserPreferredUILanguages(
 
 #pragma region Virtual Memory
 
-NTSYSAPI
+_Must_inspect_result_
+__drv_allocatesMem(Mem)
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtAllocateVirtualMemory(
     _In_ HANDLE ProcessHandle,
-    _Inout_ _At_(*BaseAddress, _Readable_bytes_(*RegionSize) _Writable_bytes_(*RegionSize) _Post_readable_byte_size_(*RegionSize)) PVOID* BaseAddress,
+    _Inout_ _At_ (*BaseAddress, _Readable_bytes_ (*RegionSize) _Writable_bytes_ (*RegionSize) _Post_readable_byte_size_ (*RegionSize)) PVOID *BaseAddress,
     _In_ ULONG_PTR ZeroBits,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG AllocationType,
@@ -340,12 +342,12 @@ NtProtectVirtualMemory(
     _In_ ULONG Protect,
     _Out_ PULONG OldProtect);
 
-NTSYSAPI
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtFreeVirtualMemory(
     _In_ HANDLE ProcessHandle,
-    _Inout_ __drv_freesMem(Mem) PVOID* BaseAddress,
+    _Inout_ __drv_freesMem(Mem) PVOID *BaseAddress,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG FreeType);
 
@@ -369,16 +371,17 @@ NtWriteVirtualMemory(
     _In_ SIZE_T NumberOfBytesToWrite,
     _Out_opt_ PSIZE_T NumberOfBytesWritten);
 
-NTSYSAPI
+_Must_inspect_result_
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtQueryVirtualMemory(
-    IN HANDLE ProcessHandle,
-    IN PVOID BaseAddress,
-    IN MEMORY_INFORMATION_CLASS MemoryInformationClass,
-    OUT PVOID MemoryInformation,
-    IN SIZE_T MemoryInformationLength,
-    OUT PSIZE_T ReturnLength);
+    _In_ HANDLE ProcessHandle,
+    _In_opt_ PVOID BaseAddress,
+    _In_ MEMORY_INFORMATION_CLASS MemoryInformationClass,
+    _Out_writes_bytes_(MemoryInformationLength) PVOID MemoryInformation,
+    _In_ SIZE_T MemoryInformationLength,
+    _Out_opt_ PSIZE_T ReturnLength);
 
 #pragma endregion Virtual Memory
 
@@ -393,26 +396,57 @@ NtOpenThread(
     _In_  POBJECT_ATTRIBUTES ObjectAttributes,
     _In_  PCLIENT_ID         ClientId);
 
-NTSYSAPI
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtOpenProcess(
-    PHANDLE            ProcessHandle,
-    ACCESS_MASK        DesiredAccess,
-    POBJECT_ATTRIBUTES ObjectAttributes,
-    PCLIENT_ID         ClientId);
+    _Out_ PHANDLE ProcessHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _In_opt_ PCLIENT_ID ClientId);
 
+NTSYSAPI
 NTSTATUS
 NTAPI
 NtSuspendThread(
     _In_ HANDLE ThreadHandle,
     _Out_opt_ PULONG SuspendCount);
 
+NTSYSAPI
 NTSTATUS
 NTAPI
 NtResumeThread(
     _In_ HANDLE ThreadHandle,
     _Out_opt_ PULONG SuspendCount);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+NtQueryInformationThread(
+    IN HANDLE ThreadHandle,
+    IN THREADINFOCLASS ThreadInformationClass,
+    OUT PVOID ThreadInformation,
+    IN ULONG ThreadInformationLength,
+    OUT PULONG ReturnLength OPTIONAL);
+
+NTSYSCALLAPI
+NTSTATUS
+NTAPI
+NtSetInformationThread (
+    _In_ HANDLE ThreadHandle,
+    _In_ THREADINFOCLASS ThreadInformationClass,
+    _In_reads_bytes_(ThreadInformationLength) PVOID ThreadInformation,
+    _In_ ULONG ThreadInformationLength);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+NtQueryInformationProcess(
+    IN HANDLE ProcessHandle,
+    IN PROCESSINFOCLASS ProcessInformationClass,
+    OUT PVOID ProcessInformation,
+    IN ULONG ProcessInformationLength,
+    OUT PULONG ReturnLength OPTIONAL);
 
 NTSYSAPI
 NTSTATUS
@@ -429,6 +463,7 @@ NtGetContextThread(
     IN HANDLE ThreadHandle,
     IN OUT PCONTEXT ThreadContext);
 
+NTSYSAPI
 NTSTATUS
 NTAPI
 NtSetContextThread(
@@ -439,50 +474,66 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtTerminateProcess(
-    HANDLE   ProcessHandle,
-    NTSTATUS ExitStatus);
+    _In_opt_ HANDLE ProcessHandle,
+    _In_ NTSTATUS ExitStatus);
 
 #pragma endregion Process and Thread
 
 #pragma region File
 
-NTSYSAPI
+NTSYSCALLAPI
+NTSTATUS
+NTAPI
+NtCreateFile(
+    _Out_ PHANDLE FileHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
+    _In_opt_ PLARGE_INTEGER AllocationSize,
+    _In_ ULONG FileAttributes,
+    _In_ ULONG ShareAccess,
+    _In_ ULONG CreateDisposition,
+    _In_ ULONG CreateOptions,
+    _In_reads_bytes_opt_(EaLength) PVOID EaBuffer,
+    _In_ ULONG EaLength);
+
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtReadFile(
-    HANDLE              FileHandle,
-    HANDLE              Event,
-    PIO_APC_ROUTINE     ApcRoutine,
-    PVOID               ApcContext,
-    PIO_STATUS_BLOCK    IoStatusBlock,
-    PVOID               Buffer,
-    ULONG               Length,
-    PLARGE_INTEGER      ByteOffset,
-    PULONG              Key);
+    _In_ HANDLE FileHandle,
+    _In_opt_ HANDLE Event,
+    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
+    _In_opt_ PVOID ApcContext,
+    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
+    _Out_writes_bytes_(Length) PVOID Buffer,
+    _In_ ULONG Length,
+    _In_opt_ PLARGE_INTEGER ByteOffset,
+    _In_opt_ PULONG Key);
 
-NTSYSAPI
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtWriteFile(
-    HANDLE           FileHandle,
-    HANDLE           Event,
-    PIO_APC_ROUTINE  ApcRoutine,
-    PVOID            ApcContext,
-    PIO_STATUS_BLOCK IoStatusBlock,
-    PVOID            Buffer,
-    ULONG            Length,
-    PLARGE_INTEGER   ByteOffset,
-    PULONG           Key);
+    _In_ HANDLE FileHandle,
+    _In_opt_ HANDLE Event,
+    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
+    _In_opt_ PVOID ApcContext,
+    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
+    _In_reads_bytes_(Length) PVOID Buffer,
+    _In_ ULONG Length,
+    _In_opt_ PLARGE_INTEGER ByteOffset,
+    _In_opt_ PULONG Key);
 
-NTSYSAPI
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtQueryInformationFile(
-    IN HANDLE hFile,
-    OUT PIO_STATUS_BLOCK pIoStatusBlock,
-    OUT PVOID FileInformationBuffer,
-    IN ULONG FileInformationBufferLength,
-    IN FILE_INFORMATION_CLASS FileInfoClass);
+    _In_ HANDLE FileHandle,
+    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
+    _Out_writes_bytes_(Length) PVOID FileInformation,
+    _In_ ULONG Length,
+    _In_ FILE_INFORMATION_CLASS FileInformationClass);
 
 NTSYSAPI
 NTSTATUS
@@ -495,18 +546,18 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtQueryFullAttributesFile(
-    POBJECT_ATTRIBUTES             ObjectAttributes,
-    PFILE_NETWORK_OPEN_INFORMATION FileInformation);
+    _In_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _Out_ PFILE_NETWORK_OPEN_INFORMATION FileInformation);
 
-NTSYSAPI
+NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtSetInformationFile(
-    HANDLE                 FileHandle,
-    PIO_STATUS_BLOCK       IoStatusBlock,
-    PVOID                  FileInformation,
-    ULONG                  Length,
-    FILE_INFORMATION_CLASS FileInformationClass);
+    _In_ HANDLE FileHandle,
+    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
+    _In_reads_bytes_(Length) PVOID FileInformation,
+    _In_ ULONG Length,
+    _In_ FILE_INFORMATION_CLASS FileInformationClass);
 
 #pragma endregion File
 
@@ -516,35 +567,38 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtCreateSection(
-    PHANDLE            SectionHandle,
-    ACCESS_MASK        DesiredAccess,
-    POBJECT_ATTRIBUTES ObjectAttributes,
-    PLARGE_INTEGER     MaximumSize,
-    ULONG              SectionPageProtection,
-    ULONG              AllocationAttributes,
-    HANDLE             FileHandle);
+    _Out_ PHANDLE SectionHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_opt_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _In_opt_ PLARGE_INTEGER MaximumSize,
+    _In_ ULONG SectionPageProtection,
+    _In_ ULONG AllocationAttributes,
+    _In_opt_ HANDLE FileHandle);
 
+_Must_inspect_result_
+_Post_satisfies_(*ViewSize >= _Old_(*ViewSize))
+_IRQL_requires_max_(PASSIVE_LEVEL)
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtMapViewOfSection(
-    HANDLE          SectionHandle,
-    HANDLE          ProcessHandle,
-    PVOID* BaseAddress,
-    ULONG_PTR       ZeroBits,
-    SIZE_T          CommitSize,
-    PLARGE_INTEGER  SectionOffset,
-    PSIZE_T         ViewSize,
-    SECTION_INHERIT InheritDisposition,
-    ULONG           AllocationType,
-    ULONG           Win32Protect);
+    _In_ HANDLE SectionHandle,
+    _In_ HANDLE ProcessHandle,
+    _Outptr_result_bytebuffer_(*ViewSize) PVOID *BaseAddress,
+    _In_ ULONG_PTR ZeroBits,
+    _In_ SIZE_T CommitSize,
+    _Inout_opt_ PLARGE_INTEGER SectionOffset,
+    _Inout_ PSIZE_T ViewSize,
+    _In_ SECTION_INHERIT InheritDisposition,
+    _In_ ULONG AllocationType,
+    _In_ ULONG Win32Protect);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtUnmapViewOfSection(
-    HANDLE ProcessHandle,
-    PVOID  BaseAddress);
+    _In_ HANDLE ProcessHandle,
+    _In_opt_ PVOID BaseAddress);
 
 #pragma endregion Section
 
@@ -558,8 +612,6 @@ NtOpenProcessToken(
     _In_ ACCESS_MASK    DesiredAccess,
     _Out_ PHANDLE       TokenHandle);
 
-_Must_inspect_result_
-__kernel_entry
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -570,7 +622,8 @@ NtQueryInformationToken(
     _In_ ULONG TokenInformationLength,
     _Out_ PULONG ReturnLength);
 
-NTSYSAPI
+_Must_inspect_result_
+__kernel_entry NTSYSCALLAPI
 NTSTATUS
 NTAPI
 NtAdjustPrivilegesToken(
@@ -579,28 +632,27 @@ NtAdjustPrivilegesToken(
     _In_opt_ PTOKEN_PRIVILEGES NewState,
     _In_ ULONG BufferLength,
     _Out_writes_bytes_to_opt_(BufferLength, *ReturnLength) PTOKEN_PRIVILEGES PreviousState,
-    _When_(PreviousState != NULL, _Out_) PULONG ReturnLength);
+    _Out_ _When_(PreviousState == NULL, _Out_opt_) PULONG ReturnLength);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtDuplicateToken(
-  _In_ HANDLE ExistingTokenHandle,
-  _In_ ACCESS_MASK DesiredAccess,
-  _In_opt_ POBJECT_ATTRIBUTES ObjectAttributes,
-  _In_ BOOLEAN EffectiveOnly,
-  _In_ TOKEN_TYPE TokenType,
-  _Out_ PHANDLE NewTokenHandle);
+    _In_ HANDLE ExistingTokenHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_opt_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _In_ BOOLEAN EffectiveOnly,
+    _In_ TOKEN_TYPE TokenType,
+    _Out_ PHANDLE NewTokenHandle);
 
-__kernel_entry
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtSetInformationToken(
-  _In_ HANDLE TokenHandle,
-  _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
-  _In_ PVOID TokenInformation,
-  _In_ ULONG TokenInformationLength);
+    _In_ HANDLE TokenHandle,
+    _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
+    _In_reads_bytes_(TokenInformationLength) PVOID TokenInformation,
+    _In_ ULONG TokenInformationLength);
 
 NTSYSAPI
 NTSTATUS
@@ -628,49 +680,53 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtOpenKey(
-    OUT PHANDLE KeyHandle,
-    IN ACCESS_MASK DesiredAccess,
-    IN POBJECT_ATTRIBUTES ObjectAttributes);
+    _Out_ PHANDLE KeyHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_ POBJECT_ATTRIBUTES ObjectAttributes);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtCreateKey(
-    OUT PHANDLE KeyHandle,
-    IN ACCESS_MASK DesiredAccess,
-    IN POBJECT_ATTRIBUTES ObjectAttributes,
-    IN ULONG TitleIndex,
-    IN PUNICODE_STRING Class OPTIONAL,
-    IN ULONG CreateOptions,
-    OUT PULONG Disposition OPTIONAL);
+    _Out_ PHANDLE KeyHandle,
+    _In_ ACCESS_MASK DesiredAccess,
+    _In_ POBJECT_ATTRIBUTES ObjectAttributes,
+    _Reserved_ ULONG TitleIndex,
+    _In_opt_ PUNICODE_STRING Class,
+    _In_ ULONG CreateOptions,
+    _Out_opt_ PULONG Disposition);
 
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtQueryValueKey(
-  _In_ HANDLE KeyHandle,
-  _In_ PUNICODE_STRING ValueName,
-  _In_ KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass,
-  _Out_opt_ PVOID KeyValueInformation,
-  _In_ ULONG Length,
-  _Out_ PULONG ResultLength);
+_When_(Length == 0, _Post_satisfies_(return < 0))
+    _When_(Length > 0, _Post_satisfies_(return <= 0))
+    _Success_(return == STATUS_SUCCESS)
+    _On_failure_(_When_(return == STATUS_BUFFER_OVERFLOW || return == STATUS_BUFFER_TOO_SMALL, _Post_satisfies_(*ResultLength > Length)))
+    NTSYSAPI
+    NTSTATUS
+    NTAPI
+    NtQueryValueKey(
+        _In_ HANDLE KeyHandle,
+        _In_ PUNICODE_STRING ValueName,
+        _In_ KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass,
+        _Out_writes_bytes_to_opt_(Length, *ResultLength) PVOID KeyValueInformation,
+        _In_ ULONG Length,
+        _Out_ PULONG ResultLength);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtSetValueKey(
-    IN HANDLE KeyHandle,
-    IN PUNICODE_STRING ValueName,
-    IN ULONG TitleIndex,
-    IN ULONG Type,
-    IN PVOID Data,
-    IN ULONG DataSize);
+    _In_ HANDLE KeyHandle,
+    _In_ PUNICODE_STRING ValueName,
+    _In_opt_ ULONG TitleIndex,
+    _In_ ULONG Type,
+    _In_reads_bytes_opt_(DataSize) PVOID Data,
+    _In_ ULONG DataSize);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtDeleteKey(
-    IN HANDLE KeyHandle);
+    _In_ HANDLE KeyHandle);
 
 #pragma endregion Registry
 
@@ -680,13 +736,13 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtLoadDriver(
-    IN PUNICODE_STRING DriverServiceName);
+    _In_ PUNICODE_STRING DriverServiceName);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtUnloadDriver(
-    IN PUNICODE_STRING DriverServiceName);
+    _In_ PUNICODE_STRING DriverServiceName);
 
 #pragma endregion Driver
 
@@ -714,10 +770,24 @@ NtSetEvent(
 NTSYSAPI
 NTSTATUS
 NTAPI
+NtQuerySystemInformation(
+    IN SYSTEM_INFORMATION_CLASS SystemInformationClass,
+    OUT PVOID SystemInformation,
+    IN ULONG SystemInformationLength,
+    OUT PULONG ReturnLength OPTIONAL);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+NtClose(
+    _In_ _Post_ptr_invalid_ HANDLE Handle);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
 NtQueryPerformanceCounter(
   _Out_     PLARGE_INTEGER PerformanceCounter,
-  _Out_opt_ PLARGE_INTEGER PerformanceFrequency
-);
+  _Out_opt_ PLARGE_INTEGER PerformanceFrequency);
 
 NTSYSAPI
 NTSTATUS
@@ -727,16 +797,22 @@ NtQueryInformationAtom(
     ATOM_INFORMATION_CLASS AtomInformationClass,
     PVOID AtomInformation,
     ULONG AtomInformationLength,
-    PULONG ReturnLength
-);
+    PULONG ReturnLength);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtDelayExecution(
     IN BOOLEAN Alertable,
-    IN PLARGE_INTEGER DelayInterval
-);
+    IN PLARGE_INTEGER DelayInterval);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+NtWaitForSingleObject(
+    _In_ HANDLE Handle,
+    _In_ BOOLEAN Alertable,
+    _In_opt_ PLARGE_INTEGER Timeout);
 
 #pragma endregion Nt*
 

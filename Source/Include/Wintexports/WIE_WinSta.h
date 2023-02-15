@@ -1,8 +1,10 @@
-﻿#include "WIE_Windows.h"
-#include "WIE_WinSta_API.h"
+﻿#pragma once
 
-// winsta.h, taken from
-// https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/ce70794f-2138-43e8-bf6c-2c147887d6a2
+#include "WIE_Windows.h"
+
+/* winsta.h, taken from
+ * https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/ce70794f-2138-43e8-bf6c-2c147887d6a2
+ */
 
 #define WDPREFIX_LENGTH           12
 #define STACK_ADDRESS_LENGTH     128
@@ -1065,3 +1067,6 @@ typedef struct  _WINSTATIONVALIDATIONINFORMATION {
     BYTE                 HardwareID[VALIDATIONINFORMATION_HARDWAREID_LENGTH];
     ULONG                HardwareIDLength;
 }  WINSTATIONVALIDATIONINFORMATION, *PWINSTATIONVALIDATIONINFORMATION;
+
+/* Add WinSta API declarations */
+#include "WIE_WinSta_API.h"

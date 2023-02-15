@@ -30,6 +30,30 @@ typedef struct _RTL_HEAP_PARAMETERS {
     SIZE_T Reserved[ 2 ];
 } RTL_HEAP_PARAMETERS, *PRTL_HEAP_PARAMETERS;
 
+#pragma region Flags macros
+
+//
+//  These macros are used to test, set and clear flags respectivly
+//
+
+#ifndef FlagOn
+#define FlagOn(_F,_SF)        ((_F) & (_SF))
+#endif
+
+#ifndef BooleanFlagOn
+#define BooleanFlagOn(F,SF)   ((BOOLEAN)(((F) & (SF)) != 0))
+#endif
+
+#ifndef SetFlag
+#define SetFlag(_F,_SF)       ((_F) |= (_SF))
+#endif
+
+#ifndef ClearFlag
+#define ClearFlag(_F,_SF)     ((_F) &= ~(_SF))
+#endif
+
+#pragma endregion Flags macros
+
 #pragma endregion Taken from ntifs.h
 
 #pragma region Enhanced
