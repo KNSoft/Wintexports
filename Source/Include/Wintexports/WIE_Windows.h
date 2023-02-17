@@ -28,6 +28,11 @@
 #include "WIE_Internal_Supp.h"
 #include "WIE_WinUser.h"
 
+/* Include hash support on demand */
+#ifdef _WIE_HASH_SUPP_
+#include "WIE_Hash_Supp.h"
+#endif
+
 /* Append base API */
 
 #include "WIE_Ntdll_API.h"

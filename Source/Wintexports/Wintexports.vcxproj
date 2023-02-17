@@ -70,21 +70,25 @@
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -147,6 +151,7 @@
     <ClInclude Include="..\Include\Wintexports\WIE_CommCtrl.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_Extended.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_ExTypes_Supp.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Hash_Supp.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_Internal_Supp.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_Kernel32_API.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_KeTypes_Supp.h" />

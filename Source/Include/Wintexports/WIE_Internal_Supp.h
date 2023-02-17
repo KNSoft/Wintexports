@@ -2,6 +2,13 @@
 
 #include "WIE_ntdef.h"
 
+#ifndef RSA32API
+#define RSA32API __stdcall
+#endif
+
+#define LOGONID_CURRENT     ((ULONG)-1)
+#define SERVERNAME_CURRENT  ((HANDLE)NULL)
+
 typedef struct _LEAP_SECOND_DATA {
     UCHAR Enabled;
     UCHAR Padding[3];

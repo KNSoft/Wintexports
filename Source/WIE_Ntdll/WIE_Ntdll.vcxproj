@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CRT.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>

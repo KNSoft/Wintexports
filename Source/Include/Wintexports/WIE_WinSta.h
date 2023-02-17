@@ -2,6 +2,8 @@
 
 #include "WIE_Windows.h"
 
+#pragma region winsta.h
+
 /* winsta.h, taken from
  * https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/ce70794f-2138-43e8-bf6c-2c147887d6a2
  */
@@ -1067,6 +1069,8 @@ typedef struct  _WINSTATIONVALIDATIONINFORMATION {
     BYTE                 HardwareID[VALIDATIONINFORMATION_HARDWAREID_LENGTH];
     ULONG                HardwareIDLength;
 }  WINSTATIONVALIDATIONINFORMATION, *PWINSTATIONVALIDATIONINFORMATION;
+
+#pragma endregion winsta.h
 
 /* Add WinSta API declarations */
 #include "WIE_WinSta_API.h"

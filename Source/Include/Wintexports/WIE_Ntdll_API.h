@@ -1,8 +1,81 @@
 ﻿#pragma once
 
+#ifndef _WIE_NTDLL_API_
+#define _WIE_NTDLL_API_
+
 #include "WIE_Windows.h"
 
 EXTERN_C_START
+
+#pragma region Hash
+
+#ifdef _WIE_HASH_SUPP_
+
+NTSYSAPI
+VOID
+RSA32API
+A_SHAInit(
+  _Inout_ PA_SHA_CTX Context);
+
+NTSYSAPI
+VOID
+RSA32API
+A_SHAUpdate(
+  _Inout_ PA_SHA_CTX Context,
+  _In_reads_(BufferSize) PUCHAR Buffer,
+  ULONG BufferSize);
+
+NTSYSAPI
+VOID
+RSA32API
+A_SHAFinal(
+  _Inout_ PA_SHA_CTX Context,
+  _Out_ PUCHAR Result
+);
+
+NTSYSAPI
+VOID
+RSA32API
+MD5Init(
+  _Inout_ PMD5_CTX Context);
+
+NTSYSAPI
+VOID
+RSA32API
+MD5Update (
+  _Inout_ PMD5_CTX Context,
+  _In_reads_(BufferSize) PUCHAR Buffer,
+  ULONG BufferSize);
+
+NTSYSAPI
+VOID
+RSA32API
+MD5Final (
+  _Inout_ PMD5_CTX Context);
+
+NTSYSAPI
+VOID
+RSA32API
+MD4Init(
+  _Inout_ PMD4_CTX Context);
+
+NTSYSAPI
+VOID
+RSA32API
+MD4Update (
+  _Inout_ PMD4_CTX Context,
+  _In_reads_(BufferSize) PUCHAR Buffer,
+  ULONG BufferSize);
+
+NTSYSAPI
+VOID
+RSA32API
+MD4Final (
+  _Inout_ PMD4_CTX Context);
+
+#endif
+
+#pragma endregion Hash
 
 #pragma region Csr*
 
@@ -287,6 +360,12 @@ ULONG
 NTAPI
 RtlRandomEx(
     PULONG Seed);
+
+NTSYSAPI
+ULONG
+NTAPI
+RtlNtStatusToDosError(
+    IN NTSTATUS Status);
 
 NTSYSAPI
 ULONG
@@ -817,3 +896,5 @@ NtWaitForSingleObject(
 #pragma endregion Nt*
 
 EXTERN_C_END
+
+#endif /* _WIE_NTDLL_API_ */

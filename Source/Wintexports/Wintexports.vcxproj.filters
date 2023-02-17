@@ -55,6 +55,9 @@
     <ClInclude Include="..\Include\Wintexports\WIE_Winnt_Supp.h">
       <Filter>UserMode</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Hash_Supp.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.c" />
