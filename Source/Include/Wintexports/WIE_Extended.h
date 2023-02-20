@@ -109,6 +109,9 @@ typedef QWORD far *LPQWORD;
             __writefsbyte(UFIELD_OFFSET(TEB, m), (BYTE)(val))\
     )\
 )
+#else
+#define WIE_ReadTEB(m) (NtCurrentTeb()->m)
+#define WIE_WriteTEB(m, val) (NtCurrentTeb()->m = (val))
 #endif
 
 #define NtCurrentPeb() ((PPEB)WIE_ReadTEB(ProcessEnvironmentBlock))
