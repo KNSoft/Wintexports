@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WIE_Windows.h"
+#include <WIE_ntdef.h>
 
 EXTERN_C_START
 

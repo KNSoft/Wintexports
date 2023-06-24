@@ -1,8 +1,6 @@
 ﻿#pragma once
 
-#ifndef _WIE_WINDOWS_
-#include "WIE_Windows.h"
-#endif
+#include "WIE_Internal.h"
 
 #pragma region WinSDK
 
@@ -183,44 +181,3 @@ typedef QWORD far *LPQWORD;
 } varname
 
 #pragma endregion Any-size array
-
-#pragma region Funtion
-
-// WIE_LINKDEFAULTLIB: link default libs
-#if defined(WIE_LINKDEFAULTLIB)
-#if _DEBUG
-#if _DLL
-#pragma comment(lib, "msvcrtd.lib")
-#pragma comment(lib, "vcruntimed.lib")
-#pragma comment(lib, "ucrtd.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "msvcprtd.lib")
-#endif
-#else
-#pragma comment(lib, "libcmtd.lib")
-#pragma comment(lib, "libvcruntimed.lib")
-#pragma comment(lib, "libucrtd.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "libcpmtd.lib")
-#endif
-#endif
-#else
-#if _DLL
-#pragma comment(lib, "msvcrt.lib")
-#pragma comment(lib, "vcruntime.lib")
-#pragma comment(lib, "ucrt.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "msvcprt.lib")
-#endif
-#else
-#pragma comment(lib, "libcmt.lib")
-#pragma comment(lib, "libvcruntime.lib")
-#pragma comment(lib, "libucrt.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "libcpmt.lib")
-#endif
-#endif
-#endif
-#endif
-
-#pragma endregion Funtion

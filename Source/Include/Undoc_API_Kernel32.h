@@ -1,6 +1,13 @@
-﻿#include <Windows.h>
+﻿#pragma once
 
-BOOL WINAPI CreateProcessInternalW(
+#include "WIE_ntdef.h"
+
+EXTERN_C_START
+
+WINBASEAPI
+BOOL
+WINAPI
+CreateProcessInternalW(
     _In_opt_ HANDLE hToken,
     _In_opt_ LPCWSTR lpApplicationName,
     _Inout_opt_ LPWSTR lpCommandLine,
@@ -12,8 +19,6 @@ BOOL WINAPI CreateProcessInternalW(
     _In_opt_ LPCWSTR lpCurrentDirectory,
     _In_ LPSTARTUPINFOW lpStartupInfo,
     _Out_ LPPROCESS_INFORMATION lpProcessInformation,
-    _Out_opt_ PHANDLE hNewToken
-)
-{
-    return FALSE;
-}
+    _Out_opt_ PHANDLE hNewToken);
+
+EXTERN_C_END

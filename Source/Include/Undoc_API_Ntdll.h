@@ -1,81 +1,12 @@
 ﻿#pragma once
 
-#ifndef _WIE_NTDLL_API_
-#define _WIE_NTDLL_API_
-
-#include "WIE_Windows.h"
+#include "WIE_ntdef.h"
+#include "MS_ntifs.h"
+#include "Undoc_ntifs.h"
+#include "MS_wdm.h"
+#include "MS_ntddk.h"
 
 EXTERN_C_START
-
-#pragma region Hash
-
-#ifdef _WIE_HASH_SUPP_
-
-NTSYSAPI
-VOID
-RSA32API
-A_SHAInit(
-  _Inout_ PA_SHA_CTX Context);
-
-NTSYSAPI
-VOID
-RSA32API
-A_SHAUpdate(
-  _Inout_ PA_SHA_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
-
-NTSYSAPI
-VOID
-RSA32API
-A_SHAFinal(
-  _Inout_ PA_SHA_CTX Context,
-  _Out_ PUCHAR Result
-);
-
-NTSYSAPI
-VOID
-RSA32API
-MD5Init(
-  _Inout_ PMD5_CTX Context);
-
-NTSYSAPI
-VOID
-RSA32API
-MD5Update (
-  _Inout_ PMD5_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
-
-NTSYSAPI
-VOID
-RSA32API
-MD5Final (
-  _Inout_ PMD5_CTX Context);
-
-NTSYSAPI
-VOID
-RSA32API
-MD4Init(
-  _Inout_ PMD4_CTX Context);
-
-NTSYSAPI
-VOID
-RSA32API
-MD4Update (
-  _Inout_ PMD4_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
-
-NTSYSAPI
-VOID
-RSA32API
-MD4Final (
-  _Inout_ PMD4_CTX Context);
-
-#endif
-
-#pragma endregion Hash
 
 #pragma region Csr*
 
@@ -405,7 +336,7 @@ NTSTATUS
 NTAPI
 NtAllocateVirtualMemory(
     _In_ HANDLE ProcessHandle,
-    _Inout_ _At_ (*BaseAddress, _Readable_bytes_ (*RegionSize) _Writable_bytes_ (*RegionSize) _Post_readable_byte_size_ (*RegionSize)) PVOID *BaseAddress,
+    _Inout_ _At_(*BaseAddress, _Readable_bytes_(*RegionSize) _Writable_bytes_(*RegionSize) _Post_readable_byte_size_(*RegionSize)) PVOID *BaseAddress,
     _In_ ULONG_PTR ZeroBits,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG AllocationType,
@@ -511,7 +442,7 @@ NtQueryInformationThread(
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
-NtSetInformationThread (
+NtSetInformationThread(
     _In_ HANDLE ThreadHandle,
     _In_ THREADINFOCLASS ThreadInformationClass,
     _In_reads_bytes_(ThreadInformationLength) PVOID ThreadInformation,
@@ -641,7 +572,7 @@ NtSetInformationFile(
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
-NtDeviceIoControlFile (
+NtDeviceIoControlFile(
     _In_ HANDLE FileHandle,
     _In_opt_ HANDLE Event,
     _In_opt_ PIO_APC_ROUTINE ApcRoutine,
@@ -652,12 +583,12 @@ NtDeviceIoControlFile (
     _In_ ULONG InputBufferLength,
     _Out_writes_bytes_opt_(OutputBufferLength) PVOID OutputBuffer,
     _In_ ULONG OutputBufferLength
-    );
+);
 
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
-NtFsControlFile (
+NtFsControlFile(
     _In_ HANDLE FileHandle,
     _In_opt_ HANDLE Event,
     _In_opt_ PIO_APC_ROUTINE ApcRoutine,
@@ -668,7 +599,7 @@ NtFsControlFile (
     _In_ ULONG InputBufferLength,
     _Out_writes_bytes_opt_(OutputBufferLength) PVOID OutputBuffer,
     _In_ ULONG OutputBufferLength
-    );
+);
 
 #pragma endregion File
 
@@ -928,5 +859,3 @@ NtWaitForSingleObject(
 #pragma endregion Nt*
 
 EXTERN_C_END
-
-#endif /* _WIE_NTDLL_API_ */

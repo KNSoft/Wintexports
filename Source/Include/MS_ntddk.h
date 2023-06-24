@@ -1,10 +1,6 @@
 ﻿#pragma once
 
 #include "WIE_ntdef.h"
-#include "WIE_Internal_Supp.h"
-#include "WIE_wdm.h"
-
-#pragma region Taken from ntddk.h
 
 #pragma region File
 
@@ -22,6 +18,8 @@ typedef struct _FILE_END_OF_FILE_INFORMATION {
 
 #pragma endregion File
 
+#pragma region Synchronization
+
 typedef
 _Function_class_(RTL_RUN_ONCE_INIT_FN)
 _IRQL_requires_same_
@@ -33,6 +31,8 @@ RTL_RUN_ONCE_INIT_FN (
     _Inout_opt_ PVOID *Context
     );
 typedef RTL_RUN_ONCE_INIT_FN *PRTL_RUN_ONCE_INIT_FN;
+
+#pragma endregion Synchronization
 
 #pragma region Process and Thread
 
@@ -116,18 +116,61 @@ typedef enum _PROCESSINFOCLASS {
 
 typedef struct _PROCESS_BASIC_INFORMATION {
     NTSTATUS ExitStatus;
-    PPEB PebBaseAddress;
+    struct PPEB* PebBaseAddress;
     ULONG_PTR AffinityMask;
     KPRIORITY BasePriority;
     ULONG_PTR UniqueProcessId;
     ULONG_PTR InheritedFromUniqueProcessId;
 } PROCESS_BASIC_INFORMATION,*PPROCESS_BASIC_INFORMATION;
 
+typedef enum _THREADINFOCLASS {
+    ThreadBasicInformation = 0,
+    ThreadTimes = 1,
+    ThreadPriority = 2,
+    ThreadBasePriority = 3,
+    ThreadAffinityMask = 4,
+    ThreadImpersonationToken = 5,
+    ThreadDescriptorTableEntry = 6,
+    ThreadEnableAlignmentFaultFixup = 7,
+    ThreadEventPair_Reusable = 8,
+    ThreadQuerySetWin32StartAddress = 9,
+    ThreadZeroTlsCell = 10,
+    ThreadPerformanceCount = 11,
+    ThreadAmILastThread = 12,
+    ThreadIdealProcessor = 13,
+    ThreadPriorityBoost = 14,
+    ThreadSetTlsArrayAddress = 15,   // Obsolete
+    ThreadIsIoPending = 16,
+    ThreadHideFromDebugger = 17,
+    ThreadBreakOnTermination = 18,
+    ThreadSwitchLegacyState = 19,
+    ThreadIsTerminated = 20,
+    ThreadLastSystemCall = 21,
+    ThreadIoPriority = 22,
+    ThreadCycleTime = 23,
+    ThreadPagePriority = 24,
+    ThreadActualBasePriority = 25,
+    ThreadTebInformation = 26,
+    ThreadCSwitchMon = 27,   // Obsolete
+    ThreadCSwitchPmu = 28,
+    ThreadWow64Context = 29,
+    ThreadGroupInformation = 30,
+    ThreadUmsInformation = 31,   // Obsolete
+    ThreadCounterProfiling = 32,
+    ThreadIdealProcessorEx = 33,
+    ThreadCpuAccountingInformation = 34,
+    ThreadSuspendCount = 35,
+    ThreadNameInformation = 38,
+    ThreadActualGroupAffinity = 41,
+    ThreadDynamicCodePolicyInfo = 42,
+    ThreadSubsystemInformation = 45,
+
+    MaxThreadInfoClass = 53,
+} THREADINFOCLASS;
+
 #pragma endregion Process and Thread
 
-#pragma endregion Taken from ntddk.h
-
-#pragma region Enhanced
+#pragma region KUSER_SHARED_DATA
 
 typedef struct _KUSER_SHARED_DATA {
 
@@ -311,11 +354,9 @@ typedef struct _KUSER_SHARED_DATA {
     // Mitigation policies.
     //
 
-    union
-    {
+    union {
         UCHAR MitigationPolicies;
-        struct
-        {
+        struct {
             UCHAR NXSupportPolicy : 2;
             UCHAR SEHValidationPolicy : 2;
             UCHAR CurDirDevicesSkippedForDlls : 2;
@@ -384,16 +425,16 @@ typedef struct _KUSER_SHARED_DATA {
     union {
         UCHAR VirtualizationFlags;
 
-#if defined(_ARM64_)
-        //
-        // Keep in sync with arc.w
-        //
+        #if defined(_ARM64_)
+                //
+                // Keep in sync with arc.w
+                //
         struct {
             UCHAR ArchStartedInEl2 : 1;
             UCHAR QcSlIsSupported : 1;
             UCHAR : 6;
         };
-#endif // _ARM64_
+        #endif // _ARM64_
     };
 
     //
@@ -420,18 +461,18 @@ typedef struct _KUSER_SHARED_DATA {
             // Use the bit definitions instead.
             //
 
-            ULONG DbgErrorPortPresent       : 1;
-            ULONG DbgElevationEnabled       : 1;
-            ULONG DbgVirtEnabled            : 1;
+            ULONG DbgErrorPortPresent : 1;
+            ULONG DbgElevationEnabled : 1;
+            ULONG DbgVirtEnabled : 1;
             ULONG DbgInstallerDetectEnabled : 1;
-            ULONG DbgLkgEnabled             : 1;
-            ULONG DbgDynProcessorEnabled    : 1;
-            ULONG DbgConsoleBrokerEnabled   : 1;
-            ULONG DbgSecureBootEnabled      : 1;
-            ULONG DbgMultiSessionSku        : 1;
+            ULONG DbgLkgEnabled : 1;
+            ULONG DbgDynProcessorEnabled : 1;
+            ULONG DbgConsoleBrokerEnabled : 1;
+            ULONG DbgSecureBootEnabled : 1;
+            ULONG DbgMultiSessionSku : 1;
             ULONG DbgMultiUsersInSessionSku : 1;
             ULONG DbgStateSeparationEnabled : 1;
-            ULONG SpareBits                 : 21;
+            ULONG SpareBits : 21;
         } DUMMYSTRUCTNAME2;
     } DUMMYUNIONNAME2;
 
@@ -654,58 +695,4 @@ typedef struct _KUSER_SHARED_DATA {
 
 } KUSER_SHARED_DATA, *PKUSER_SHARED_DATA;
 
-typedef enum _THREADINFOCLASS {
-    ThreadBasicInformation          = 0,
-    ThreadTimes                     = 1,
-    ThreadPriority                  = 2,
-    ThreadBasePriority              = 3,
-    ThreadAffinityMask              = 4,
-    ThreadImpersonationToken        = 5,
-    ThreadDescriptorTableEntry      = 6,
-    ThreadEnableAlignmentFaultFixup = 7,
-    ThreadEventPair_Reusable        = 8,
-    ThreadQuerySetWin32StartAddress = 9,
-    ThreadZeroTlsCell               = 10,
-    ThreadPerformanceCount          = 11,
-    ThreadAmILastThread             = 12,
-    ThreadIdealProcessor            = 13,
-    ThreadPriorityBoost             = 14,
-    ThreadSetTlsArrayAddress        = 15,   // Obsolete
-    ThreadIsIoPending               = 16,
-    ThreadHideFromDebugger          = 17,
-    ThreadBreakOnTermination        = 18,
-    ThreadSwitchLegacyState         = 19,
-    ThreadIsTerminated              = 20,
-    ThreadLastSystemCall            = 21,
-    ThreadIoPriority                = 22,
-    ThreadCycleTime                 = 23,
-    ThreadPagePriority              = 24,
-    ThreadActualBasePriority        = 25,
-    ThreadTebInformation            = 26,
-    ThreadCSwitchMon                = 27,   // Obsolete
-    ThreadCSwitchPmu                = 28,
-    ThreadWow64Context              = 29,
-    ThreadGroupInformation          = 30,
-    ThreadUmsInformation            = 31,   // Obsolete
-    ThreadCounterProfiling          = 32,
-    ThreadIdealProcessorEx          = 33,
-    ThreadCpuAccountingInformation  = 34,
-    ThreadSuspendCount              = 35,
-    ThreadNameInformation           = 38,
-    ThreadActualGroupAffinity       = 41,
-    ThreadDynamicCodePolicyInfo     = 42,
-    ThreadSubsystemInformation      = 45,
-
-    MaxThreadInfoClass              = 53,
-} THREADINFOCLASS;
-
-typedef struct _THREAD_BASIC_INFORMATION {
-    NTSTATUS ExitStatus;
-    PTEB TebBaseAddress;
-    CLIENT_ID ClientId;
-    KAFFINITY AffinityMask;
-    KPRIORITY Priority;
-    KPRIORITY BasePriority;
-} THREAD_BASIC_INFORMATION, *PTHREAD_BASIC_INFORMATION;
-
-#pragma endregion Enhanced
+#pragma endregion KUSER_SHARED_DATA

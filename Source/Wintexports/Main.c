@@ -1,13 +1,10 @@
-﻿#define _WIE_HASH_SUPP_
-#define _WIE_EXTENDED_
+﻿#define WIE_CONFIG_INCLUDE_WINUSER
+#define WIE_CONFIG_INCLUDE_HASH
+#define WIE_CONFIG_INCLUDE_WIEEXT
 
-#include "Wintexports\Wintexports.h"
+#include "..\Include\Wintexports.h"
 
-#include "Wintexports\WIE_WinSta.h"
-#include "Wintexports\WIE_CommCtrl.h"
-
-#pragma comment (lib, "WIE_Ntdll.lib")
-
-void main()
+int main()
 {
+    return 0;
 }

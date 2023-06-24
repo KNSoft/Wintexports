@@ -93,9 +93,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,9 +107,9 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,9 +121,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,9 +135,9 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,30 +147,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\Wintexports\WIE_Arch_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_CommCtrl.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Extended.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_ExTypes_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Hash_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Internal_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Kernel32_API.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_KeTypes_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_ntddk.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_ntdef.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Ntdll_API.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_ntifs.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_RtlTypes_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_User32_API.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_wdm.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Windows.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_Winnt_Supp.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_WinSta.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_WinSta_API.h" />
-    <ClInclude Include="..\Include\Wintexports\WIE_WinUser.h" />
-    <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
+    <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.c" />
+    <ClInclude Include="..\Include\MS_fltKernel.h" />
+    <ClInclude Include="..\Include\Undoc_Types_Ex.h" />
+    <ClInclude Include="..\Include\Undoc_API_Kernel32.h" />
+    <ClInclude Include="..\Include\Undoc_API_User32.h" />
+    <ClInclude Include="..\Include\WIE_Ext.h" />
+    <ClInclude Include="..\Include\WIE_Ext_CPU.h" />
+    <ClInclude Include="..\Include\WIE_Windows.h" />
+    <ClInclude Include="..\Include\Wintexports.h" />
+    <ClInclude Include="..\Include\MS_ntddk.h" />
+    <ClInclude Include="..\Include\MS_ntifs.h" />
+    <ClInclude Include="..\Include\MS_wdm.h" />
+    <ClInclude Include="..\Include\MS_WinSta.h" />
+    <ClInclude Include="..\Include\MS_winternl.h" />
+    <ClInclude Include="..\Include\Undoc_API_Ntdll.h" />
+    <ClInclude Include="..\Include\Undoc_ntddk.h" />
+    <ClInclude Include="..\Include\Undoc_ntifs.h" />
+    <ClInclude Include="..\Include\Undoc_Types_Ke.h" />
+    <ClInclude Include="..\Include\Undoc_Types_Rtl.h" />
+    <ClInclude Include="..\Include\Undoc_Types_Mm.h" />
+    <ClInclude Include="..\Include\WIE_CommCtrl.h" />
+    <ClInclude Include="..\Include\Undoc_API_Ntdll_Hash.h" />
+    <ClInclude Include="..\Include\WIE_Internal.h" />
+    <ClInclude Include="..\Include\WIE_ntdef.h" />
+    <ClInclude Include="..\Include\WIE_winnt.h" />
+    <ClInclude Include="..\Include\WIE_WinUser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

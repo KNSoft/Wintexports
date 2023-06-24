@@ -1,9 +1,6 @@
 ﻿#pragma once
 
 #include "WIE_ntdef.h"
-#include "WIE_Arch_Supp.h"
-
-#pragma region Taken from wdm.h
 
 #define PROCESSOR_FEATURE_MAX 64
 
@@ -366,32 +363,6 @@ typedef struct _KEY_VALUE_PARTIAL_INFORMATION {
 
 #pragma endregion SE_XXX_PRIVILEGE
 
-#pragma endregion Taken from wdm.h
-
-#pragma region Enhanced
-
-typedef struct _CLIENT_ID64 {
-    VOID* POINTER_64 UniqueProcess;
-    VOID* POINTER_64 UniqueThread;
-} CLIENT_ID64, *PCLIENT_ID64;
-
-typedef struct _CLIENT_ID32 {
-    VOID* POINTER_32 UniqueProcess;
-    VOID* POINTER_32 UniqueThread;
-} CLIENT_ID32, *PCLIENT_ID32;
-
-typedef struct _RTL_BITMAP64 {
-    ULONG SizeOfBitMap;
-    ULONG* POINTER_64 Buffer;
-} RTL_BITMAP64, *PRTL_BITMAP64;
-
-typedef struct _RTL_BITMAP32 {
-    ULONG SizeOfBitMap;
-    ULONG* POINTER_32 Buffer;
-} RTL_BITMAP32, *PRTL_BITMAP32;
-
-#ifndef _KERNEL_MODE
-#define SharedUserData  ((KUSER_SHARED_DATA * const) MM_SHARED_USER_DATA_VA)
-#endif
-
-#pragma endregion Enhanced
+#include "Undoc_Types_Ke.h"
+#include "Undoc_Types_Ex.h"
+#include "Undoc_Types_Rtl.h"

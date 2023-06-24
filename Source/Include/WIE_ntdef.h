@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#ifdef _WINDOWS_
+#include "WIE_Windows.h"
 
-/* Conflicts in Windows.h */
+/* Conflicts in winnt.h */
 
 #undef LANGIDFROMLCID
 #undef MAKELANGID
@@ -56,11 +56,7 @@
 #define _ENUM_FLAG_SIZED_INTEGER _MS_ENUM_FLAG_SIZED_INTEGER
 #define _ENUM_FLAG_INTEGER_FOR_SIZE _MS_ENUM_FLAG_INTEGER_FOR_SIZE
 
-#endif /* _WINDOWS_ */
-
 #include <ntdef.h>
-
-#ifdef _WINDOWS_
 
 #undef _ENUM_FLAG_SIZED_INTEGER
 #undef _ENUM_FLAG_INTEGER_FOR_SIZE
@@ -99,5 +95,3 @@
 #undef _GROUP_AFFINITY
 #undef GROUP_AFFINITY
 #undef PGROUP_AFFINITY
-
-#endif /* _WINDOWS_ */
