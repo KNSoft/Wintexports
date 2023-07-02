@@ -4,6 +4,8 @@
 
 #include "..\Include\Wintexports.h"
 
+#pragma comment (lib, "ntdll.lib")
+
 int main()
 {
     return 0;

@@ -16,6 +16,9 @@
     <Filter Include="Extended">
       <UniqueIdentifier>{58302495-caeb-4e30-a71c-dc8d1cca154e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{eda32232-0bbd-4ab6-87d3-b892c3e0b0f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Undoc_Types_Rtl.h">
@@ -91,5 +94,16 @@
     <ClInclude Include="..\Include\MS_fltKernel.h">
       <Filter>KernelMode</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_DllStub Include="Lib\Hash.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_DllStub>
+    <Precomp4C_DllStub Include="Lib\WinAPI.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_DllStub>
   </ItemGroup>
 </Project>

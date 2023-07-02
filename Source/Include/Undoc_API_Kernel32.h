@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WIE_ntdef.h"
+#include <minwindef.h>
 
 EXTERN_C_START
 

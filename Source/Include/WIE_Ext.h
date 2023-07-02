@@ -56,8 +56,10 @@ typedef QWORD far *LPQWORD;
 
 #if defined(_DEBUG)
 #define VS_CONFIGURATION "Debug"
+#define VS_IS_DEBUG TRUE
 #else
 #define VS_CONFIGURATION "Release"
+#define VS_IS_DEBUG FALSE
 #endif
 
 #define LIB_PATH_WITH_CONFIG(LibName) VS_PLATFORMTARGET"\\"VS_CONFIGURATION"\\"LibName
@@ -116,21 +118,25 @@ typedef QWORD far *LPQWORD;
 
 #pragma endregion TEB/PEB
 
-#pragma region Last Error/Status
+#pragma region Error codes
 
-/// <summary>
-/// Gets or sets the last error
-/// </summary>
+/* Gets or sets the last error */
+
 #define WIE_GetLastError() ((DWORD)WIE_ReadTEB(LastErrorValue))
 #define WIE_SetLastError(Error) WIE_WriteTEB(LastErrorValue, Error)
 
-/// <summary>
-/// Gets or sets the last status
-/// </summary>
+/* Gets or sets the last status */
+
 #define WIE_GetLastStatus() ((NTSTATUS)(WIE_ReadTEB(LastStatusValue)))
 #define WIE_SetLastStatus(Status) WIE_WriteTEB(LastStatusValue, Status)
 
-#pragma endregion Last Error/Status
+/* Error code conversion (NOT translation) Win32 Error/NtStatus/HResult */
+
+#define WIE_ErrorToResult HRESULT_FROM_WIN32
+#define WIE_ErrorToStatus NTSTATUS_FROM_WIN32
+#define WIE_StatusToResult HRESULT_FROM_NT
+
+#pragma endregion Error codes
 
 #pragma region Current runtime information
 

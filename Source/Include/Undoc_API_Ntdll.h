@@ -23,10 +23,16 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 LdrLoadDll(
-    IN PWSTR SearchPath OPTIONAL,
-    IN PULONG DllCharacteristics OPTIONAL,
-    IN PUNICODE_STRING DllName,
-    OUT PVOID* BaseAddress);
+    _In_opt_ PWSTR DllSearchPath,
+    _In_opt_ PULONG DllCharacteristics,
+    _In_ PUNICODE_STRING DllName,
+    _Out_ PVOID* BaseAddress);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+LdrUnloadDll(
+    _In_ PVOID* BaseAddress);
 
 NTSYSAPI
 NTSTATUS
@@ -99,7 +105,15 @@ NTSYSAPI
 VOID
 NTAPI
 RtlExitUserThread(
-    _In_ NTSTATUS Status);
+    _In_ NTSTATUS ExitStatus);
+
+
+NTSYSAPI
+VOID
+DECLSPEC_NORETURN
+NTAPI
+RtlExitUserProcess(
+    _In_ NTSTATUS ExitStatus);
 
 #pragma endregion Process and Thread
 

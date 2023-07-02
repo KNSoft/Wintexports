@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MSVCRT">
+      <UniqueIdentifier>{75048101-6aba-4c22-98e0-119ce1de3bb1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp">
+      <Filter>MSVCRT</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup_DllMain.c" />
+    <ClCompile Include="Startup_wmain.c" />
+    <ClCompile Include="Startup_wWinMain.c" />
+    <ClCompile Include="Startup_ExeMain.c" />
+  </ItemGroup>
+</Project>
