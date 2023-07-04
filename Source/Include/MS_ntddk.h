@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WIE_ntdef.h"
+#include "WIE_Internal.h"
 
 #pragma region File
 
@@ -116,7 +116,7 @@ typedef enum _PROCESSINFOCLASS {
 
 typedef struct _PROCESS_BASIC_INFORMATION {
     NTSTATUS ExitStatus;
-    struct PPEB* PebBaseAddress;
+    PPEB PebBaseAddress;
     ULONG_PTR AffinityMask;
     KPRIORITY BasePriority;
     ULONG_PTR UniqueProcessId;

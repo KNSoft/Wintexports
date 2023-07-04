@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "MS_wdm.h"
+#include "WIE_Internal.h"
 
 typedef struct _THREAD_BASIC_INFORMATION {
     NTSTATUS ExitStatus;
-    struct PTEB* TebBaseAddress;
+    PTEB TebBaseAddress;
     CLIENT_ID ClientId;
     KAFFINITY AffinityMask;
     KPRIORITY Priority;
