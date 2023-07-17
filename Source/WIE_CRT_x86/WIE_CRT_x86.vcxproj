@@ -48,10 +48,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
+    <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -66,8 +68,14 @@
     <MASM>
       <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
     </MASM>
+    <Lib />
+    <CustomBuildStep>
+      <Command>$(SolutionDir)BuildTools\LibRebuild.cmd "$(VCToolsInstallDir)lib\$(PlatformTarget)" "$(ProjectDir)ExportMSVCRT"</Command>
+      <Outputs>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib</Outputs>
+    </CustomBuildStep>
+    <Lib />
     <Lib>
-      <AdditionalDependencies>$(ProjectDir)3rdParty\ftol3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -87,8 +95,14 @@
     <MASM>
       <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
     </MASM>
+    <Lib />
+    <CustomBuildStep>
+      <Command>$(SolutionDir)BuildTools\LibRebuild.cmd "$(VCToolsInstallDir)lib\$(PlatformTarget)" "$(ProjectDir)ExportMSVCRT"</Command>
+      <Outputs>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib</Outputs>
+    </CustomBuildStep>
+    <Lib />
     <Lib>
-      <AdditionalDependencies>$(ProjectDir)3rdParty\ftol3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -99,7 +113,8 @@
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\ullshr.asm" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="isa.c" />
+    <None Include="ExportMSVCRT\libcmt.lib.lst" />
+    <None Include="ExportMSVCRT\msvcrt.lib.lst" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

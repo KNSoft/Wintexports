@@ -10,6 +10,8 @@
 /WIE_CRT/x64
 
 /WIE_CRT_x86/x86
+/WIE_CRT_x86/ExportMSVCRT/*.obj
+/WIE_CRT_x86/ExportMSVCRT/*.lib
 
 /Wintexports/x86
 /Wintexports/x64

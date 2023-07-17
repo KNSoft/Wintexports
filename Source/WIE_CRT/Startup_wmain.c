@@ -29,9 +29,6 @@ VOID wmainCRTStartup()
     }
 
     RtlExitUserProcess(Status);
-
-    if (NtCurrentPeb()->BeingDebugged) {
-        __debugbreak();
-    }
+    __assume(0);
     __fastfail(FAST_FAIL_FATAL_APP_EXIT);
 }

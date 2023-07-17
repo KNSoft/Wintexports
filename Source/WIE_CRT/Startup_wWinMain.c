@@ -1,4 +1,4 @@
-#define WIE_CONFIG_INCLUDE_WIEEXT
+﻿#define WIE_CONFIG_INCLUDE_WIEEXT
 
 #include "..\Include\Wintexports.h"
 
@@ -24,10 +24,6 @@ VOID wWinMainCRTStartup()
                       ProcessParameters->ShowWindowFlags);
 
     RtlExitUserProcess(Status);
-
-    if (NtCurrentPeb()->BeingDebugged)
-    {
-        __debugbreak();
-    }
+    __assume(0);
     __fastfail(FAST_FAIL_FATAL_APP_EXIT);
 }

@@ -27,6 +27,7 @@
 #include "Undoc_API_Kernel32.h"
 
 /* Include useful headers */
+
 #include <intrin.h>
 #include <suppress.h>
 
@@ -44,7 +45,7 @@
 #include "Undoc_API_Ntdll_Hash.h"
 #endif
 
-/* Include Wintexports extended features */
+/* Include Wintexports extended features optionally */
 
 #if defined(WIE_CONFIG_INCLUDE_WIEEXT)
 #include "WIE_Ext.h"

@@ -36,13 +36,9 @@ typedef QWORD far *LPQWORD;
 #define COMBINE_FLAGS(val, uflag, bEnable) ((bEnable) ? ((val) | (uflag)) : ((val) & ~(uflag)))
 
 #define BYTE_ALIGN(val, ali) (((val) + (ali) - 1) & (~((ali) - 1)))
-#define IS_BYTE_ALIGNED(val, ali) (!((val) & ((ali) - 1)))
 
 // Gets is the value is within the valid range of an atom
 #define IS_ATOM(val) (((ULONG_PTR)(val) & 0xFFFF) > 0 && ((ULONG_PTR)(val) & 0xFFFF) < MAXINTATOM)
-
-// Moves pointer
-#define MOVE_PTR(address, offset, type) ((type *)((PBYTE)(address) + (LONG_PTR)(offset)))
 
 #pragma endregion WinSDK
 
