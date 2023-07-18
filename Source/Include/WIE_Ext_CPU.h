@@ -1,7 +1,9 @@
 ﻿#pragma once
 
-typedef union _WIE_CPU_INFO {
-    struct {
+typedef union _WIE_CPU_INFO
+{
+    struct
+    {
         int Eax;
         int Ebx;
         int Ecx;
@@ -11,23 +13,26 @@ typedef union _WIE_CPU_INFO {
     /* F_Leaf_SubLeaf, aka F_EAX_ECX */
 
     /* 00-03: Basic CPUID Information */
-    struct {
-        /* Eax */
+    struct
+    {
+/* Eax */
         unsigned long MaxInputValue;
         /* Ebx, Ecx, Edx */
         unsigned long VendorIdString[3];
     } F00_00;
-    struct {
-        /*
-         * Eax: Intel CPU version information
-         *
-         *  31 28 27                20 19               16 15 14 13            12 11        8 7     4 3           0
-         * +-----+--------------------+-------------------+-----+----------------+-----------+-------+-------------+
-         * |     | Extended Family ID | Extended Model ID |     | Processor Type | Family ID | Model | Stepping ID |
-         * +-----+--------------------+-------------------+-----+----------------+-----------+-------+-------------+
-         *
-         */
-        struct {
+    struct
+    {
+/*
+ * Eax: Intel CPU version information
+ *
+ *  31 28 27                20 19               16 15 14 13            12 11        8 7     4 3           0
+ * +-----+--------------------+-------------------+-----+----------------+-----------+-------+-------------+
+ * |     | Extended Family ID | Extended Model ID |     | Processor Type | Family ID | Model | Stepping ID |
+ * +-----+--------------------+-------------------+-----+----------------+-----------+-------+-------------+
+ *
+ */
+        struct
+        {
             unsigned long SteppingId : 4;
             unsigned long Model : 4;
             unsigned long FamilyId : 4;
@@ -38,16 +43,19 @@ typedef union _WIE_CPU_INFO {
             unsigned long ReservedBits1 : 4;
         } VersionInfo;
         /* Ebx: Additional information */
-        struct {
+        struct
+        {
             unsigned long BrandIndex : 8;
             unsigned long CLFlushLineSize : 8;
             unsigned long MaxNumberOfAddressableId : 8;
             unsigned long InitialAPICId : 8;
         } AdditionalInfo;
         /* Ecx, Edx: Feature information */
-        struct {
-            /* Ecx */
-            struct {
+        struct
+        {
+    /* Ecx */
+            struct
+            {
                 unsigned long SSE3 : 1;                /* 00 SSE3 */
                 unsigned long PCLMULQDQ : 1;           /* 01 PCLMULQDQ */
                 unsigned long DTES64 : 1;              /* 02 64-bit DS Area */
@@ -82,7 +90,8 @@ typedef union _WIE_CPU_INFO {
                 unsigned long NotUsedBits0 : 1;        /* 31 Always 0 */
             };
             /* Edx */
-            struct {
+            struct
+            {
                 unsigned long FPU : 1;                 /* 00 x87 FPU */
                 unsigned long VME : 1;                 /* 01 Virtual 8086 mode enhancements */
                 unsigned long DE : 1;                  /* 02 Debugging Extensions */
@@ -120,13 +129,16 @@ typedef union _WIE_CPU_INFO {
     } F01_00;
 
     /* 07 Structured Extended Feature Flags Enumeration Leaf */
-    struct {
-        /* Eax */
+    struct
+    {
+/* Eax */
         unsigned long MaxInputValue;
         /* Ebx, Ecx, Edx: Feature Flags */
-        struct {
-            /* Ebx */
-            struct {
+        struct
+        {
+    /* Ebx */
+            struct
+            {
                 unsigned long FSGSBASE : 1;             /* 00 FSGSBASE */
                 unsigned long IA32_TSC_ADJUST : 1;      /* 01 IA32_TSC_ADJUST MSR */
                 unsigned long SGX : 1;                  /* 02 Intel® Software Guard Extensions */
@@ -161,7 +173,8 @@ typedef union _WIE_CPU_INFO {
                 unsigned long AVX512VL : 1;             /* 31 AVX512VL */
             };
             /* Ecx */
-            struct {
+            struct
+            {
                 unsigned long PREFETCHWT1 : 1;          /* 00 PREFETCHWT1 */
                 unsigned long AVX512_VBMI : 1;          /* 01 AVX512_VBMI */
                 unsigned long UMIP : 1;                 /* 02 User-mode instruction prevention */
@@ -192,7 +205,8 @@ typedef union _WIE_CPU_INFO {
                 unsigned long PKS : 1;                  /* 31 Protection keys for supervisor-mode pages */
             };
             /* Edx */
-            struct {
+            struct
+            {
                 unsigned long ReservedBits4 : 1;            /* 00 Reserved */
                 unsigned long SGX_KEYS : 1;                 /* 01 Attestation Services for Intel® SGX */
                 unsigned long AVX512_4VNNIW : 1;            /* 02 AVX512_4VNNIW */
@@ -228,18 +242,22 @@ typedef union _WIE_CPU_INFO {
         } FeatureFlags;
     } F07_00;
 
-    union {
-        /* 0 if the sub-leaf index, 1, is invalid */
-        struct {
+    union
+    {
+ /* 0 if the sub-leaf index, 1, is invalid */
+        struct
+        {
             unsigned long EaxValidity;
             unsigned long EbxValidity;
             unsigned long EcxValidity;
             unsigned long EdxValidity;
         };
         /* Eax, Ebx, Ecx, Edx: Feature Flags */
-        struct {
-            /* Eax */
-            struct {
+        struct
+        {
+    /* Eax */
+            struct
+            {
                 unsigned long ReservedBits0 : 4;    /* 00-03 Reserved */
                 unsigned long AVX_VNNI : 1;         /* 04 AVX-VNNI */
                 unsigned long AVX512_BF16 : 1;      /* 05 AVX512_BF16 */
@@ -252,14 +270,16 @@ typedef union _WIE_CPU_INFO {
                 unsigned long ReservedBits3 : 9;    /* 23-31 Reserved */
             };
             /* Ebx */
-            struct {
+            struct
+            {
                 unsigned long Enum_PPIN : 1;        /* 00 Enumerates the presence of the IA32_PPIN and IA32_PPIN_CTL MSRs */
                 unsigned long ReservedBits4 : 31;   /* 01-31 Reserved */
             };
             /* Ecx */
             unsigned long ReservedBits5;
             /* Edx */
-            struct {
+            struct
+            {
                 unsigned long ReservedBits6 : 18;   /* 00-17 Reserved */
                 unsigned long CET_SSS : 1;          /* 18 CET_SSS */
                 unsigned long ReservedBits7 : 13;   /* 19-31 Reserved */

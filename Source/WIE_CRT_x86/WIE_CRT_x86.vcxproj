@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -19,16 +15,9 @@
     <ProjectName>WIE_CRT_x86</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -36,48 +25,15 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Wintexports.props" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Wintexports.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
-    <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
-    <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
-    <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <SubSystem>
-      </SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-    <MASM>
-      <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
-    </MASM>
-    <Lib />
-    <CustomBuildStep>
-      <Command>$(SolutionDir)BuildTools\LibRebuild.cmd "$(VCToolsInstallDir)lib\$(PlatformTarget)" "$(ProjectDir)ExportMSVCRT"</Command>
-      <Outputs>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib</Outputs>
-    </CustomBuildStep>
-    <Lib />
-    <Lib>
-      <AdditionalDependencies>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -96,14 +52,9 @@
       <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
     </MASM>
     <Lib />
-    <CustomBuildStep>
-      <Command>$(SolutionDir)BuildTools\LibRebuild.cmd "$(VCToolsInstallDir)lib\$(PlatformTarget)" "$(ProjectDir)ExportMSVCRT"</Command>
-      <Outputs>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib</Outputs>
-    </CustomBuildStep>
+    <CustomBuildStep />
     <Lib />
-    <Lib>
-      <AdditionalDependencies>$(ProjectDir)ExportMSVCRT\ExportMSVCRT.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
     <MASM Include="except1.asm" />
@@ -111,10 +62,6 @@
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\llshl.asm" />
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\llshr.asm" />
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\ullshr.asm" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ExportMSVCRT\libcmt.lib.lst" />
-    <None Include="ExportMSVCRT\msvcrt.lib.lst" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

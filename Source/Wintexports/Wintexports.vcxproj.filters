@@ -55,9 +55,6 @@
     <ClInclude Include="..\Include\Undoc_API_Ntdll_Hash.h">
       <Filter>UserMode</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Undoc_Types_Mm.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Undoc_ntifs.h">
       <Filter>KernelMode</Filter>
     </ClInclude>
@@ -96,14 +93,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Precomp4C_DllStub Include="Lib\Hash.xml">
       <Filter>Lib</Filter>
     </Precomp4C_DllStub>
     <Precomp4C_DllStub Include="Lib\WinAPI.xml">
       <Filter>Lib</Filter>
     </Precomp4C_DllStub>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,8 @@
 
 #include "MS_wdm.h"
 
-typedef enum _SYSTEM_INFORMATION_CLASS {
+typedef enum _SYSTEM_INFORMATION_CLASS
+{
     SystemBasicInformation = 0,
     SystemProcessorInformation = 1,
     SystemPerformanceInformation = 2,
@@ -233,7 +234,8 @@ typedef enum _SYSTEM_INFORMATION_CLASS {
     MaxSystemInfoClass = 228
 } SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;
 
-typedef struct _SYSTEM_MODULE_ENTRY {
+typedef struct _SYSTEM_MODULE_ENTRY
+{
     ULONG_PTR  Unused;
     ULONG_PTR  Always0;
     PVOID  ModuleBaseAddress;
@@ -245,12 +247,14 @@ typedef struct _SYSTEM_MODULE_ENTRY {
     CHAR   ModuleName[256];
 } SYSTEM_MODULE_ENTRY, *PSYSTEM_MODULE_ENTRY;
 
-typedef struct _SYSTEM_MODULE_INFORMATION {
+typedef struct _SYSTEM_MODULE_INFORMATION
+{
     ULONG               Count;
     SYSTEM_MODULE_ENTRY Module[1];
 } SYSTEM_MODULE_INFORMATION, *PSYSTEM_MODULE_INFORMATION;
 
-typedef struct _SYSTEM_PROCESS_INFORMATION {
+typedef struct _SYSTEM_PROCESS_INFORMATION
+{
     ULONG NextEntryOffset;
     ULONG NumberOfThreads;
     LARGE_INTEGER WorkingSetPrivateSize;
@@ -287,7 +291,8 @@ typedef struct _SYSTEM_PROCESS_INFORMATION {
     LARGE_INTEGER OtherTransferCount;
 } SYSTEM_PROCESS_INFORMATION, *PSYSTEM_PROCESS_INFORMATION;
 
-typedef struct _SYSTEM_THREAD_INFORMATION {
+typedef struct _SYSTEM_THREAD_INFORMATION
+{
     LARGE_INTEGER KernelTime;
     LARGE_INTEGER UserTime;
     LARGE_INTEGER CreateTime;

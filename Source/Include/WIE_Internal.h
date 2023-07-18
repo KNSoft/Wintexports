@@ -1,17 +1,17 @@
 ﻿#pragma once
 
 #include "MS_wdm.h"
-#include "Undoc_Types_Rtl.h"
-#include "Undoc_Types_Ke.h"
 
-typedef struct _LEAP_SECOND_DATA {
+typedef struct _LEAP_SECOND_DATA
+{
     UCHAR Enabled;
     UCHAR Padding[3];
     ULONG Count;
     LARGE_INTEGER Data[ANYSIZE_ARRAY];
 } LEAP_SECOND_DATA, *PLEAP_SECOND_DATA;
 
-typedef struct _ACTIVATION_CONTEXT_DATA {
+typedef struct _ACTIVATION_CONTEXT_DATA
+{
     ULONG Magic;
     ULONG HeaderSize;
     ULONG FormatVersion;
@@ -26,12 +26,14 @@ typedef struct _ACTIVATION_CONTEXT_DATA {
 
 typedef struct _LDR_SERVICE_TAG_RECORD LDR_SERVICE_TAG_RECORD, *PLDR_SERVICE_TAG_RECORD;
 
-struct _LDR_SERVICE_TAG_RECORD {
+struct _LDR_SERVICE_TAG_RECORD
+{
     PLDR_SERVICE_TAG_RECORD Next;
     UINT ServiceTag;
 };
 
-typedef enum _LDR_DDAG_STATE {
+typedef enum _LDR_DDAG_STATE
+{
     LdrModulesMerged = -5,
     LdrModulesInitError = -4,
     LdrModulesSnapError = -3,
@@ -49,11 +51,13 @@ typedef enum _LDR_DDAG_STATE {
     LdrModulesReadyToRun = 9,
 } LDR_DDAG_STATE, *PLDR_DDAG_STATE;
 
-typedef struct _LDRP_CSLIST {
+typedef struct _LDRP_CSLIST
+{
     SINGLE_LIST_ENTRY Tail;
 } LDRP_CSLIST, *PLDRP_CSLIST;
 
-typedef struct _LDR_DDAG_NODE {
+typedef struct _LDR_DDAG_NODE
+{
     LIST_ENTRY Modules;
     PLDR_SERVICE_TAG_RECORD ServiceTagList;
     UINT LoadCount;
@@ -66,7 +70,8 @@ typedef struct _LDR_DDAG_NODE {
     UINT PreorderNumber;
 } LDR_DDAG_NODE, *PLDR_DDAG_NODE;
 
-typedef enum _LDR_HOT_PATCH_STATE {
+typedef enum _LDR_HOT_PATCH_STATE
+{
     LdrHotPatchBaseImage = 0,
     LdrHotPatchNotApplied = 1,
     LdrHotPatchAppliedReverse = 2,
@@ -75,7 +80,8 @@ typedef enum _LDR_HOT_PATCH_STATE {
     LdrHotPatchStateMax = 5
 }LDR_HOT_PATCH_STATE, *PLDR_HOT_PATCH_STATE;
 
-typedef enum _LDR_DLL_LOAD_REASON {
+typedef enum _LDR_DLL_LOAD_REASON
+{
     LoadReasonStaticDependency = 0,
     LoadReasonStaticForwarderDependency = 1,
     LoadReasonDynamicForwarderDependency = 2,
@@ -93,14 +99,16 @@ typedef enum _LDR_DLL_LOAD_REASON {
 
 #pragma region RTL_DRIVE_LETTER_CURDIR[64/32]
 
-typedef struct _RTL_DRIVE_LETTER_CURDIR64 {
+typedef struct _RTL_DRIVE_LETTER_CURDIR64
+{
     USHORT Flags;
     USHORT Length;
     UINT TimeStamp;
     STRING64 DosPath;
 } RTL_DRIVE_LETTER_CURDIR64, *PRTL_DRIVE_LETTER_CURDIR64;
 
-typedef struct _RTL_DRIVE_LETTER_CURDIR32 {
+typedef struct _RTL_DRIVE_LETTER_CURDIR32
+{
     USHORT Flags;
     USHORT Length;
     UINT TimeStamp;
@@ -111,36 +119,44 @@ typedef struct _RTL_DRIVE_LETTER_CURDIR32 {
 
 #pragma region RTL_BALANCED_NODE[64/32]
 
-typedef struct _RTL_BALANCED_NODE64 {
-    union {
+typedef struct _RTL_BALANCED_NODE64
+{
+    union
+    {
         struct _RTL_BALANCED_NODE64* POINTER_64 Children[2];
-        struct {
+        struct
+        {
             struct _RTL_BALANCED_NODE64* POINTER_64 Left;
             struct _RTL_BALANCED_NODE64* POINTER_64 Right;
         } DUMMYSTRUCTNAME;
     } DUMMYUNIONNAME;
 
-    #define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
+#define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
 
-    union {
+    union
+    {
         UCHAR Red : 1;
         UCHAR Balance : 2;
         ULONGLONG ParentValue;
     } DUMMYUNIONNAME2;
 } RTL_BALANCED_NODE64, *PRTL_BALANCED_NODE64;
 
-typedef struct _RTL_BALANCED_NODE32 {
-    union {
+typedef struct _RTL_BALANCED_NODE32
+{
+    union
+    {
         struct _RTL_BALANCED_NODE32* POINTER_32 Children[2];
-        struct {
+        struct
+        {
             struct _RTL_BALANCED_NODE32* POINTER_32 Left;
             struct _RTL_BALANCED_NODE32* POINTER_32 Right;
         } DUMMYSTRUCTNAME;
     } DUMMYUNIONNAME;
 
-    #define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
+#define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
 
-    union {
+    union
+    {
         UCHAR Red : 1;
         UCHAR Balance : 2;
         ULONG ParentValue;
@@ -151,12 +167,14 @@ typedef struct _RTL_BALANCED_NODE32 {
 
 #pragma region RTL_BITMAP[64/32]
 
-typedef struct _RTL_BITMAP64 {
+typedef struct _RTL_BITMAP64
+{
     ULONG SizeOfBitMap;
     ULONG* POINTER_64 Buffer;
 } RTL_BITMAP64, *PRTL_BITMAP64;
 
-typedef struct _RTL_BITMAP32 {
+typedef struct _RTL_BITMAP32
+{
     ULONG SizeOfBitMap;
     ULONG* POINTER_32 Buffer;
 } RTL_BITMAP32, *PRTL_BITMAP32;
@@ -166,12 +184,14 @@ typedef struct _RTL_BITMAP32 {
 
 #pragma region CLIENT_ID[64/32]
 
-typedef struct _CLIENT_ID64 {
+typedef struct _CLIENT_ID64
+{
     VOID* POINTER_64 UniqueProcess;
     VOID* POINTER_64 UniqueThread;
 } CLIENT_ID64, *PCLIENT_ID64;
 
-typedef struct _CLIENT_ID32 {
+typedef struct _CLIENT_ID32
+{
     VOID* POINTER_32 UniqueProcess;
     VOID* POINTER_32 UniqueThread;
 } CLIENT_ID32, *PCLIENT_ID32;
@@ -180,37 +200,43 @@ typedef struct _CLIENT_ID32 {
 
 #pragma region ASSEMBLY_STORAGE_MAP[_ENTRY][64/32]
 
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY {
+typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY
+{
     ULONG Flags;
     UNICODE_STRING DosPath;
     HANDLE Handle;
 } ASSEMBLY_STORAGE_MAP_ENTRY, *PASSEMBLY_STORAGE_MAP_ENTRY;
 
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY64 {
+typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY64
+{
     ULONG Flags;
     UNICODE_STRING64 DosPath;
     VOID* POINTER_64 Handle;
 } ASSEMBLY_STORAGE_MAP_ENTRY64, *PASSEMBLY_STORAGE_MAP_ENTRY64;
 
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY32 {
+typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY32
+{
     ULONG Flags;
     UNICODE_STRING32 DosPath;
     VOID* POINTER_32 Handle;
 } ASSEMBLY_STORAGE_MAP_ENTRY32, *PASSEMBLY_STORAGE_MAP_ENTRY32;
 
-typedef struct _ASSEMBLY_STORAGE_MAP {
+typedef struct _ASSEMBLY_STORAGE_MAP
+{
     ULONG Flags;
     ULONG AssemblyCount;
     PASSEMBLY_STORAGE_MAP_ENTRY *AssemblyArray;
 } ASSEMBLY_STORAGE_MAP, *PASSEMBLY_STORAGE_MAP;
 
-typedef struct _ASSEMBLY_STORAGE_MAP64 {
+typedef struct _ASSEMBLY_STORAGE_MAP64
+{
     ULONG Flags;
     ULONG AssemblyCount;
     ASSEMBLY_STORAGE_MAP_ENTRY64* POINTER_64* AssemblyArray;
 } ASSEMBLY_STORAGE_MAP64, *PASSEMBLY_STORAGE_MAP64;
 
-typedef struct _ASSEMBLY_STORAGE_MAP32 {
+typedef struct _ASSEMBLY_STORAGE_MAP32
+{
     ULONG Flags;
     ULONG AssemblyCount;
     ASSEMBLY_STORAGE_MAP_ENTRY32* POINTER_32* AssemblyArray;
@@ -223,7 +249,8 @@ typedef struct _ASSEMBLY_STORAGE_MAP32 {
 typedef struct _RTL_CRITICAL_SECTION64 RTL_CRITICAL_SECTION64, *PRTL_CRITICAL_SECTION64;
 typedef struct _RTL_CRITICAL_SECTION32 RTL_CRITICAL_SECTION32, *PRTL_CRITICAL_SECTION32;
 
-typedef struct _RTL_CRITICAL_SECTION_DEBUG64 {
+typedef struct _RTL_CRITICAL_SECTION_DEBUG64
+{
     WORD Type;
     WORD CreatorBackTraceIndex;
     RTL_CRITICAL_SECTION64* POINTER_64 CriticalSection;
@@ -235,7 +262,8 @@ typedef struct _RTL_CRITICAL_SECTION_DEBUG64 {
     WORD Identifier;
 } RTL_CRITICAL_SECTION_DEBUG64, *PRTL_CRITICAL_SECTION_DEBUG64, RTL_RESOURCE_DEBUG64, *PRTL_RESOURCE_DEBUG64;
 
-typedef struct _RTL_CRITICAL_SECTION_DEBUG32 {
+typedef struct _RTL_CRITICAL_SECTION_DEBUG32
+{
     WORD Type;
     WORD CreatorBackTraceIndex;
     RTL_CRITICAL_SECTION32* POINTER_32 CriticalSection;
@@ -247,7 +275,8 @@ typedef struct _RTL_CRITICAL_SECTION_DEBUG32 {
     WORD Identifier;
 } RTL_CRITICAL_SECTION_DEBUG32, *PRTL_CRITICAL_SECTION_DEBUG32, RTL_RESOURCE_DEBUG32, *PRTL_RESOURCE_DEBUG32;
 
-struct _RTL_CRITICAL_SECTION64 {
+struct _RTL_CRITICAL_SECTION64
+{
     RTL_CRITICAL_SECTION_DEBUG64* POINTER_64 DebugInfo;
     LONG LockCount;
     LONG RecursionCount;
@@ -256,7 +285,8 @@ struct _RTL_CRITICAL_SECTION64 {
     ULONGLONG SpinCount;
 };
 
-struct _RTL_CRITICAL_SECTION32 {
+struct _RTL_CRITICAL_SECTION32
+{
     RTL_CRITICAL_SECTION_DEBUG32* POINTER_32 DebugInfo;
     LONG LockCount;
     LONG RecursionCount;
@@ -269,17 +299,20 @@ struct _RTL_CRITICAL_SECTION32 {
 
 #pragma region CURDIR[64/32]
 
-typedef struct _CURDIR {
+typedef struct _CURDIR
+{
     UNICODE_STRING DosPath;
     HANDLE Handle;
 } CURDIR, *PCURDIR;
 
-typedef struct _CURDIR64 {
+typedef struct _CURDIR64
+{
     UNICODE_STRING64 DosPath;
     VOID* POINTER_64 Handle;
 } CURDIR64, *PCURDIR64;
 
-typedef struct _CURDIR32 {
+typedef struct _CURDIR32
+{
     UNICODE_STRING32 DosPath;
     VOID* POINTER_32 Handle;
 } CURDIR32, *PCURDIR32;
@@ -288,7 +321,8 @@ typedef struct _CURDIR32 {
 
 #pragma region LDR_DATA_TABLE_ENTRY[64/32]
 
-typedef struct _LDR_DATA_TABLE_ENTRY {
+typedef struct _LDR_DATA_TABLE_ENTRY
+{
     LIST_ENTRY InLoadOrderModuleList;
     LIST_ENTRY InMemoryOrderModuleList;
     LIST_ENTRY InInitializationOrderModuleList;
@@ -297,10 +331,12 @@ typedef struct _LDR_DATA_TABLE_ENTRY {
     ULONG SizeOfImage;
     UNICODE_STRING FullDllName;
     UNICODE_STRING BaseDllName;
-    union {
+    union
+    {
         UCHAR FlagGroup[4];
         ULONG Flags;
-        struct {
+        struct
+        {
             ULONG PackagedBinary : 1;
             ULONG MarkedForRemoval : 1;
             ULONG ImageDll : 1;
@@ -358,7 +394,8 @@ typedef struct _LDR_DATA_TABLE_ENTRY {
     LDR_HOT_PATCH_STATE HotPatchState;
 } LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
 
-typedef struct _LDR_DATA_TABLE_ENTRY64 {
+typedef struct _LDR_DATA_TABLE_ENTRY64
+{
     LIST_ENTRY64 InLoadOrderModuleList;
     LIST_ENTRY64 InMemoryOrderModuleList;
     LIST_ENTRY64 InInitializationOrderModuleList;
@@ -367,10 +404,12 @@ typedef struct _LDR_DATA_TABLE_ENTRY64 {
     ULONG SizeOfImage;
     UNICODE_STRING64 FullDllName;
     UNICODE_STRING64 BaseDllName;
-    union {
+    union
+    {
         UCHAR FlagGroup[4];
         ULONG Flags;
-        struct {
+        struct
+        {
             ULONG PackagedBinary : 1;
             ULONG MarkedForRemoval : 1;
             ULONG ImageDll : 1;
@@ -428,7 +467,8 @@ typedef struct _LDR_DATA_TABLE_ENTRY64 {
     LDR_HOT_PATCH_STATE HotPatchState;
 } LDR_DATA_TABLE_ENTRY64, *PLDR_DATA_TABLE_ENTRY64;
 
-typedef struct _LDR_DATA_TABLE_ENTRY32 {
+typedef struct _LDR_DATA_TABLE_ENTRY32
+{
     LIST_ENTRY32 InLoadOrderModuleList;
     LIST_ENTRY32 InMemoryOrderModuleList;
     LIST_ENTRY32 InInitializationOrderModuleList;
@@ -437,10 +477,12 @@ typedef struct _LDR_DATA_TABLE_ENTRY32 {
     ULONG SizeOfImage;
     UNICODE_STRING32 FullDllName;
     UNICODE_STRING32 BaseDllName;
-    union {
+    union
+    {
         UCHAR FlagGroup[4];
         ULONG Flags;
-        struct {
+        struct
+        {
             ULONG PackagedBinary : 1;
             ULONG MarkedForRemoval : 1;
             ULONG ImageDll : 1;
@@ -502,7 +544,8 @@ typedef struct _LDR_DATA_TABLE_ENTRY32 {
 
 #pragma region PEB_LDR_DATA[64/32]
 
-typedef struct _PEB_LDR_DATA {
+typedef struct _PEB_LDR_DATA
+{
     ULONG Length;
     BOOL Initialized;
     PVOID SsHandle;
@@ -514,7 +557,8 @@ typedef struct _PEB_LDR_DATA {
     PVOID ShutdownThreadId;
 } PEB_LDR_DATA, *PPEB_LDR_DATA;
 
-typedef struct _PEB_LDR_DATA64 {
+typedef struct _PEB_LDR_DATA64
+{
     ULONG Length;
     BOOL Initialized;
     VOID* POINTER_64 SsHandle;
@@ -526,7 +570,8 @@ typedef struct _PEB_LDR_DATA64 {
     VOID* POINTER_64 ShutdownThreadId;
 } PEB_LDR_DATA64, *PPEB_LDR_DATA64;
 
-typedef struct _PEB_LDR_DATA32 {
+typedef struct _PEB_LDR_DATA32
+{
     ULONG Length;
     BOOL Initialized;
     VOID* POINTER_32 SsHandle;
@@ -542,7 +587,8 @@ typedef struct _PEB_LDR_DATA32 {
 
 #pragma region RTL_USER_PROCESS_PARAMETERS[64/32]
 
-typedef struct _RTL_USER_PROCESS_PARAMETERS {
+typedef struct _RTL_USER_PROCESS_PARAMETERS
+{
     ULONG MaximumLength;
     ULONG Length;
     ULONG Flags;
@@ -583,7 +629,8 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS {
     ULONG DefaultThreadpoolThreadMaximum;
 } RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
 
-typedef struct _RTL_USER_PROCESS_PARAMETERS64 {
+typedef struct _RTL_USER_PROCESS_PARAMETERS64
+{
     ULONG MaximumLength;
     ULONG Length;
     ULONG Flags;
@@ -624,7 +671,8 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS64 {
     ULONG DefaultThreadpoolThreadMaximum;
 } RTL_USER_PROCESS_PARAMETERS64, *PRTL_USER_PROCESS_PARAMETERS64;
 
-typedef struct _RTL_USER_PROCESS_PARAMETERS32 {
+typedef struct _RTL_USER_PROCESS_PARAMETERS32
+{
     ULONG MaximumLength;
     ULONG Length;
     ULONG Flags;
@@ -669,13 +717,16 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS32 {
 
 #pragma region PEB[64/32]
 
-typedef struct _PEB {
+typedef struct _PEB
+{
     UCHAR InheritedAddressSpace;
     UCHAR ReadImageFileExecOptions;
     UCHAR BeingDebugged;
-    union {
+    union
+    {
         UCHAR BitField;
-        struct {
+        struct
+        {
             UCHAR ImageUsesLargePages : 1;
             UCHAR IsProtectedProcess : 1;
             UCHAR IsImageDynamicallyRelocated : 1;
@@ -686,9 +737,9 @@ typedef struct _PEB {
             UCHAR IsLongPathAwareProcess : 1;
         };
     };
-    #if _WIN64
+#if _WIN64
     UCHAR Padding0[4];
-    #endif
+#endif
     HANDLE Mutant;
     HMODULE ImageBaseAddress;
     PPEB_LDR_DATA Ldr;
@@ -698,9 +749,11 @@ typedef struct _PEB {
     PRTL_CRITICAL_SECTION FastPebLock;
     PSLIST_HEADER AtlThunkSListPtr;
     PVOID IFEOKey;
-    union {
+    union
+    {
         ULONG CrossProcessFlags;
-        struct {
+        struct
+        {
             ULONG ProcessInJob : 1;
             ULONG ProcessInitializing : 1;
             ULONG ProcessUsingVEH : 1;
@@ -712,10 +765,11 @@ typedef struct _PEB {
             ULONG ReservedBits0 : 24;
         };
     };
-    #if _WIN64
+#if _WIN64
     UCHAR Padding1[4];
-    #endif
-    union {
+#endif
+    union
+    {
         PVOID KernelCallbackTable;
         PVOID UserSharedInfoPtr;
     };
@@ -723,9 +777,9 @@ typedef struct _PEB {
     ULONG AtlThunkSListPtr32;
     PVOID ApiSetMap;
     ULONG TlsExpansionCounter;
-    #if _WIN64
+#if _WIN64
     UCHAR Padding2[4];
-    #endif
+#endif
     PRTL_BITMAP TlsBitmap;
     ULONG TlsBitmapBits[2];
     PVOID ReadOnlySharedMemoryBase;
@@ -747,9 +801,9 @@ typedef struct _PEB {
     PVOID GdiSharedHandleTable;
     PVOID ProcessStarterHelper;
     ULONG GdiDCAttributeList;
-    #if _WIN64
+#if _WIN64
     UCHAR Padding3[4];
-    #endif
+#endif
     PRTL_CRITICAL_SECTION LoaderLock;
     ULONG OSMajorVersion;
     ULONG OSMinorVersion;
@@ -759,22 +813,22 @@ typedef struct _PEB {
     ULONG ImageSubsystem;
     ULONG ImageSubsystemMajorVersion;
     ULONG ImageSubsystemMinorVersion;
-    #if _WIN64
+#if _WIN64
     UCHAR Padding4[4];
-    #endif
+#endif
     ULONG_PTR ActiveProcessAffinityMask;
-    #if _WIN64
+#if _WIN64
     ULONG GdiHandleBuffer[60];
-    #else
+#else
     ULONG GdiHandleBuffer[34];
-    #endif
+#endif
     PVOID PostProcessInitRoutine;
     PRTL_BITMAP TlsExpansionBitmap;
     ULONG TlsExpansionBitmapBits[32];
     ULONG SessionId;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding5[4];
-    #endif
+#endif
     ULARGE_INTEGER AppCompatFlags;
     ULARGE_INTEGER AppCompatFlagsUser;
     PVOID pShimData;
@@ -796,24 +850,26 @@ typedef struct _PEB {
     USHORT UnusedNlsField;
     PVOID WerRegistrationData;
     PVOID WerShipAssertPtr;
-    #ifdef _WIN64
+#ifdef _WIN64
     PVOID EcCodeBitMap;
-    #else
+#else
     PVOID Spare;
-    #endif
+#endif
     PVOID pImageHeaderHash;
-    union {
+    union
+    {
         ULONG TracingFlags;
-        struct {
+        struct
+        {
             ULONG HeapTracingEnabled : 1;
             ULONG CritSecTracingEnabled : 1;
             ULONG LibLoaderTracingEnabled : 1;
             ULONG SpareTracingBits : 29;
         };
     };
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding6[4];
-    #endif
+#endif
     ULONGLONG CsrServerReadOnlySharedMemoryBase;
     ULONG_PTR TppWorkerpListLock;
     LIST_ENTRY TppWorkerpList;
@@ -824,9 +880,11 @@ typedef struct _PEB {
     CHAR PlaceholderCompatibilityMode;
     CHAR PlaceholderCompatibilityModeReserved[7];
     PLEAP_SECOND_DATA LeapSecondData;
-    union {
+    union
+    {
         ULONG LeapSecondFlags;
-        struct {
+        struct
+        {
             ULONG SixtySecondEnabled : 1;
             ULONG Reserved : 31;
         };
@@ -835,13 +893,16 @@ typedef struct _PEB {
     ULONGLONG ExtendedFeatureDisableMask;
 } PEB, *PPEB;
 
-typedef struct _PEB64 {
+typedef struct _PEB64
+{
     UCHAR InheritedAddressSpace;
     UCHAR ReadImageFileExecOptions;
     UCHAR BeingDebugged;
-    union {
+    union
+    {
         UCHAR BitField;
-        struct {
+        struct
+        {
             UCHAR ImageUsesLargePages : 1;
             UCHAR IsProtectedProcess : 1;
             UCHAR IsImageDynamicallyRelocated : 1;
@@ -852,9 +913,9 @@ typedef struct _PEB64 {
             UCHAR IsLongPathAwareProcess : 1;
         };
     };
-    #if _WIN64
+#if _WIN64
     UCHAR Padding0[4];
-    #endif
+#endif
     VOID* POINTER_64 Mutant;
     VOID* POINTER_64 ImageBaseAddress;
     PEB_LDR_DATA64* POINTER_64 Ldr;
@@ -864,9 +925,11 @@ typedef struct _PEB64 {
     RTL_CRITICAL_SECTION64* POINTER_64 FastPebLock;
     struct SLIST_HEADER* POINTER_64 AtlThunkSListPtr; // FIXME: SLIST_HEADER is depends on platform
     VOID* POINTER_64 IFEOKey;
-    union {
+    union
+    {
         ULONG CrossProcessFlags;
-        struct {
+        struct
+        {
             ULONG ProcessInJob : 1;
             ULONG ProcessInitializing : 1;
             ULONG ProcessUsingVEH : 1;
@@ -879,7 +942,8 @@ typedef struct _PEB64 {
         };
     };
     UCHAR Padding1[4];
-    union {
+    union
+    {
         VOID* POINTER_64 KernelCallbackTable;
         VOID* POINTER_64 UserSharedInfoPtr;
     };
@@ -950,9 +1014,11 @@ typedef struct _PEB64 {
     VOID* POINTER_64 WerShipAssertPtr;
     VOID* POINTER_64 EcCodeBitMap;
     VOID* POINTER_64 pImageHeaderHash;
-    union {
+    union
+    {
         ULONG TracingFlags;
-        struct {
+        struct
+        {
             ULONG HeapTracingEnabled : 1;
             ULONG CritSecTracingEnabled : 1;
             ULONG LibLoaderTracingEnabled : 1;
@@ -970,9 +1036,11 @@ typedef struct _PEB64 {
     CHAR PlaceholderCompatibilityMode;
     CHAR PlaceholderCompatibilityModeReserved[7];
     LEAP_SECOND_DATA* POINTER_64 LeapSecondData;
-    union {
+    union
+    {
         ULONG LeapSecondFlags;
-        struct {
+        struct
+        {
             ULONG SixtySecondEnabled : 1;
             ULONG Reserved : 31;
         };
@@ -981,13 +1049,16 @@ typedef struct _PEB64 {
     ULONGLONG ExtendedFeatureDisableMask;
 } PEB64, *PPEB64;
 
-typedef struct _PEB32 {
+typedef struct _PEB32
+{
     UCHAR InheritedAddressSpace;
     UCHAR ReadImageFileExecOptions;
     UCHAR BeingDebugged;
-    union {
+    union
+    {
         UCHAR BitField;
-        struct {
+        struct
+        {
             UCHAR ImageUsesLargePages : 1;
             UCHAR IsProtectedProcess : 1;
             UCHAR IsImageDynamicallyRelocated : 1;
@@ -1007,9 +1078,11 @@ typedef struct _PEB32 {
     RTL_CRITICAL_SECTION32* POINTER_32 FastPebLock;
     struct SLIST_HEADER* POINTER_32 AtlThunkSListPtr; // FIXME: SLIST_HEADER is depends on platform
     VOID* POINTER_32 IFEOKey;
-    union {
+    union
+    {
         ULONG CrossProcessFlags;
-        struct {
+        struct
+        {
             ULONG ProcessInJob : 1;
             ULONG ProcessInitializing : 1;
             ULONG ProcessUsingVEH : 1;
@@ -1021,7 +1094,8 @@ typedef struct _PEB32 {
             ULONG ReservedBits0 : 24;
         };
     };
-    union {
+    union
+    {
         VOID* POINTER_32 KernelCallbackTable;
         VOID* POINTER_32 UserSharedInfoPtr;
     };
@@ -1088,9 +1162,11 @@ typedef struct _PEB32 {
     VOID* POINTER_32 WerShipAssertPtr;
     VOID* POINTER_32 Spare;
     VOID* POINTER_32 pImageHeaderHash;
-    union {
+    union
+    {
         ULONG TracingFlags;
-        struct {
+        struct
+        {
             ULONG HeapTracingEnabled : 1;
             ULONG CritSecTracingEnabled : 1;
             ULONG LibLoaderTracingEnabled : 1;
@@ -1107,9 +1183,11 @@ typedef struct _PEB32 {
     CHAR PlaceholderCompatibilityMode;
     CHAR PlaceholderCompatibilityModeReserved[7];
     LEAP_SECOND_DATA* POINTER_32 LeapSecondData;
-    union {
+    union
+    {
         ULONG LeapSecondFlags;
-        struct {
+        struct
+        {
             ULONG SixtySecondEnabled : 1;
             ULONG Reserved : 31;
         };
@@ -1126,25 +1204,29 @@ typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME RTL_ACTIVATION_CONTEXT_STACK_
 typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME64 RTL_ACTIVATION_CONTEXT_STACK_FRAME64, *PRTL_ACTIVATION_CONTEXT_STACK_FRAME64;
 typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME32 RTL_ACTIVATION_CONTEXT_STACK_FRAME32, *PRTL_ACTIVATION_CONTEXT_STACK_FRAME32;
 
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME {
+struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME
+{
     struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* Previous;
     struct ACTIVATION_CONTEXT* ActivationContext;
     DWORD Flags;
 };
 
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME64 {
+struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME64
+{
     struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* POINTER_64 Previous;
     struct ACTIVATION_CONTEXT* POINTER_64 ActivationContext;
     ULONG Flags;
 };
 
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME32 {
+struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME32
+{
     struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* POINTER_32 Previous;
     struct ACTIVATION_CONTEXT* POINTER_32 ActivationContext;
     ULONG Flags;
 };
 
-typedef struct _ACTIVATION_CONTEXT_STACK {
+typedef struct _ACTIVATION_CONTEXT_STACK
+{
     PRTL_ACTIVATION_CONTEXT_STACK_FRAME ActiveFrame;
     LIST_ENTRY FrameListCache;
     ULONG Flags;
@@ -1152,7 +1234,8 @@ typedef struct _ACTIVATION_CONTEXT_STACK {
     ULONG StackId;
 } ACTIVATION_CONTEXT_STACK, *PACTIVATION_CONTEXT_STACK;
 
-typedef struct _ACTIVATION_CONTEXT_STACK64 {
+typedef struct _ACTIVATION_CONTEXT_STACK64
+{
     RTL_ACTIVATION_CONTEXT_STACK_FRAME64* POINTER_64 ActiveFrame;
     LIST_ENTRY64 FrameListCache;
     ULONG Flags;
@@ -1160,7 +1243,8 @@ typedef struct _ACTIVATION_CONTEXT_STACK64 {
     ULONG StackId;
 } ACTIVATION_CONTEXT_STACK64, *PACTIVATION_CONTEXT_STACK64;
 
-typedef struct _ACTIVATION_CONTEXT_STACK32 {
+typedef struct _ACTIVATION_CONTEXT_STACK32
+{
     RTL_ACTIVATION_CONTEXT_STACK_FRAME32* POINTER_32 ActiveFrame;
     LIST_ENTRY32 FrameListCache;
     ULONG Flags;
@@ -1172,8 +1256,10 @@ typedef struct _ACTIVATION_CONTEXT_STACK32 {
 
 #pragma region GDI_TEB_BATCH[64/32]
 
-typedef struct _GDI_TEB_BATCH {
-    struct {
+typedef struct _GDI_TEB_BATCH
+{
+    struct
+    {
         ULONG Offset : 31;
         BOOL HasRenderingCommand : 1;
     };
@@ -1181,8 +1267,10 @@ typedef struct _GDI_TEB_BATCH {
     ULONG Buffer[310];
 } GDI_TEB_BATCH, *PGDI_TEB_BATCH;
 
-typedef struct _GDI_TEB_BATCH64 {
-    struct {
+typedef struct _GDI_TEB_BATCH64
+{
+    struct
+    {
         ULONG Offset : 31;
         BOOL HasRenderingCommand : 1;
     };
@@ -1190,8 +1278,10 @@ typedef struct _GDI_TEB_BATCH64 {
     ULONG Buffer[310];
 } GDI_TEB_BATCH64, *PGDI_TEB_BATCH64;
 
-typedef struct _GDI_TEB_BATCH32 {
-    struct {
+typedef struct _GDI_TEB_BATCH32
+{
+    struct
+    {
         ULONG Offset : 31;
         BOOL HasRenderingCommand : 1;
     };
@@ -1203,19 +1293,22 @@ typedef struct _GDI_TEB_BATCH32 {
 
 #pragma region TEB_ACTIVE_FRAME[_CONTEXT][64/32]
 
-typedef struct _TEB_ACTIVE_FRAME_CONTEXT {
+typedef struct _TEB_ACTIVE_FRAME_CONTEXT
+{
     ULONG Flags;
     UCHAR Padding[4];
     PCHAR FrameName;
 } TEB_ACTIVE_FRAME_CONTEXT, *PTEB_ACTIVE_FRAME_CONTEXT;
 
-typedef struct _TEB_ACTIVE_FRAME_CONTEXT64 {
+typedef struct _TEB_ACTIVE_FRAME_CONTEXT64
+{
     ULONG Flags;
     UCHAR Padding[4];
     CHAR* POINTER_64 FrameName;
 } TEB_ACTIVE_FRAME_CONTEXT64, *PTEB_ACTIVE_FRAME_CONTEXT64;
 
-typedef struct _TEB_ACTIVE_FRAME_CONTEXT32 {
+typedef struct _TEB_ACTIVE_FRAME_CONTEXT32
+{
     ULONG Flags;
     UCHAR Padding[4];
     CHAR* POINTER_32 FrameName;
@@ -1225,23 +1318,26 @@ typedef struct _TEB_ACTIVE_FRAME TEB_ACTIVE_FRAME, *PTEB_ACTIVE_FRAME;
 typedef struct _TEB_ACTIVE_FRAME64 TEB_ACTIVE_FRAME64, *PTEB_ACTIVE_FRAME64;
 typedef struct _TEB_ACTIVE_FRAME32 TEB_ACTIVE_FRAME32, *PTEB_ACTIVE_FRAME32;
 
-struct _TEB_ACTIVE_FRAME {
+struct _TEB_ACTIVE_FRAME
+{
     DWORD Flags;
-    #if _WIN64
+#if _WIN64
     UCHAR Padding[4];
-    #endif
+#endif
     struct TEB_ACTIVE_FRAME* Previous;
     PTEB_ACTIVE_FRAME_CONTEXT Context;
 };
 
-struct _TEB_ACTIVE_FRAME64 {
+struct _TEB_ACTIVE_FRAME64
+{
     DWORD Flags;
     UCHAR Padding[4];
     struct TEB_ACTIVE_FRAME64* Previous;
     TEB_ACTIVE_FRAME_CONTEXT64* POINTER_64 Context;
 };
 
-struct _TEB_ACTIVE_FRAME32 {
+struct _TEB_ACTIVE_FRAME32
+{
     DWORD Flags;
     struct TEB_ACTIVE_FRAME32* Previous;
     TEB_ACTIVE_FRAME_CONTEXT32* POINTER_32 Context;
@@ -1251,7 +1347,8 @@ struct _TEB_ACTIVE_FRAME32 {
 
 #pragma region TEB[64/32]
 
-typedef struct _TEB {
+typedef struct _TEB
+{
     NT_TIB NtTib;
     LPWSTR EnvironmentPointer;
     CLIENT_ID ClientId;
@@ -1268,11 +1365,11 @@ typedef struct _TEB {
     ULONG CurrentLocale;
     ULONG FpSoftwareStatusRegister;
     PVOID ReservedForDebuggerInstrumentation[16];
-    #ifdef _WIN64
+#ifdef _WIN64
     PVOID SystemReserved1[30];
-    #else
+#else
     PVOID SystemReserved1[26];
-    #endif
+#endif
     CHAR PlaceholderCompatibilityMode;
     UCHAR PlaceholderHydrationAlwaysExplicit;
     CHAR PlaceholderReserved[10];
@@ -1280,23 +1377,23 @@ typedef struct _TEB {
     ACTIVATION_CONTEXT_STACK _ActivationStack;
     UCHAR WorkingOnBehalfTicket[8];
     LONG ExceptionCode;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding0[4];
-    #endif
+#endif
     PACTIVATION_CONTEXT_STACK ActivationContextStackPointer;
     PVOID InstrumentationCallbackSp;
     PVOID InstrumentationCallbackPreviousPc;
     PVOID InstrumentationCallbackPreviousSp;
-    #ifdef _WIN64
+#ifdef _WIN64
     ULONG TxFsContext;
     BOOLEAN InstrumentationCallbackDisabled;
     UCHAR UnalignedLoadStoreExceptions;
     UCHAR Padding1[2];
-    #else
+#else
     UCHAR InstrumentationCallbackDisabled;
     UCHAR SpareBytes[23];
     DWORD TxFsContext;
-    #endif
+#endif
     GDI_TEB_BATCH GdiTebBatch;
     CLIENT_ID RealClientId;
     PVOID GdiCachedProcessHandle;
@@ -1313,14 +1410,14 @@ typedef struct _TEB {
     PVOID glCurrentRC;
     PVOID glContext;
     ULONG LastStatusValue;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding2[4];
-    #endif
+#endif
     UNICODE_STRING StaticUnicodeString;
     WCHAR StaticUnicodeBuffer[261];
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding3[6];
-    #endif
+#endif
     PVOID DeallocationStack;
     PVOID TlsSlots[64];
     LIST_ENTRY TlsLinks;
@@ -1328,23 +1425,26 @@ typedef struct _TEB {
     PVOID ReservedForNtRpc;
     PVOID DbgSsReserved[2];
     ULONG HardErrorMode;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding4[4];
     PVOID Instrumentation[11];
-    #else
+#else
     PVOID Instrumentation[9];
-    #endif
+#endif
     GUID ActivityId;
     PVOID SubProcessTag;
     PVOID PerflibData;
     PVOID EtwTraceData;
     PVOID WinSockData;
     ULONG GdiBatchCount;
-    union {
+    union
+    {
         PROCESSOR_NUMBER CurrentIdealProcessor;
-        union {
+        union
+        {
             DWORD IdealProcessorValue;
-            struct {
+            struct
+            {
                 UCHAR ReservedPad0;
                 UCHAR ReservedPad1;
                 UCHAR ReservedPad2;
@@ -1353,31 +1453,31 @@ typedef struct _TEB {
         };
     };
     ULONG GuaranteedStackBytes;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding5[4];
-    #endif
+#endif
     PVOID ReservedForPerf;
     PVOID ReservedForOle;
     ULONG WaitingOnLoaderLock;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding6[4];
-    #endif
+#endif
     PVOID SavedPriorityState;
     ULONG_PTR ReservedForCodeCoverage;
     PVOID ThreadPoolData;
     PVOID TlsExpansionSlots;
-    #ifdef _WIN64
+#ifdef _WIN64
     struct CHPEV2_CPUAREA_INFO* POINTER_64 ChpeV2CpuAreaInfo;
     PVOID Unused;
-    #endif
+#endif
     ULONG MuiGeneration;
     ULONG IsImpersonating;
     PVOID NlsCache;
     PVOID pShimData;
     ULONG HeapData;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding7[4];
-    #endif
+#endif
     PVOID CurrentTransactionHandle;
     PTEB_ACTIVE_FRAME ActiveFrame;
     PVOID FlsData;
@@ -1385,15 +1485,19 @@ typedef struct _TEB {
     PVOID UserPrefLanguages;
     PVOID MergedPrefLanguages;
     ULONG MuiImpersonation;
-    union {
+    union
+    {
         USHORT CrossTebFlags;
-        struct {
+        struct
+        {
             USHORT SpareCrossTebBits : 16;
         };
     };
-    union {
+    union
+    {
         USHORT SameTebFlags;
-        struct {
+        struct
+        {
             USHORT SafeThunkCall : 1;
             USHORT InDebugPrint : 1;
             USHORT HasFiberData : 1;
@@ -1423,13 +1527,14 @@ typedef struct _TEB {
     GUID EffectiveContainerId;
     ULONGLONG LastSleepCounter;
     ULONG SpinCallCount;
-    #ifdef _WIN64
+#ifdef _WIN64
     UCHAR Padding8[4];
-    #endif
+#endif
     ULONGLONG ExtendedFeatureDisableMask;
 } TEB, *PTEB;
 
-typedef struct _TEB64 {
+typedef struct _TEB64
+{
     NT_TIB64 NtTib;
     WCHAR* POINTER_64 EnvironmentPointer;
     CLIENT_ID64 ClientId;
@@ -1498,11 +1603,14 @@ typedef struct _TEB64 {
     VOID* POINTER_64 EtwTraceData;
     VOID* POINTER_64 WinSockData;
     ULONG GdiBatchCount;
-    union {
+    union
+    {
         PROCESSOR_NUMBER CurrentIdealProcessor;
-        union {
+        union
+        {
             DWORD IdealProcessorValue;
-            struct {
+            struct
+            {
                 UCHAR ReservedPad0;
                 UCHAR ReservedPad1;
                 UCHAR ReservedPad2;
@@ -1535,15 +1643,19 @@ typedef struct _TEB64 {
     VOID* POINTER_64 UserPrefLanguages;
     VOID* POINTER_64 MergedPrefLanguages;
     ULONG MuiImpersonation;
-    union {
+    union
+    {
         USHORT CrossTebFlags;
-        struct {
+        struct
+        {
             USHORT SpareCrossTebBits : 16;
         };
     };
-    union {
+    union
+    {
         USHORT SameTebFlags;
-        struct {
+        struct
+        {
             USHORT SafeThunkCall : 1;
             USHORT InDebugPrint : 1;
             USHORT HasFiberData : 1;
@@ -1577,7 +1689,8 @@ typedef struct _TEB64 {
     ULONGLONG ExtendedFeatureDisableMask;
 } TEB64, *PTEB64;
 
-typedef struct _TEB32 {
+typedef struct _TEB32
+{
     NT_TIB32 NtTib;
     WCHAR* POINTER_32 EnvironmentPointer;
     CLIENT_ID32 ClientId;
@@ -1641,11 +1754,14 @@ typedef struct _TEB32 {
     VOID* POINTER_32 EtwTraceData;
     VOID* POINTER_32 WinSockData;
     ULONG GdiBatchCount;
-    union {
+    union
+    {
         PROCESSOR_NUMBER CurrentIdealProcessor;
-        union {
+        union
+        {
             DWORD IdealProcessorValue;
-            struct {
+            struct
+            {
                 UCHAR ReservedPad0;
                 UCHAR ReservedPad1;
                 UCHAR ReservedPad2;
@@ -1673,15 +1789,19 @@ typedef struct _TEB32 {
     VOID* POINTER_32 UserPrefLanguages;
     VOID* POINTER_32 MergedPrefLanguages;
     ULONG MuiImpersonation;
-    union {
+    union
+    {
         USHORT CrossTebFlags;
-        struct {
+        struct
+        {
             USHORT SpareCrossTebBits : 16;
         };
     };
-    union {
+    union
+    {
         USHORT SameTebFlags;
-        struct {
+        struct
+        {
             USHORT SafeThunkCall : 1;
             USHORT InDebugPrint : 1;
             USHORT HasFiberData : 1;

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-typedef enum _KTHREAD_STATE {
+typedef enum _KTHREAD_STATE
+{
     Initialized,
     Ready,
     Running,

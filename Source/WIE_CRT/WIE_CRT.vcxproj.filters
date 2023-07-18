@@ -13,5 +13,18 @@
     <ClCompile Include="Startup_wmain.c" />
     <ClCompile Include="Startup_wWinMain.c" />
     <ClCompile Include="Startup_ExeMain.c" />
+    <ClCompile Include="Startup_Init.c" />
+    <ClCompile Include="GS.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Startup.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_DllStub Include="Ntdll_CRT.xml">
+      <Filter>MSVCRT</Filter>
+    </Precomp4C_DllStub>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

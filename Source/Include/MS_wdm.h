@@ -4,6 +4,10 @@
 
 #define PROCESSOR_FEATURE_MAX 64
 
+typedef const struct _KUSER_SHARED_DATA* PCKUSER_SHARED_DATA;
+#define MM_SHARED_USER_DATA_VA 0x7FFE0000
+#define SharedUserData  ((PCKUSER_SHARED_DATA)MM_SHARED_USER_DATA_VA)
+
 typedef enum _ALTERNATIVE_ARCHITECTURE_TYPE {
     StandardDesign,                 // None == 0 == standard design
     NEC98x86,                       // NEC PC98xx series on X86

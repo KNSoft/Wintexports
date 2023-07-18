@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-typedef enum _MEMORY_INFORMATION_CLASS {
+typedef enum _MEMORY_INFORMATION_CLASS
+{
     MemoryBasicInformation,
     MemoryWorkingSetList,
     MemorySectionName,
@@ -8,7 +9,8 @@ typedef enum _MEMORY_INFORMATION_CLASS {
     MemoryWorkingSetExList
 } MEMORY_INFORMATION_CLASS, *PMEMORY_INFORMATION_CLASS;
 
-typedef enum _OBJECT_INFORMATION_CLASS {
+typedef enum _OBJECT_INFORMATION_CLASS
+{
     ObjectBasicInformation,
     ObjectNameInformation,
     ObjectTypeInformation,

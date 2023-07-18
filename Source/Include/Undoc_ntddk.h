@@ -2,7 +2,8 @@
 
 #include "WIE_Internal.h"
 
-typedef struct _THREAD_BASIC_INFORMATION {
+typedef struct _THREAD_BASIC_INFORMATION
+{
     NTSTATUS ExitStatus;
     PTEB TebBaseAddress;
     CLIENT_ID ClientId;

@@ -2,10 +2,13 @@
 
 #include "WIE_Internal.h"
 
+#pragma region Predefined stuff
+extern IMAGE_DOS_HEADER __ImageBase;
+#pragma endregion Predefined stuff
+
 #pragma region WinSDK
 
 #define DECLSPEC_EXPORT __declspec(dllexport)
-#define EXPORT_STD_FUNC #pragma comment(linker, "/EXPORT:"__FUNCTION__"="__FUNCDNAME__)
 typedef unsigned __int64 QWORD;
 typedef QWORD near *PQWORD;
 typedef QWORD far *LPQWORD;

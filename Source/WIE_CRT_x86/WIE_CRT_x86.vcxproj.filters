@@ -7,17 +7,4 @@
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\llshr.asm" />
     <MASM Include="$(VCToolsInstallDir)crt\src\i386\ullshr.asm" />
   </ItemGroup>
-  <ItemGroup>
-    <Filter Include="ExportMSVCRT">
-      <UniqueIdentifier>{a50bf88d-a09e-4417-aa8e-0de94e60e0fa}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ExportMSVCRT\msvcrt.lib.lst">
-      <Filter>ExportMSVCRT</Filter>
-    </None>
-    <None Include="ExportMSVCRT\libcmt.lib.lst">
-      <Filter>ExportMSVCRT</Filter>
-    </None>
-  </ItemGroup>
 </Project>

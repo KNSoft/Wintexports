@@ -1,17 +1,7 @@
-﻿#define WIE_CONFIG_INCLUDE_WIEEXT
-
-#include "..\Include\Wintexports.h"
+﻿#include "Startup.h"
 
 #include <shellapi.h>
 #include <suppress.h>
-
-EXTERN_C
-int
-__CRTDECL
-wmain(
-    _In_                     int       argc,
-    _In_reads_(argc) _Pre_z_ wchar_t** argv,
-    _Reserved_               wchar_t** envp); // CAUTION: Never use envp
 
 VOID wmainCRTStartup()
 {
@@ -19,8 +9,15 @@ VOID wmainCRTStartup()
     PWSTR* argv;
     INT argc;
 
+    Status = WIE_CRT_Startup_Init();
+    if (!NT_SUCCESS(Status))
+    {
+        goto _exit;
+    }
+
     argv = CommandLineToArgvW(NtCurrentPeb()->ProcessParameters->CommandLine.Buffer, &argc);
-    if (argv) {
+    if (argv)
+    {
         Status = wmain(argc, argv, NULL);
         LocalFree(argv);
     } else
@@ -28,6 +25,7 @@ VOID wmainCRTStartup()
         Status = WIE_ErrorToStatus(WIE_GetLastError());
     }
 
+_exit:
     RtlExitUserProcess(Status);
     __assume(0);
     __fastfail(FAST_FAIL_FATAL_APP_EXIT);
