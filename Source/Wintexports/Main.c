@@ -1,6 +1,5 @@
-﻿#define WIE_CONFIG_INCLUDE_WINUSER
-#define WIE_CONFIG_INCLUDE_HASH
-#define WIE_CONFIG_INCLUDE_WIEEXT
+﻿#define WIE_INCLUDE_HASH
+#define WIE_INCLUDE_WIEEXT
 
 #include "..\Include\Wintexports.h"
 

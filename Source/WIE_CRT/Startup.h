@@ -1,14 +1,10 @@
 ﻿#pragma once
 
-#define WIE_CONFIG_INCLUDE_WIEEXT
+#define WIE_INCLUDE_WIEEXT
 
 #include "..\Include\Wintexports.h"
 
 #include <vcruntime.h>
-
-EXTERN_C INT __isa_available_init();
-
-EXTERN_C NTSTATUS NTAPI ExeMain();
 
 EXTERN_C
 BOOL
@@ -34,5 +30,7 @@ wWinMain(
     _In_opt_ HINSTANCE hPrevInstance,
     _In_     LPWSTR    lpCmdLine,
     _In_     int       nShowCmd);
+
+EXTERN_C NTSTATUS NTAPI ExeMain();
 
 NTSTATUS WIE_CRT_Startup_Init();

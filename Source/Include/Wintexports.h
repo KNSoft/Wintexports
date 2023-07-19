@@ -6,6 +6,7 @@
 /* Include Windows.h */
 
 #include "WIE_Windows.h"
+#include "WIE_WinUser.h"
 
 /* Inculde KM headers */
 
@@ -25,29 +26,22 @@
 
 #include "Undoc_API_Ntdll.h"
 #include "Undoc_API_Kernel32.h"
+#include "Undoc_API_User32.h"
 
 /* Include useful headers */
 
 #include <intrin.h>
 #include <suppress.h>
 
-/* Include WinUser optionally */
-
-#if defined(WIE_CONFIG_INCLUDE_WINUSER)
-#include "WIE_CommCtrl.h"
-#include "WIE_WinUser.h"
-#include "Undoc_API_User32.h"
-#endif
-
 /* Include Ntdll hash API optionally */
 
-#if defined(WIE_CONFIG_INCLUDE_HASH)
+#if defined(WIE_INCLUDE_HASH)
 #include "Undoc_API_Ntdll_Hash.h"
 #endif
 
 /* Include Wintexports extended features optionally */
 
-#if defined(WIE_CONFIG_INCLUDE_WIEEXT)
+#if defined(WIE_INCLUDE_WIEEXT)
 #include "WIE_Ext.h"
 #include "WIE_Ext_CPU.h"
 #endif

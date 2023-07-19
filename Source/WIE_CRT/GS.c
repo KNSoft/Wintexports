@@ -1,4 +1,4 @@
-﻿#define WIE_CONFIG_INCLUDE_WIEEXT
+﻿#define WIE_INCLUDE_WIEEXT
 
 #include "..\Include\Wintexports.h"
 
