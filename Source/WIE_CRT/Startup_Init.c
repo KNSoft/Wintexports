@@ -1,6 +1,6 @@
 ﻿#include "Startup.h"
 
-EXTERN_C INT __isa_available_init();
+EXTERN_C int __isa_available_init();
 
 NTSTATUS WIE_CRT_Startup_Init()
 {
