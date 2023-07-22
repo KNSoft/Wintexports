@@ -35,7 +35,6 @@
     </Precomp4C_DllStub>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="ExportMSVCRT\x64\libcmt.lib.lst">
       <Filter>ExportMSVCRT\x64</Filter>
     </None>
@@ -46,5 +45,6 @@
       <Filter>ExportMSVCRT\x86</Filter>
     </None>
     <None Include="Startup_Exe.inl" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

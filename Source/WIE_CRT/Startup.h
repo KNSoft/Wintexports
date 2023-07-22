@@ -4,6 +4,9 @@
 
 #include "..\Include\Wintexports.h"
 
+#define _VCRT_ALLOW_INTERNALS
+
+#include <vcruntime_internal.h>
 #include <vcruntime.h>
 
 EXTERN_C

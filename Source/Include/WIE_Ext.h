@@ -37,6 +37,8 @@ typedef QWORD far *LPQWORD;
 #define IS_EQUAL_MASKED(val1, val2, mask) (!(((val1) ^ (val2)) & (mask)))
 // Sets or removes a flag from a combination value
 #define COMBINE_FLAGS(val, uflag, bEnable) ((bEnable) ? ((val) | (uflag)) : ((val) & ~(uflag)))
+// Test combined flags
+#define TEST_FLAGS(val, flags) (((val) & (flags)) == (flags))
 
 #define BYTE_ALIGN(val, ali) (((val) + (ali) - 1) & (~((ali) - 1)))
 
