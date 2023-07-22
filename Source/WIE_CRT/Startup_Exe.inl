@@ -34,7 +34,7 @@ static void WIE_Common_Main()
     PRTL_USER_PROCESS_PARAMETERS ProcessParameters;
 
     ProcessParameters = NtCurrentPeb()->ProcessParameters;
-    Status = wWinMain(CURRENT_IMAGE_BASE,
+    Status = wWinMain((HINSTANCE)(&__ImageBase),
                       NULL,
                       ProcessParameters->CommandLine.Buffer,
                       ProcessParameters->ShowWindowFlags);

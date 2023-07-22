@@ -144,7 +144,7 @@ typedef QWORD far *LPQWORD;
 #define CURRENT_PROCESS_ID ((DWORD)(DWORD_PTR)WIE_ReadTEB(ClientId.UniqueProcess))
 #define CURRENT_THREAD_ID ((DWORD)(DWORD_PTR)WIE_ReadTEB(ClientId.UniqueThread))
 #define CURRENT_DIRECTORY_HANDLE (NtCurrentPeb()->ProcessParameters->CurrentDirectory.Handle)
-#define CURRENT_IMAGE_BASE ((HMODULE)&__ImageBase)
+#define CURRENT_IMAGE_BASE (NtCurrentPeb()->ImageBaseAddress)
 #define CURRENT_NTDLL_BASE (CONTAINING_RECORD(NtCurrentPeb()->Ldr->InInitializationOrderModuleList.Flink, LDR_DATA_TABLE_ENTRY, InInitializationOrderModuleList)->DllBase)
 #define CURRENT_PROCESS_HEAP (NtCurrentPeb()->ProcessHeap)
 
