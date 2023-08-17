@@ -93,7 +93,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Precomp4C_DllStub Include="Lib\Hash.xml">
+    <Precomp4C_DllStub Include="Lib\Ntdll_Hash.xml">
       <Filter>Lib</Filter>
     </Precomp4C_DllStub>
     <Precomp4C_DllStub Include="Lib\WinAPI.xml">

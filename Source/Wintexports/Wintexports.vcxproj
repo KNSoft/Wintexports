@@ -181,7 +181,7 @@
     <ClInclude Include="..\Include\WIE_WinUser.h" />
   </ItemGroup>
   <ItemGroup>
-    <Precomp4C_DllStub Include="Lib\Hash.xml" />
+    <Precomp4C_DllStub Include="Lib\Ntdll_Hash.xml" />
     <Precomp4C_DllStub Include="Lib\WinAPI.xml" />
   </ItemGroup>
   <ItemGroup>
