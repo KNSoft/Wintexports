@@ -2,7 +2,6 @@
 
 #include "WIE_ntdef.h"
 #include "MS_ntifs.h"
-#include "Undoc_ntifs.h"
 #include "MS_wdm.h"
 #include "MS_ntddk.h"
 
@@ -46,43 +45,6 @@ LdrGetProcedureAddress(
 #pragma endregion Ldr*
 
 #pragma region Rtl*
-
-#pragma region Heap
-
-NTSYSAPI
-PVOID
-NTAPI
-RtlCreateHeap(
-    ULONG                Flags,
-    PVOID                HeapBase,
-    SIZE_T               ReserveSize,
-    SIZE_T               CommitSize,
-    PVOID                Lock,
-    PRTL_HEAP_PARAMETERS Parameters);
-
-NTSYSAPI
-PVOID
-NTAPI
-RtlAllocateHeap(
-    PVOID  HeapHandle,
-    ULONG  Flags,
-    SIZE_T Size);
-
-NTSYSAPI
-BOOL
-NTAPI
-RtlFreeHeap(
-    PVOID                 HeapHandle,
-    ULONG                 Flags,
-    _Frees_ptr_opt_ PVOID BaseAddress);
-
-NTSYSAPI
-PVOID
-NTAPI
-RtlDestroyHeap(
-    PVOID HeapHandle);
-
-#pragma endregion Heap
 
 #pragma region Process and Thread
 
@@ -192,40 +154,23 @@ RtlTryAcquireSRWLockShared(
 
 #pragma endregion SRW Lock
 
-#pragma region One-Time initialization
+#pragma region Path
+
+NTSYSAPI
+BOOLEAN
+NTAPI
+RtlDosPathNameToNtPathName_U(
+    _In_opt_z_ LPCWSTR              DosName,
+    _Out_ PUNICODE_STRING           NtName,
+    _Out_opt_ LPCWSTR*              PartName,
+    _Out_opt_ PRTL_RELATIVE_NAME_U  RelativeName);
 
 NTSYSAPI
 VOID
 NTAPI
-RtlRunOnceInitialize(
-  _Out_ PRTL_RUN_ONCE RunOnce);
+RtlReleaseRelativeName(_In_ PRTL_RELATIVE_NAME_U RelativeName);
 
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceExecuteOnce(
-  _Inout_ PRTL_RUN_ONCE         RunOnce,
-  _In_ PRTL_RUN_ONCE_INIT_FN    InitFn,
-  _Inout_opt_ PVOID             Parameter,
-  _Out_opt_ PVOID*              Context);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceBeginInitialize(
-  _Inout_ PRTL_RUN_ONCE RunOnce,
-  _In_ ULONG            Flags,
-  _Out_opt_ PVOID*      Context);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceComplete(
-  _Inout_ PRTL_RUN_ONCE RunOnce,
-  _In_ ULONG            Flags,
-  _In_opt_ PVOID        Context);
-
-#pragma endregion One-Time initialization
+#pragma endregion
 
 #pragma region Bitmap
 
@@ -239,84 +184,17 @@ RtlInitializeBitMap(
 
 #pragma endregion Bitmap
 
-#pragma region String conversion
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlMultiByteToUnicodeN(
-    PWCH       UnicodeString,
-    ULONG      MaxBytesInUnicodeString,
-    PULONG     BytesInUnicodeString,
-    const CHAR* MultiByteString,
-    ULONG      BytesInMultiByteString);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlUnicodeToMultiByteN(
-    PCHAR  MultiByteString,
-    ULONG  MaxBytesInMultiByteString,
-    PULONG BytesInMultiByteString,
-    PCWCH  UnicodeString,
-    ULONG  BytesInUnicodeString);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlUnicodeStringToInteger(
-    PCUNICODE_STRING String,
-    ULONG            Base,
-    PULONG           Value);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlIntegerToUnicodeString(
-    ULONG           Value,
-    ULONG           Base,
-    PUNICODE_STRING String);
-
-#pragma endregion String conversion
-
 #pragma region Uncategorized
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 RtlFindMessage(
-    IN PVOID    BaseAddress,
-    IN ULONG    Type,
-    IN ULONG    Language,
-    IN ULONG    MessageId,
-    OUT PMESSAGE_RESOURCE_ENTRY* MessageResourceEntry);
-
-NTSYSAPI
-BOOL
-NTAPI
-RtlDosPathNameToNtPathName_U(
-    IN LPCWSTR                  DosName,
-    OUT PUNICODE_STRING         NtName,
-    OUT LPCWSTR* PartName,
-    OUT PRTL_RELATIVE_NAME_U    RelativeName);
-
-NTSYSAPI
-ULONG
-NTAPI
-RtlRandomEx(
-    PULONG Seed);
-
-NTSYSAPI
-ULONG
-NTAPI
-RtlNtStatusToDosError(
-    IN NTSTATUS Status);
-
-NTSYSAPI
-ULONG
-NTAPI
-RtlNtStatusToDosErrorNoTeb(
-    IN NTSTATUS Status);
+    _In_ PVOID                      BaseAddress,
+    _In_ ULONG                      Type,
+    _In_ ULONG                      Language,
+    _In_ ULONG                      MessageId,
+    _Out_ PMESSAGE_RESOURCE_ENTRY*  MessageResourceEntry);
 
 NTSYSAPI
 NTSTATUS
@@ -343,19 +221,6 @@ RtlGetUserPreferredUILanguages(
 
 #pragma region Virtual Memory
 
-_Must_inspect_result_
-__drv_allocatesMem(Mem)
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtAllocateVirtualMemory(
-    _In_ HANDLE ProcessHandle,
-    _Inout_ _At_(*BaseAddress, _Readable_bytes_(*RegionSize) _Writable_bytes_(*RegionSize) _Post_readable_byte_size_(*RegionSize)) PVOID *BaseAddress,
-    _In_ ULONG_PTR ZeroBits,
-    _Inout_ PSIZE_T RegionSize,
-    _In_ ULONG AllocationType,
-    _In_ ULONG Protect);
-
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -365,15 +230,6 @@ NtProtectVirtualMemory(
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG Protect,
     _Out_ PULONG OldProtect);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtFreeVirtualMemory(
-    _In_ HANDLE ProcessHandle,
-    _Inout_ __drv_freesMem(Mem) PVOID *BaseAddress,
-    _Inout_ PSIZE_T RegionSize,
-    _In_ ULONG FreeType);
 
 NTSYSAPI
 NTSTATUS
@@ -394,18 +250,6 @@ NtWriteVirtualMemory(
     _In_ PVOID Buffer,
     _In_ SIZE_T NumberOfBytesToWrite,
     _Out_opt_ PSIZE_T NumberOfBytesWritten);
-
-_Must_inspect_result_
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtQueryVirtualMemory(
-    _In_ HANDLE ProcessHandle,
-    _In_opt_ PVOID BaseAddress,
-    _In_ MEMORY_INFORMATION_CLASS MemoryInformationClass,
-    _Out_writes_bytes_(MemoryInformationLength) PVOID MemoryInformation,
-    _In_ SIZE_T MemoryInformationLength,
-    _Out_opt_ PSIZE_T ReturnLength);
 
 #pragma endregion Virtual Memory
 
@@ -453,15 +297,6 @@ NtQueryInformationThread(
     IN ULONG ThreadInformationLength,
     OUT PULONG ReturnLength OPTIONAL);
 
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtSetInformationThread(
-    _In_ HANDLE ThreadHandle,
-    _In_ THREADINFOCLASS ThreadInformationClass,
-    _In_reads_bytes_(ThreadInformationLength) PVOID ThreadInformation,
-    _In_ ULONG ThreadInformationLength);
-
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -505,60 +340,6 @@ NtTerminateProcess(
 
 #pragma region File
 
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtCreateFile(
-    _Out_ PHANDLE FileHandle,
-    _In_ ACCESS_MASK DesiredAccess,
-    _In_ POBJECT_ATTRIBUTES ObjectAttributes,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _In_opt_ PLARGE_INTEGER AllocationSize,
-    _In_ ULONG FileAttributes,
-    _In_ ULONG ShareAccess,
-    _In_ ULONG CreateDisposition,
-    _In_ ULONG CreateOptions,
-    _In_reads_bytes_opt_(EaLength) PVOID EaBuffer,
-    _In_ ULONG EaLength);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtReadFile(
-    _In_ HANDLE FileHandle,
-    _In_opt_ HANDLE Event,
-    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
-    _In_opt_ PVOID ApcContext,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _Out_writes_bytes_(Length) PVOID Buffer,
-    _In_ ULONG Length,
-    _In_opt_ PLARGE_INTEGER ByteOffset,
-    _In_opt_ PULONG Key);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtWriteFile(
-    _In_ HANDLE FileHandle,
-    _In_opt_ HANDLE Event,
-    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
-    _In_opt_ PVOID ApcContext,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _In_reads_bytes_(Length) PVOID Buffer,
-    _In_ ULONG Length,
-    _In_opt_ PLARGE_INTEGER ByteOffset,
-    _In_opt_ PULONG Key);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtQueryInformationFile(
-    _In_ HANDLE FileHandle,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _Out_writes_bytes_(Length) PVOID FileInformation,
-    _In_ ULONG Length,
-    _In_ FILE_INFORMATION_CLASS FileInformationClass);
-
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -573,63 +354,9 @@ NtQueryFullAttributesFile(
     _In_ POBJECT_ATTRIBUTES ObjectAttributes,
     _Out_ PFILE_NETWORK_OPEN_INFORMATION FileInformation);
 
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtSetInformationFile(
-    _In_ HANDLE FileHandle,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _In_reads_bytes_(Length) PVOID FileInformation,
-    _In_ ULONG Length,
-    _In_ FILE_INFORMATION_CLASS FileInformationClass);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtDeviceIoControlFile(
-    _In_ HANDLE FileHandle,
-    _In_opt_ HANDLE Event,
-    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
-    _In_opt_ PVOID ApcContext,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _In_ ULONG IoControlCode,
-    _In_reads_bytes_opt_(InputBufferLength) PVOID InputBuffer,
-    _In_ ULONG InputBufferLength,
-    _Out_writes_bytes_opt_(OutputBufferLength) PVOID OutputBuffer,
-    _In_ ULONG OutputBufferLength
-);
-
-NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtFsControlFile(
-    _In_ HANDLE FileHandle,
-    _In_opt_ HANDLE Event,
-    _In_opt_ PIO_APC_ROUTINE ApcRoutine,
-    _In_opt_ PVOID ApcContext,
-    _Out_ PIO_STATUS_BLOCK IoStatusBlock,
-    _In_ ULONG FsControlCode,
-    _In_reads_bytes_opt_(InputBufferLength) PVOID InputBuffer,
-    _In_ ULONG InputBufferLength,
-    _Out_writes_bytes_opt_(OutputBufferLength) PVOID OutputBuffer,
-    _In_ ULONG OutputBufferLength
-);
-
 #pragma endregion File
 
 #pragma region Section
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtCreateSection(
-    _Out_ PHANDLE SectionHandle,
-    _In_ ACCESS_MASK DesiredAccess,
-    _In_opt_ POBJECT_ATTRIBUTES ObjectAttributes,
-    _In_opt_ PLARGE_INTEGER MaximumSize,
-    _In_ ULONG SectionPageProtection,
-    _In_ ULONG AllocationAttributes,
-    _In_opt_ HANDLE FileHandle);
 
 _Must_inspect_result_
 _Post_satisfies_(*ViewSize >= _Old_(*ViewSize))
@@ -659,56 +386,6 @@ NtUnmapViewOfSection(
 #pragma endregion Section
 
 #pragma region Token
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtOpenProcessToken(
-    _In_ HANDLE         ProcessHandle,
-    _In_ ACCESS_MASK    DesiredAccess,
-    _Out_ PHANDLE       TokenHandle);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtQueryInformationToken(
-    _In_ HANDLE TokenHandle,
-    _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
-    _Out_writes_bytes_to_opt_(TokenInformationLength, *ReturnLength) PVOID TokenInformation,
-    _In_ ULONG TokenInformationLength,
-    _Out_ PULONG ReturnLength);
-
-_Must_inspect_result_
-__kernel_entry NTSYSCALLAPI
-NTSTATUS
-NTAPI
-NtAdjustPrivilegesToken(
-    _In_ HANDLE TokenHandle,
-    _In_ BOOLEAN DisableAllPrivileges,
-    _In_opt_ PTOKEN_PRIVILEGES NewState,
-    _In_ ULONG BufferLength,
-    _Out_writes_bytes_to_opt_(BufferLength, *ReturnLength) PTOKEN_PRIVILEGES PreviousState,
-    _Out_ _When_(PreviousState == NULL, _Out_opt_) PULONG ReturnLength);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtDuplicateToken(
-    _In_ HANDLE ExistingTokenHandle,
-    _In_ ACCESS_MASK DesiredAccess,
-    _In_opt_ POBJECT_ATTRIBUTES ObjectAttributes,
-    _In_ BOOLEAN EffectiveOnly,
-    _In_ TOKEN_TYPE TokenType,
-    _Out_ PHANDLE NewTokenHandle);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtSetInformationToken(
-    _In_ HANDLE TokenHandle,
-    _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
-    _In_reads_bytes_(TokenInformationLength) PVOID TokenInformation,
-    _In_ ULONG TokenInformationLength);
 
 NTSYSAPI
 NTSTATUS
@@ -756,16 +433,16 @@ _When_(Length == 0, _Post_satisfies_(return < 0))
     _When_(Length > 0, _Post_satisfies_(return <= 0))
     _Success_(return == STATUS_SUCCESS)
     _On_failure_(_When_(return == STATUS_BUFFER_OVERFLOW || return == STATUS_BUFFER_TOO_SMALL, _Post_satisfies_(*ResultLength > Length)))
-    NTSYSAPI
-    NTSTATUS
-    NTAPI
-    NtQueryValueKey(
-        _In_ HANDLE KeyHandle,
-        _In_ PUNICODE_STRING ValueName,
-        _In_ KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass,
-        _Out_writes_bytes_to_opt_(Length, *ResultLength) PVOID KeyValueInformation,
-        _In_ ULONG Length,
-        _Out_ PULONG ResultLength);
+NTSYSAPI
+NTSTATUS
+NTAPI
+NtQueryValueKey(
+    _In_ HANDLE KeyHandle,
+    _In_ PUNICODE_STRING ValueName,
+    _In_ KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass,
+    _Out_writes_bytes_to_opt_(Length, *ResultLength) PVOID KeyValueInformation,
+    _In_ ULONG Length,
+    _Out_ PULONG ResultLength);
 
 NTSYSAPI
 NTSTATUS
@@ -827,16 +504,10 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtQuerySystemInformation(
-    IN SYSTEM_INFORMATION_CLASS SystemInformationClass,
-    OUT PVOID SystemInformation,
-    IN ULONG SystemInformationLength,
-    OUT PULONG ReturnLength OPTIONAL);
-
-NTSYSAPI
-NTSTATUS
-NTAPI
-NtClose(
-    _In_ _Post_ptr_invalid_ HANDLE Handle);
+    _In_ SYSTEM_INFORMATION_CLASS SystemInformationClass,
+    _Out_ PVOID SystemInformation,
+    _In_ ULONG SystemInformationLength,
+    _Out_opt_ PULONG ReturnLength);
 
 NTSYSAPI
 NTSTATUS

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "WIE_Internal.h"
+#include "Undoc_ntddk.h"
 
 #pragma region File
 
@@ -696,3 +697,56 @@ typedef struct _KUSER_SHARED_DATA {
 } KUSER_SHARED_DATA, *PKUSER_SHARED_DATA;
 
 #pragma endregion KUSER_SHARED_DATA
+
+#pragma region Nt*
+
+#pragma region One-Time initialization
+
+#if (NTDDI_VERSION >= NTDDI_LONGHORN)
+
+_IRQL_requires_max_(APC_LEVEL)
+NTSYSAPI
+VOID
+NTAPI
+RtlRunOnceInitialize(
+    _Out_ PRTL_RUN_ONCE RunOnce
+);
+
+_IRQL_requires_max_(APC_LEVEL)
+_Maybe_raises_SEH_exception_
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlRunOnceExecuteOnce(
+    _Inout_ PRTL_RUN_ONCE RunOnce,
+    _In_ __callback PRTL_RUN_ONCE_INIT_FN InitFn,
+    _Inout_opt_ PVOID Parameter,
+    _Outptr_opt_result_maybenull_ PVOID *Context
+);
+
+_IRQL_requires_max_(APC_LEVEL)
+_Must_inspect_result_
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlRunOnceBeginInitialize(
+    _Inout_ PRTL_RUN_ONCE RunOnce,
+    _In_ ULONG Flags,
+    _Outptr_opt_result_maybenull_ PVOID *Context
+);
+
+_IRQL_requires_max_(APC_LEVEL)
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlRunOnceComplete(
+    _Inout_ PRTL_RUN_ONCE RunOnce,
+    _In_ ULONG Flags,
+    _In_opt_ PVOID Context
+);
+
+#endif // NTDDI_VERSION >= NTDDI_LONGHORN
+
+#pragma endregion One-Time initialization
+
+#pragma endregion Nt*

@@ -84,6 +84,123 @@ typedef struct _RTL_BITMAP {
 } RTL_BITMAP;
 typedef RTL_BITMAP *PRTL_BITMAP;
 
+#pragma region Debug Print
+
+ULONG
+__cdecl
+DbgPrint(
+    _In_z_ _Printf_format_string_ PCSTR Format,
+    ...
+);
+
+
+
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+NTSYSAPI
+ULONG
+__cdecl
+DbgPrintEx(
+    _In_ ULONG ComponentId,
+    _In_ ULONG Level,
+    _In_z_ _Printf_format_string_ PCSTR Format,
+    ...
+);
+#endif
+
+
+
+#ifdef _VA_LIST_DEFINED
+
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+NTSYSAPI
+ULONG
+NTAPI
+vDbgPrintEx(
+    _In_ ULONG ComponentId,
+    _In_ ULONG Level,
+    _In_z_ PCCH Format,
+    _In_ va_list arglist
+);
+
+NTSYSAPI
+ULONG
+NTAPI
+vDbgPrintExWithPrefix(
+    _In_z_ PCCH Prefix,
+    _In_ ULONG ComponentId,
+    _In_ ULONG Level,
+    _In_z_ PCCH Format,
+    _In_ va_list arglist
+);
+
+#endif
+
+#endif // _VA_LIST_DEFINED
+
+
+
+#if (NTDDI_VERSION >= NTDDI_WIN2K)
+NTSYSAPI
+ULONG
+__cdecl
+DbgPrintReturnControlC(
+    _In_z_ _Printf_format_string_ PCCH Format,
+    ...
+);
+#endif
+
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+NTSYSAPI
+NTSTATUS
+NTAPI
+DbgQueryDebugFilterState(
+    _In_ ULONG ComponentId,
+    _In_ ULONG Level
+);
+#endif
+
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+NTSYSAPI
+NTSTATUS
+NTAPI
+DbgSetDebugFilterState(
+    _In_ ULONG ComponentId,
+    _In_ ULONG Level,
+    _In_ BOOLEAN State
+);
+#endif
+
+#pragma region Functions
+
+#if (NTDDI_VERSION >= NTDDI_WIN2K)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlUnicodeStringToInteger(
+    _In_ PCUNICODE_STRING String,
+    _In_opt_ ULONG Base,
+    _Out_ PULONG Value
+);
+#endif
+
+#if (NTDDI_VERSION >= NTDDI_WIN2K)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+_At_(String->MaximumLength, _Const_)
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlIntegerToUnicodeString(
+    _In_ ULONG Value,
+    _In_opt_ ULONG Base,
+    _Inout_ PUNICODE_STRING String
+);
+#endif
+
+#pragma endregion Functions
+
+#pragma endregion Debug Print
+
 #pragma region Pseudo Handles
 
 #define NtCurrentProcess() ( (HANDLE)(LONG_PTR) -1 )  

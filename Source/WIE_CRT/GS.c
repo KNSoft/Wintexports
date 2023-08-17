@@ -85,3 +85,13 @@ void __cdecl __security_init_cookie()
     __security_cookie = Cookie;
     __security_cookie_complement = ~Cookie;
 }
+
+DECLSPEC_NORETURN void __cdecl __report_securityfailure(unsigned long Code)
+{
+    __fastfail(Code);
+}
+
+DECLSPEC_NORETURN void __cdecl __report_rangecheckfailure()
+{
+    __report_securityfailure(FAST_FAIL_RANGE_CHECK_FAILURE);
+}

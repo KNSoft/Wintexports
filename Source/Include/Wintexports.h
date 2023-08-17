@@ -12,9 +12,7 @@
 
 #include "MS_wdm.h"
 #include "MS_ntddk.h"
-#include "Undoc_ntddk.h"
 #include "MS_ntifs.h"
-#include "Undoc_ntifs.h"
 #include "MS_fltKernel.h"
 
 /* Include internals */
@@ -35,54 +33,15 @@
 
 /* Include Ntdll hash API optionally */
 
-#if defined(WIE_INCLUDE_HASH)
+#if !defined(WIE_NO_HASH)
 #include "Undoc_API_Ntdll_Hash.h"
 #endif
 
 /* Include Wintexports extended features optionally */
 
-#if defined(WIE_INCLUDE_WIEEXT)
+#if !defined(WIE_NO_WIEEXT)
 #include "WIE_Ext.h"
 #include "WIE_Ext_CPU.h"
 #endif
 
-/* Link default libs optionally */
-
-#if defined(WIE_CONFIG_LINK_DEFAULTLIB)
-
-#if _DEBUG
-#if _DLL
-#pragma comment(lib, "msvcrtd.lib")
-#pragma comment(lib, "vcruntimed.lib")
-#pragma comment(lib, "ucrtd.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "msvcprtd.lib")
-#endif
-#else
-#pragma comment(lib, "libcmtd.lib")
-#pragma comment(lib, "libvcruntimed.lib")
-#pragma comment(lib, "libucrtd.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "libcpmtd.lib")
-#endif
-#endif
-#else
-#if _DLL
-#pragma comment(lib, "msvcrt.lib")
-#pragma comment(lib, "vcruntime.lib")
-#pragma comment(lib, "ucrt.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "msvcprt.lib")
-#endif
-#else
-#pragma comment(lib, "libcmt.lib")
-#pragma comment(lib, "libvcruntime.lib")
-#pragma comment(lib, "libucrt.lib")
-#ifdef __cplusplus
-#pragma comment(lib, "libcpmt.lib")
-#endif
-#endif
-#endif
-#endif
-
-#endif /* defined(WIE_CONFIG_LINK_DEFAULTLIB) */
+#endif /* _WINTEXPORTS_ */

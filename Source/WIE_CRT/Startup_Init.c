@@ -85,7 +85,7 @@ int __isa_available_init()
     __isa_enabled |= (1 << __ISA_AVAILABLE_AVX2);
 
     /* AVX512F, AVX512DQ, AVX512CD, AVX512BW, AVX512VL */
-    if (TEST_FLAGS(CpuInfo7.Ebx, 0xd0030000) && TEST_FLAGS(XFeatureMask, XSTATE_MASK_AVX512))
+    if (TEST_FLAGS(CpuInfo7.Ebx, 0xD0030000) && TEST_FLAGS(XFeatureMask, XSTATE_MASK_AVX512))
     {
         __isa_available = __ISA_AVAILABLE_AVX512;
         __isa_enabled |= (1 << __ISA_AVAILABLE_AVX512);
