@@ -5,9 +5,12 @@
 
 #pragma region File
 
+#pragma push_macro("DeleteFile")
+#undef DeleteFile
 typedef struct _FILE_DISPOSITION_INFORMATION {
     BOOLEAN DeleteFile;
 } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
+#pragma pop_macro("DeleteFile")
 
 typedef struct _FILE_DISPOSITION_INFORMATION_EX {
     ULONG Flags;

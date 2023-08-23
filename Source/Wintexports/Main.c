@@ -7,7 +7,9 @@
 
 #pragma comment(lib, "ntdll.lib")
 
+#if defined(_VC_NODEFAULTLIB)
 #pragma comment(lib, "WIE_CRT.lib")
+#endif
 
 #define _NO_CRT_STDIO_INLINE
 #include <stdio.h>
@@ -94,6 +96,7 @@ BOOL File_FindInitialize(
                         FILE_DIRECTORY_FILE | FILE_SYNCHRONOUS_IO_NONALERT);
     if (!NT_SUCCESS(Status))
     {
+        RtlReleaseRelativeName(&FindData->RelativePath);
         WIE_SetLastStatus(Status);
         return FALSE;
     }
@@ -102,6 +105,7 @@ BOOL File_FindInitialize(
     if (!FindData->Buffer)
     {
         NtClose(DirectoryHandle);
+        RtlReleaseRelativeName(&FindData->RelativePath);
         WIE_SetLastStatus(STATUS_NO_MEMORY);
         return FALSE;
     }
@@ -145,13 +149,14 @@ BOOL File_Find(_Inout_ PFILE_FIND FindData)
 
 VOID File_FindUninitialize(_In_ PFILE_FIND FindData)
 {
-    NtClose(FindData->DirectoryHandle);
     VirtualFree(FindData->Buffer, 0, MEM_RELEASE);
+    NtClose(FindData->DirectoryHandle);
     RtlReleaseRelativeName(&FindData->RelativePath);
 }
 
 int wmain()
 {
+
     FILE_FIND FindData;
     BOOL b;
     PFILE_FULL_DIR_INFORMATION pData;

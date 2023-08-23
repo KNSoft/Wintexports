@@ -39,7 +39,7 @@
 
 /* Include Wintexports extended features optionally */
 
-#if !defined(WIE_NO_WIEEXT)
+#if !defined(WIE_NO_EXT)
 #include "WIE_Ext.h"
 #include "WIE_Ext_CPU.h"
 #endif

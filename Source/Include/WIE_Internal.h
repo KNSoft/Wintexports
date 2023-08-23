@@ -181,7 +181,6 @@ typedef struct _RTL_BITMAP32
 
 #pragma endregion RTL_BITMAP[64/32]
 
-
 #pragma region CLIENT_ID[64/32]
 
 typedef struct _CLIENT_ID64

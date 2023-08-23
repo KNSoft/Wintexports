@@ -9,9 +9,7 @@ extern IMAGE_DOS_HEADER __ImageBase;
 #pragma region WinSDK
 
 #define DECLSPEC_EXPORT __declspec(dllexport)
-typedef unsigned __int64 QWORD;
-typedef QWORD near *PQWORD;
-typedef QWORD far *LPQWORD;
+typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 
 #if _WIN64
 #define IS_WIN64 TRUE
@@ -39,8 +37,6 @@ typedef QWORD far *LPQWORD;
 #define COMBINE_FLAGS(val, uflag, bEnable) ((bEnable) ? ((val) | (uflag)) : ((val) & ~(uflag)))
 // Test combined flags
 #define TEST_FLAGS(val, flags) (((val) & (flags)) == (flags))
-
-#define BYTE_ALIGN(val, ali) (((val) + (ali) - 1) & (~((ali) - 1)))
 
 // Gets is the value is within the valid range of an atom
 #define IS_ATOM(val) (((ULONG_PTR)(val) & 0xFFFF) > 0 && ((ULONG_PTR)(val) & 0xFFFF) < MAXINTATOM)
