@@ -17,3 +17,5 @@
 
 /Wintexports/x86
 /Wintexports/x64
+
+/NuGet/*.nupkg
