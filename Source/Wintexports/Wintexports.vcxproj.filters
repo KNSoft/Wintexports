@@ -64,9 +64,6 @@
     <ClInclude Include="..\Include\WIE_Internal.h">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\MS_winternl.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\WIE_winnt.h">
       <Filter>UserMode</Filter>
     </ClInclude>
@@ -90,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="..\Include\MS_fltKernel.h">
       <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MS_winternl.h">
+      <Filter>UserMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -67,8 +67,6 @@ typedef struct _RTL_HEAP_PARAMETERS {
 #define ClearFlag(_F,_SF)     ((_F) &= ~(_SF))
 #endif
 
-
-
 #pragma region Rtl*
 
 #pragma region Random

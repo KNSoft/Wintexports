@@ -15,7 +15,7 @@
   </metadata>
   <files>
     <file src="KNSoft.Wintexports.targets" target="build\" />
-    <file src="..\Include\**" target="build\Include\"/>
+    <file src="..\Include\**" target="build\Include\Wintexports\"/>
     <file src="..\..\README.md" target=""/>
   </files>
 </package>
