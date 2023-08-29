@@ -1,6 +1,4 @@
-﻿#define WIE_INCLUDE_WIEEXT
-
-#include "..\Include\Wintexports.h"
+﻿#include "..\Include\Wintexports.h"
 
 #if defined(_M_X64)
 #define GET_TICK_COUNT_FAST() (__umulh((ULONGLONG)SharedUserData->TickCountMultiplier << 32, SharedUserData->TickCountQuad << 8))

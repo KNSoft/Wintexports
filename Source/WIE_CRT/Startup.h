@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#define WIE_INCLUDE_WIEEXT
-
 #include "..\Include\Wintexports.h"
 
 #define _VCRT_ALLOW_INTERNALS

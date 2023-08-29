@@ -1,7 +1,4 @@
-﻿#define WIE_INCLUDE_HASH
-#define WIE_INCLUDE_WIEEXT
-
-#include "..\Include\Wintexports.h"
+﻿#include "..\Include\Wintexports.h"
 
 #pragma comment(lib, "WinAPI.lib")
 
@@ -24,7 +21,7 @@ BOOL NTAPI NT_InitializePathObjectEx(
     _Out_ PUNICODE_STRING ObjectName,
     _Out_opt_ PRTL_RELATIVE_NAME_U RelativeName)
 {
-    if (!RtlDosPathNameToNtPathName_U(Path, ObjectName, NULL, RelativeName))
+    if (!NT_SUCCESS(RtlDosPathNameToNtPathName_U_WithStatus(Path, ObjectName, NULL, RelativeName)))
     {
         WIE_SetLastStatus(STATUS_OBJECT_PATH_INVALID);
         return FALSE;
@@ -156,7 +153,6 @@ VOID File_FindUninitialize(_In_ PFILE_FIND FindData)
 
 int wmain()
 {
-
     FILE_FIND FindData;
     BOOL b;
     PFILE_FULL_DIR_INFORMATION pData;

@@ -508,15 +508,15 @@ _When_(TokenInformationClass == TokenAccessInformation,
             _In_range_(>= , sizeof(TOKEN_ACCESS_INFORMATION))))
     _Must_inspect_result_
     __kernel_entry NTSYSCALLAPI
-    NTSTATUS
-    NTAPI
-    NtQueryInformationToken(
-        _In_ HANDLE TokenHandle,
-        _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
-        _Out_writes_bytes_to_opt_(TokenInformationLength, *ReturnLength) PVOID TokenInformation,
-        _In_ ULONG TokenInformationLength,
-        _Out_ PULONG ReturnLength
-    );
+NTSTATUS
+NTAPI
+NtQueryInformationToken(
+    _In_ HANDLE TokenHandle,
+    _In_ TOKEN_INFORMATION_CLASS TokenInformationClass,
+    _Out_writes_bytes_to_opt_(TokenInformationLength, *ReturnLength) PVOID TokenInformation,
+    _In_ ULONG TokenInformationLength,
+    _Out_ PULONG ReturnLength
+);
 #endif
 
 #if (NTDDI_VERSION >= NTDDI_WINXP)
