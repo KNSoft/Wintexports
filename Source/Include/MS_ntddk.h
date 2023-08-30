@@ -3,6 +3,8 @@
 #include "WIE_Internal.h"
 #include "Undoc_ntddk.h"
 
+EXTERN_C_START
+
 #pragma region File
 
 #pragma push_macro("DeleteFile")
@@ -753,3 +755,5 @@ RtlRunOnceComplete(
 #pragma endregion One-Time initialization
 
 #pragma endregion Nt*
+
+EXTERN_C_END

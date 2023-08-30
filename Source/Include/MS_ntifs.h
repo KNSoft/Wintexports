@@ -3,6 +3,8 @@
 #include "WIE_ntdef.h"
 #include "Undoc_ntifs.h"
 
+EXTERN_C_START
+
 typedef struct _MEMORY_RANGE_ENTRY
 {
     PVOID VirtualAddress;
@@ -582,3 +584,5 @@ NtClose(
 #pragma endregion Uncategorized
 
 #pragma endregion Nt*
+
+EXTERN_C_END

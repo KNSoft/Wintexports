@@ -4,6 +4,8 @@ root = true
 [*.{c,c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
 
 charset = utf-8-bom
+indent_style = space
+indent_size = 4
 end_of_line = crlf
 insert_final_newline = true
 

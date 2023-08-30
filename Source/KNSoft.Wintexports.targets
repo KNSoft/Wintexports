@@ -4,5 +4,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
 </Project>

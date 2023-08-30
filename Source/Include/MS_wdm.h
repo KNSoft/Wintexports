@@ -2,6 +2,8 @@
 
 #include "WIE_ntdef.h"
 
+EXTERN_C_START
+
 #define PROCESSOR_FEATURE_MAX 64
 
 typedef const struct _KUSER_SHARED_DATA* PCKUSER_SHARED_DATA;
@@ -487,3 +489,5 @@ typedef struct _KEY_VALUE_PARTIAL_INFORMATION {
 #include "Undoc_Types_Ke.h"
 #include "Undoc_Types_Ex.h"
 #include "Undoc_Types_Rtl.h"
+
+EXTERN_C_END
