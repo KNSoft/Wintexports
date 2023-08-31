@@ -21,9 +21,12 @@ BOOL NTAPI NT_InitializePathObjectEx(
     _Out_ PUNICODE_STRING ObjectName,
     _Out_opt_ PRTL_RELATIVE_NAME_U RelativeName)
 {
-    if (!NT_SUCCESS(RtlDosPathNameToNtPathName_U_WithStatus(Path, ObjectName, NULL, RelativeName)))
+    NTSTATUS Status;
+
+    Status = RtlDosPathNameToNtPathName_U_WithStatus(Path, ObjectName, NULL, RelativeName);
+    if (!NT_SUCCESS(Status))
     {
-        WIE_SetLastStatus(STATUS_OBJECT_PATH_INVALID);
+        WIE_SetLastStatus(Status);
         return FALSE;
     }
 
@@ -156,6 +159,11 @@ int wmain()
     FILE_FIND FindData;
     BOOL b;
     PFILE_FULL_DIR_INFORMATION pData;
+
+    float f = 2.225;
+    unsigned int i;
+    i = (int)f + 0.5;
+
 
     b = File_FindInitialize(&FindData, L"..\\x64", NULL, FileFullDirectoryInformation);
 

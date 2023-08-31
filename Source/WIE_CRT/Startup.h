@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "..\Include\Wintexports.h"
+#include <Wintexports/Wintexports.h>
 
 #define _VCRT_ALLOW_INTERNALS
 

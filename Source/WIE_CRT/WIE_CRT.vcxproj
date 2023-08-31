@@ -43,13 +43,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VCToolsInstallDir)\crt\src\vcruntime;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include;$(VCToolsInstallDir)\crt\src\vcruntime;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VCToolsInstallDir)\crt\src\vcruntime;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include;$(VCToolsInstallDir)\crt\src\vcruntime;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(PlatformTarget)\</OutDir>
     <IntDir>$(PlatformTarget)\$(Configuration)\</IntDir>
     <CustomBuildBeforeTargets>Lib</CustomBuildBeforeTargets>
@@ -104,9 +104,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp" />
+    <ClCompile Include="Except.c" />
     <ClCompile Include="GS.c" />
     <ClCompile Include="RTC.cpp" />
     <ClCompile Include="Startup_DllMain.c" />
+    <ClCompile Include="Startup_DllMain_Stub.c" />
     <ClCompile Include="Startup_ExeMain.c" />
     <ClCompile Include="Startup_Init.c" />
     <ClCompile Include="Startup_wmain.c" />

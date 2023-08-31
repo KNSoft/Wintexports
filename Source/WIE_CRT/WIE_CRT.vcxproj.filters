@@ -25,6 +25,8 @@
     <ClCompile Include="Startup_Init.c" />
     <ClCompile Include="GS.c" />
     <ClCompile Include="RTC.cpp" />
+    <ClCompile Include="Except.c" />
+    <ClCompile Include="Startup_DllMain_Stub.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Startup.h" />

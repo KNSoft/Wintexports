@@ -21,76 +21,79 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\Undoc_Types_Rtl.h">
-      <Filter>Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_Types_Ke.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_CommCtrl.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MS_WinSta.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Wintexports.h" />
-    <ClInclude Include="..\Include\MS_ntifs.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MS_wdm.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MS_ntddk.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_ntdef.h">
-      <Filter>Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_WinUser.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_API_Ntdll.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_API_Ntdll_Hash.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_ntifs.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_ntddk.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_Internal.h">
-      <Filter>Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_winnt.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_Windows.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_Types_Ex.h">
-      <Filter>KernelMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_API_Kernel32.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Undoc_API_User32.h">
-      <Filter>UserMode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\WIE_Ext_CPU.h">
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext.h">
       <Filter>Extended</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\WIE_Ext.h">
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext_CPU.h">
       <Filter>Extended</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\MS_fltKernel.h">
+    <ClInclude Include="..\Include\Wintexports\MS_fltKernel.h">
       <Filter>KernelMode</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\MS_winternl.h">
+    <ClInclude Include="..\Include\Wintexports\MS_ntddk.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_ntifs.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_wdm.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_ntddk.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_ntifs.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Ex.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Ke.h">
+      <Filter>KernelMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_Types_Rtl.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Internal.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_ntdef.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_WinSta.h">
       <Filter>UserMode</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\MS_winternl.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Kernel32.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Ntdll.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_Ntdll_Hash.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Undoc_API_User32.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_CommCtrl.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Windows.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_winnt.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_WinSta_API.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_WinUser.h">
+      <Filter>UserMode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
   </ItemGroup>
   <ItemGroup>
     <Precomp4C_DllStub Include="Lib\Ntdll_Hash.xml">

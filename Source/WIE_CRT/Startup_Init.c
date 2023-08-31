@@ -1,6 +1,6 @@
 ﻿#include "Startup.h"
 
-#ifdef _M_IX86
+#if defined(_M_IX86)
 
 int __isa_available = __ISA_AVAILABLE_X86;
 int __isa_enabled = 0;
@@ -31,15 +31,12 @@ int __isa_available_init()
     __cpuid(CpuInfo01.Registers, 0);
     CpuInfo01.Eax &= WIE_CPU_INTEL_VERSION_INFO_MASK;
 
-    if (IsGenuineIntel && (
-        (
-            (
-                (CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0001, 0, 0b0110, 0b1100, 0) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0110, 0)) ||
-                CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0111, 0)) ||
-            (CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0101, 0) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0110, 0))) ||
-        CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0111, 0)
-        )
-       )
+    if (IsGenuineIntel && ((((CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0001, 0, 0b0110, 0b1100, 0) ||
+                              CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0110, 0)
+                              ) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0111, 0)
+                             ) || (CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0101, 0) ||
+                                   CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0110, 0))
+                            ) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0111, 0)))
     {
         __favor |= (1 << __FAVOR_ATOM);
     }
@@ -95,13 +92,13 @@ _exit:
     return 0;
 }
 
-#endif /* _M_IX86 */
+#endif /*  defined(_M_IX86) */
 
 NTSTATUS WIE_CRT_Startup_Init()
 {
     __security_init_cookie();
 
-#ifdef _M_IX86
+#if defined(_M_IX86)
     _asm { fnclex }
     __isa_available_init();
 #endif

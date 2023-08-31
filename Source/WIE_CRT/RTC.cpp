@@ -1,4 +1,4 @@
-﻿#include "..\Include\Wintexports.h"
+﻿#include <Wintexports/WIE_Windows.h>
 
 extern "C" void __cdecl _RTC_InitBase()
 {
