@@ -32,11 +32,6 @@
     <ClInclude Include="Startup.h" />
   </ItemGroup>
   <ItemGroup>
-    <Precomp4C_DllStub Include="Ntdll_CRT.xml">
-      <Filter>MSVCRT</Filter>
-    </Precomp4C_DllStub>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ExportMSVCRT\x64\libcmt.lib.lst">
       <Filter>ExportMSVCRT\x64</Filter>
     </None>
@@ -48,5 +43,10 @@
     </None>
     <None Include="Startup_Exe.inl" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_MakeLib Include="Ntdll_CRT.xml">
+      <Filter>MSVCRT</Filter>
+    </Precomp4C_MakeLib>
   </ItemGroup>
 </Project>

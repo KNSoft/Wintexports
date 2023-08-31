@@ -96,14 +96,14 @@
     <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
   </ItemGroup>
   <ItemGroup>
-    <Precomp4C_DllStub Include="Lib\Ntdll_Hash.xml">
-      <Filter>Lib</Filter>
-    </Precomp4C_DllStub>
-    <Precomp4C_DllStub Include="Lib\WinAPI.xml">
-      <Filter>Lib</Filter>
-    </Precomp4C_DllStub>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Precomp4C_MakeLib Include="Lib\Ntdll_Hash.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_MakeLib>
+    <Precomp4C_MakeLib Include="Lib\WinAPI.xml">
+      <Filter>Lib</Filter>
+    </Precomp4C_MakeLib>
   </ItemGroup>
 </Project>

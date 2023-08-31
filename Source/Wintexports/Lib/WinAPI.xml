@@ -1,4 +1,4 @@
-<DllStub>  
+<MakeLib>  
 	<Dll Name="KERNEL32.dll">
 		<Export Name="CreateProcessInternalW" CallConv="__stdcall" Arg="ptr ptr ptr ptr ptr long long ptr ptr ptr ptr ptr" />
 	</Dll>
@@ -54,4 +54,4 @@
 		<Export Name="StartServiceCtrlDispatcherW" CallConv="__stdcall" Arg="ptr" />
 		<Export Name="StartServiceW" CallConv="__stdcall" Arg="ptr long ptr" />
 	</Dll>
-</DllStub>
+</MakeLib>

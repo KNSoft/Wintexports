@@ -1,4 +1,4 @@
-﻿#include "..\Include\Wintexports.h"
+﻿#include <Wintexports/Wintexports.h>
 
 #pragma comment(lib, "WinAPI.lib")
 
