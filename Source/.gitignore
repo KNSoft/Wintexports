@@ -3,19 +3,30 @@
 
 /packages
 
-/x86
 /x64
+/x86
+/ARM64
+/ARM
 
-/WIE_CRT/x86
 /WIE_CRT/x64
-/WIE_CRT/ExportMSVCRT/x86/*.obj
-/WIE_CRT/ExportMSVCRT/x86/*.lib
+/WIE_CRT/x86
+/WIE_CRT/ARM64
+/WIE_CRT/ARM
 /WIE_CRT/ExportMSVCRT/x64/*.obj
 /WIE_CRT/ExportMSVCRT/x64/*.lib
+/WIE_CRT/ExportMSVCRT/x86/*.obj
+/WIE_CRT/ExportMSVCRT/x86/*.lib
+/WIE_CRT/ExportMSVCRT/ARM64/*.obj
+/WIE_CRT/ExportMSVCRT/ARM64/*.lib
+/WIE_CRT/ExportMSVCRT/ARM/*.obj
+/WIE_CRT/ExportMSVCRT/ARM/*.lib
 
-/WIE_CRT_x86/x86
+/WIE_CRT_ARM/ARM64
+/WIE_CRT_ARM/ARM
 
-/Wintexports/x86
 /Wintexports/x64
+/Wintexports/x86
+/Wintexports/ARM64
+/Wintexports/ARM
 
 /*.nupkg
