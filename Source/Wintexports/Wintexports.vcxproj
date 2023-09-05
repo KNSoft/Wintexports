@@ -210,6 +210,7 @@
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
     </ClCompile>
     <Precomp4C_MakeLib>
       <OutputFile>$(SolutionDir)$(PlatformTarget)\%(Filename).lib</OutputFile>
@@ -225,6 +226,7 @@
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
     </ClCompile>
     <Precomp4C_MakeLib>
       <OutputFile>$(SolutionDir)$(PlatformTarget)\%(Filename).lib</OutputFile>

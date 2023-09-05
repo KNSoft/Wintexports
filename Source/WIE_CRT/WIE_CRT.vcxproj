@@ -178,6 +178,8 @@
     <Precomp4C_MakeLib Include="Ntdll_CRT.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExportMSVCRT\ARM64\libcmt.lib.lst" />
+    <None Include="ExportMSVCRT\ARM\libcmt.lib.lst" />
     <None Include="ExportMSVCRT\x64\libcmt.lib.lst" />
     <None Include="ExportMSVCRT\x86\libcmt.lib.lst" />
     <None Include="ExportMSVCRT\x86\msvcrt.lib.lst" />
