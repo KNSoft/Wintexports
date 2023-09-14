@@ -756,4 +756,60 @@ RtlRunOnceComplete(
 
 #pragma endregion Nt*
 
+#pragma region Rtl*
+
+#pragma region LUID
+
+//
+// BOOLEAN
+// RtlEqualLuid(
+//      PLUID L1,
+//      PLUID L2
+//      );
+
+#define RtlEqualLuid(L1, L2) (((L1)->LowPart == (L2)->LowPart) && \
+                              ((L1)->HighPart  == (L2)->HighPart))
+
+//
+// BOOLEAN
+// RtlIsZeroLuid(
+//      PLUID L1
+//      );
+//
+#define RtlIsZeroLuid(L1) ((BOOLEAN) (((L1)->LowPart | (L1)->HighPart) == 0))
+
+FORCEINLINE
+LUID
+NTAPI_INLINE
+RtlConvertLongToLuid(
+    _In_ LONG Long
+)
+{
+    LUID TempLuid;
+    LARGE_INTEGER TempLi;
+
+    TempLi.QuadPart = Long;
+    TempLuid.LowPart = TempLi.u.LowPart;
+    TempLuid.HighPart = TempLi.u.HighPart;
+    return(TempLuid);
+}
+
+FORCEINLINE
+LUID
+NTAPI_INLINE
+RtlConvertUlongToLuid(
+    _In_ ULONG Ulong
+)
+{
+    LUID TempLuid;
+
+    TempLuid.LowPart = Ulong;
+    TempLuid.HighPart = 0;
+    return(TempLuid);
+}
+
+#pragma endregion LUID
+
+#pragma endregion Rtl*
+
 EXTERN_C_END
