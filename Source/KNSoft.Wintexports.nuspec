@@ -9,7 +9,7 @@
     <license type="expression">MPL-2.0</license>
     <licenseUrl>https://licenses.nuget.org/MPL-2.0</licenseUrl>
     <readme>README.md</readme>
-    <description>Wintexports brings Windows NT low-level definitions (i.e. NT*/Zw*, Rtl*, PEB, TEB, ...) to user-mode, and also supplement a few CRT functions to allow user-mode program depends ntdll.dll only.</description>
+    <description>Wintexports (Windows INTernal EXPORTS) exposes Windows NT low-level definitions and symbols for user-mode programming, and also supplement a few CRT functions to allow program depends ntdll.dll only.</description>
     <tags>windows utility native</tags>
     <repository type="git" url="https://github.com/KNSoft/Wintexports" />
   </metadata>
