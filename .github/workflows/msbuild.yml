@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [x64, x86, ARM64, ARM]
+        platform: [x64, x86, ARM64]
         config: [Debug, Release]
       fail-fast: false
     runs-on: windows-latest
@@ -30,9 +30,3 @@ jobs:
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild ${{env.SOLUTION_FILE_PATH}} /restore /m /p:Configuration=${{matrix.config}} /p:Platform=${{matrix.platform}} /p:RestorePackagesConfig=true
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@main
-      with:
-        nuget-version: latest
-    - name: Pack NuGet package
-      run: nuget pack .\Source\KNSoft.Wintexports.nuspec
