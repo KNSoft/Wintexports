@@ -18,6 +18,38 @@ CsrGetProcessId();
 
 #pragma region Ldr*
 
+NTSTATUS
+NTAPI
+LdrLockLoaderLock(
+    _In_ ULONG Flags,
+    _Out_opt_ PULONG Disposition,
+    _Out_opt_ PULONG_PTR Cookie);
+
+NTSTATUS
+NTAPI
+LdrUnlockLoaderLock(
+    _In_ ULONG Flags,
+    _In_opt_ ULONG Cookie);
+
+NTSTATUS
+NTAPI
+LdrDisableThreadCalloutsForDll(
+    _In_ PVOID BaseAddress);
+
+NTSTATUS
+NTAPI
+LdrFindEntryForAddress(
+    _In_ PVOID Address,
+    _Out_ PLDR_DATA_TABLE_ENTRY *Module);
+
+NTSTATUS
+NTAPI
+LdrGetDllHandle(
+    _In_opt_ PWSTR DllPath,
+    _In_ PULONG DllCharacteristics,
+    _In_ PUNICODE_STRING DllName,
+    _Out_ PVOID* DllHandle);
+
 NTSYSAPI
 NTSTATUS
 NTAPI
