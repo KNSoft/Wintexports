@@ -810,6 +810,36 @@ RtlConvertUlongToLuid(
 
 #pragma endregion LUID
 
+#pragma region String
+
+#if (NTDDI_VERSION >= NTDDI_WIN2K)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+_Must_inspect_result_
+NTSYSAPI
+LONG
+NTAPI
+RtlCompareString(
+    _In_ const STRING * String1,
+    _In_ const STRING * String2,
+    _In_ BOOLEAN CaseInSensitive
+);
+#endif
+
+#if (NTDDI_VERSION >= NTDDI_WIN2K)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+_Must_inspect_result_
+NTSYSAPI
+BOOLEAN
+NTAPI
+RtlEqualString(
+    _In_ const STRING * String1,
+    _In_ const STRING * String2,
+    _In_ BOOLEAN CaseInSensitive
+);
+#endif
+
+#pragma endregion String
+
 #pragma endregion Rtl*
 
 EXTERN_C_END

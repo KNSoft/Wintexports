@@ -205,6 +205,30 @@ RtlAllocateHeap(
 
 #pragma region String
 
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+_IRQL_requires_max_(DISPATCH_LEVEL)
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlInitUnicodeStringEx(
+    _Out_ PUNICODE_STRING DestinationString,
+    _In_opt_z_ __drv_aliasesMem PCWSTR SourceString
+);
+#endif // NTDDI_VERSION >= NTDDI_WINXP
+
+// begin_wdm
+
+#if (NTDDI_VERSION >= NTDDI_WS03)
+_IRQL_requires_max_(DISPATCH_LEVEL)
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlInitAnsiStringEx(
+    _Out_ PANSI_STRING DestinationString,
+    _In_opt_z_ __drv_aliasesMem PCSZ SourceString
+);
+#endif
+
 #if (NTDDI_VERSION >= NTDDI_WIN2K)
 _IRQL_requires_max_(PASSIVE_LEVEL)
 NTSYSAPI
