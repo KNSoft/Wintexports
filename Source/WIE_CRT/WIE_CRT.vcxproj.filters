@@ -13,9 +13,6 @@
     <Filter Include="ExportMSVCRT\x64">
       <UniqueIdentifier>{bcfcedee-3841-4956-93ad-c6adfda84f02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ExportMSVCRT\ARM">
-      <UniqueIdentifier>{0203a042-a824-46ce-9b31-c3df7d7c2089}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ExportMSVCRT\ARM64">
       <UniqueIdentifier>{d55513c3-994a-4a18-a34c-b6fc12a7b940}</UniqueIdentifier>
     </Filter>
@@ -49,9 +46,6 @@
     </None>
     <None Include="Startup_Exe.inl" />
     <None Include="packages.config" />
-    <None Include="ExportMSVCRT\ARM\libcmt.lib.lst">
-      <Filter>ExportMSVCRT\ARM</Filter>
-    </None>
     <None Include="ExportMSVCRT\ARM64\libcmt.lib.lst">
       <Filter>ExportMSVCRT\ARM64</Filter>
     </None>
