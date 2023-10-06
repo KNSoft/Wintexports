@@ -46,7 +46,7 @@ NTSTATUS
 NTAPI
 LdrGetDllHandle(
     _In_opt_ PWSTR DllPath,
-    _In_ PULONG DllCharacteristics,
+    _In_opt_ PULONG DllCharacteristics,
     _In_ PUNICODE_STRING DllName,
     _Out_ PVOID* DllHandle);
 
@@ -69,10 +69,10 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 LdrGetProcedureAddress(
-    IN PVOID BaseAddress,
-    IN PANSI_STRING Name,
-    IN ULONG Ordinal,
-    OUT PVOID* ProcedureAddress);
+    _In_ PVOID BaseAddress,
+    _In_opt_ _When_(Ordinal == 0, _Notnull_) PANSI_STRING Name,
+    _In_opt_ _When_(Name == NULL, _In_range_(>, 0)) ULONG Ordinal,
+    _Out_ PVOID *ProcedureAddress);
 
 #pragma endregion Ldr*
 
