@@ -40,7 +40,17 @@ NTSTATUS
 NTAPI
 LdrFindEntryForAddress(
     _In_ PVOID Address,
-    _Out_ PLDR_DATA_TABLE_ENTRY *Module);
+    _Out_ PLDR_DATA_TABLE_ENTRY* Module);
+
+typedef VOID(NTAPI LDR_ENUM_CALLBACK)(_In_ PLDR_DATA_TABLE_ENTRY ModuleInformation, _In_opt_ PVOID Context, _Out_ BOOLEAN* Stop);
+typedef LDR_ENUM_CALLBACK *PLDR_ENUM_CALLBACK;
+
+NTSTATUS
+NTAPI
+LdrEnumerateLoadedModules(
+    _Reserved_ ULONG ReservedFlag,
+    _In_ PLDR_ENUM_CALLBACK EnumProc,
+    _In_opt_ PVOID Context);
 
 NTSTATUS
 NTAPI
@@ -72,7 +82,7 @@ LdrGetProcedureAddress(
     _In_ PVOID BaseAddress,
     _In_opt_ _When_(Ordinal == 0, _Notnull_) PANSI_STRING Name,
     _In_opt_ _When_(Name == NULL, _In_range_(>, 0)) ULONG Ordinal,
-    _Out_ PVOID *ProcedureAddress);
+    _Out_ PVOID* ProcedureAddress);
 
 #pragma endregion Ldr*
 
@@ -84,16 +94,16 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 RtlCreateUserThread(
-    HANDLE                  hProcess,
-    PSECURITY_DESCRIPTOR    ThreadSecurityDescriptor,
-    BOOLEAN                 CreateSuspended,
-    ULONG                   ZeroBits,
-    SIZE_T                  MaximumStackSize,
-    SIZE_T                  CommittedStackSize,
-    LPTHREAD_START_ROUTINE  StartAddress,
-    PVOID                   Parameter,
-    PHANDLE                 hThread,
-    PCLIENT_ID              ClientId);
+    _In_ HANDLE hProcess,
+    _In_opt_ PSECURITY_DESCRIPTOR ThreadSecurityDescriptor,
+    _In_ BOOLEAN CreateSuspended,
+    _In_opt_ ULONG ZeroBits,
+    _In_opt_ SIZE_T MaximumStackSize,
+    _In_opt_ SIZE_T CommittedStackSize,
+    _In_ LPTHREAD_START_ROUTINE StartAddress,
+    _In_opt_ PVOID Parameter,
+    _Out_ PHANDLE hThread,
+    _Out_opt_ PCLIENT_ID ClientId);
 
 NTSYSAPI
 VOID
@@ -169,8 +179,7 @@ NTSYSAPI
 VOID
 NTAPI
 RtlReleaseSRWLockShared(
-    _Inout_ PRTL_SRWLOCK SRWLock
-);
+    _Inout_ PRTL_SRWLOCK SRWLock);
 
 NTSYSAPI
 BOOLEAN
@@ -242,8 +251,8 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 RtlWow64EnableFsRedirectionEx(
-    IN PVOID Wow64FsEnableRedirection,
-    OUT PVOID* OldFsRedirectionLevel);
+    _In_ PVOID Wow64FsEnableRedirection,
+    _Out_ PVOID* OldFsRedirectionLevel);
 
 NTSYSAPI
 NTSTATUS
@@ -335,7 +344,7 @@ NTAPI
 NtQueryInformationThread(
     _In_ HANDLE ThreadHandle,
     _In_ THREADINFOCLASS ThreadInformationClass,
-    _Out_ PVOID ThreadInformation,
+    _Out_writes_bytes_to_(ThreadInformationLength, *ResultLength) PVOID ThreadInformation,
     _In_ ULONG ThreadInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -345,7 +354,7 @@ NTAPI
 NtQueryInformationProcess(
     _In_ HANDLE ProcessHandle,
     _In_ PROCESSINFOCLASS ProcessInformationClass,
-    _Out_ PVOID ProcessInformation,
+    _Out_writes_bytes_to_(ProcessInformationLength, *ResultLength) PVOID ProcessInformation,
     _In_ ULONG ProcessInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -361,15 +370,15 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtGetContextThread(
-    IN HANDLE ThreadHandle,
-    IN OUT PCONTEXT ThreadContext);
+    _In_ HANDLE ThreadHandle,
+    _Inout_ PCONTEXT ThreadContext);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtSetContextThread(
-    IN HANDLE ThreadHandle,
-    IN PCONTEXT ThreadContext);
+    _In_ HANDLE ThreadHandle,
+    _In_ PCONTEXT ThreadContext);
 
 NTSYSAPI
 NTSTATUS
@@ -386,7 +395,7 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtQueryAttributesFile(
-    _In_  POBJECT_ATTRIBUTES      ObjectAttributes,
+    _In_ POBJECT_ATTRIBUTES      ObjectAttributes,
     _Out_ PFILE_BASIC_INFORMATION FileInformation);
 
 NTSYSAPI
@@ -472,9 +481,9 @@ NtCreateKey(
     _Out_opt_ PULONG Disposition);
 
 _When_(Length == 0, _Post_satisfies_(return < 0))
-    _When_(Length > 0, _Post_satisfies_(return <= 0))
-    _Success_(return == STATUS_SUCCESS)
-    _On_failure_(_When_(return == STATUS_BUFFER_OVERFLOW || return == STATUS_BUFFER_TOO_SMALL, _Post_satisfies_(*ResultLength > Length)))
+_When_(Length > 0, _Post_satisfies_(return <= 0))
+_Success_(return == STATUS_SUCCESS)
+_On_failure_(_When_(return == STATUS_BUFFER_OVERFLOW || return == STATUS_BUFFER_TOO_SMALL, _Post_satisfies_(*ResultLength > Length)))
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -482,7 +491,7 @@ NtQueryValueKey(
     _In_ HANDLE KeyHandle,
     _In_ PUNICODE_STRING ValueName,
     _In_ KEY_VALUE_INFORMATION_CLASS KeyValueInformationClass,
-    _Out_writes_bytes_to_opt_(Length, *ResultLength) PVOID KeyValueInformation,
+    _Out_writes_bytes_to_(Length, *ResultLength) PVOID KeyValueInformation,
     _In_ ULONG Length,
     _Out_ PULONG ResultLength);
 
@@ -494,7 +503,7 @@ NtSetValueKey(
     _In_ PUNICODE_STRING ValueName,
     _In_opt_ ULONG TitleIndex,
     _In_ ULONG Type,
-    _In_reads_bytes_opt_(DataSize) PVOID Data,
+    _In_reads_bytes_(DataSize) PVOID Data,
     _In_ ULONG DataSize);
 
 NTSYSAPI
@@ -547,7 +556,7 @@ NTSTATUS
 NTAPI
 NtQuerySystemInformation(
     _In_ SYSTEM_INFORMATION_CLASS SystemInformationClass,
-    _Out_ PVOID SystemInformation,
+    _Out_writes_bytes_to_(SystemInformationLength, *ResultLength) PVOID SystemInformation,
     _In_ ULONG SystemInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -555,25 +564,25 @@ NTSYSAPI
 NTSTATUS
 NTAPI
 NtQueryPerformanceCounter(
-  _Out_     PLARGE_INTEGER PerformanceCounter,
-  _Out_opt_ PLARGE_INTEGER PerformanceFrequency);
+    _Out_ PLARGE_INTEGER PerformanceCounter,
+    _Out_opt_ PLARGE_INTEGER PerformanceFrequency);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtQueryInformationAtom(
-    RTL_ATOM Atom,
-    ATOM_INFORMATION_CLASS AtomInformationClass,
-    PVOID AtomInformation,
-    ULONG AtomInformationLength,
-    PULONG ReturnLength);
+    _In_ RTL_ATOM Atom,
+    _In_ ATOM_INFORMATION_CLASS AtomInformationClass,
+    _Out_writes_bytes_to_(AtomInformationLength, *ResultLength) PVOID AtomInformation,
+    _In_ ULONG AtomInformationLength,
+    _Out_opt_ PULONG ReturnLength);
 
 NTSYSAPI
 NTSTATUS
 NTAPI
 NtDelayExecution(
-    IN BOOLEAN Alertable,
-    IN PLARGE_INTEGER DelayInterval);
+    _In_ BOOLEAN Alertable,
+    _In_ PLARGE_INTEGER DelayInterval);
 
 NTSYSAPI
 NTSTATUS
