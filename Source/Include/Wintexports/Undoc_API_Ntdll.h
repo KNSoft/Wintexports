@@ -111,6 +111,11 @@ NTAPI
 RtlExitUserThread(
     _In_ NTSTATUS ExitStatus);
 
+NTSYSAPI
+VOID
+NTAPI
+RtlSetUnhandledExceptionFilter(
+    _In_opt_ PRTLP_UNHANDLED_EXCEPTION_FILTER TopLevelExceptionFilter);
 
 NTSYSAPI
 VOID
