@@ -111,6 +111,12 @@ NTAPI
 RtlExitUserThread(
     _In_ NTSTATUS ExitStatus);
 
+typedef ULONG
+(NTAPI *RTLP_UNHANDLED_EXCEPTION_FILTER)(
+    _In_ PEXCEPTION_POINTERS ExceptionInfo
+);
+typedef RTLP_UNHANDLED_EXCEPTION_FILTER *PRTLP_UNHANDLED_EXCEPTION_FILTER;
+
 NTSYSAPI
 VOID
 NTAPI
@@ -218,13 +224,27 @@ RtlDosPathNameToNtPathName_U_WithStatus(
     _In_opt_z_ LPCWSTR 	            DosName,
     _Out_ PUNICODE_STRING 	        NtName,
     _Out_opt_ LPCWSTR* 	            PartName,
-    _Out_opt_ PRTL_RELATIVE_NAME_U  RelativeName
-);
+    _Out_opt_ PRTL_RELATIVE_NAME_U  RelativeName);
 
 NTSYSAPI
 VOID
 NTAPI
-RtlReleaseRelativeName(_In_ PRTL_RELATIVE_NAME_U RelativeName);
+RtlReleaseRelativeName(
+    _In_ PRTL_RELATIVE_NAME_U RelativeName);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlSetCurrentDirectory_U(
+    _In_ PUNICODE_STRING name);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+RtlSetEnvironmentVariable(
+    _In_z_ PWSTR *Environment,
+    _In_ PUNICODE_STRING Name,
+    _In_ PUNICODE_STRING Value);
 
 #pragma endregion
 
