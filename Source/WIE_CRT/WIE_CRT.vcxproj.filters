@@ -30,6 +30,7 @@
     <ClCompile Include="RTC.cpp" />
     <ClCompile Include="Except.c" />
     <ClCompile Include="Startup_DllMain_Stub.c" />
+    <ClCompile Include="Operator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Startup.h" />

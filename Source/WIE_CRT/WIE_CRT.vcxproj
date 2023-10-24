@@ -134,6 +134,7 @@
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp" />
     <ClCompile Include="Except.c" />
     <ClCompile Include="GS.c" />
+    <ClCompile Include="Operator.cpp" />
     <ClCompile Include="RTC.cpp" />
     <ClCompile Include="Startup_DllMain.c" />
     <ClCompile Include="Startup_DllMain_Stub.c" />
