@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Main.c" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Demo\Test_Operator.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Demo_FindFile.c">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UserMode">
@@ -18,6 +24,9 @@
     </Filter>
     <Filter Include="Lib">
       <UniqueIdentifier>{eda32232-0bbd-4ab6-87d3-b892c3e0b0f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{b203ae21-b6b4-4b6a-b256-2a1da8b03981}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +103,9 @@
       <Filter>UserMode</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Wintexports\Wintexports.h" />
+    <ClInclude Include="Demo\Demo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Precomp4C_MakeLib Include="Lib\Ntdll_Hash.xml">

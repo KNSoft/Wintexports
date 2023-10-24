@@ -1,15 +1,4 @@
-﻿#include <Wintexports/Wintexports.h>
-
-#pragma comment(lib, "WIE_WinAPI.lib")
-
-#pragma comment(lib, "ntdll.lib")
-
-#if defined(_VC_NODEFAULTLIB)
-#pragma comment(lib, "WIE_CRT.lib")
-#endif
-
-#define _NO_CRT_STDIO_INLINE
-#include <stdio.h>
+﻿#include "Demo.h"
 
 _Success_(return != FALSE)
 BOOL NTAPI NT_InitializePathObjectEx(
@@ -67,6 +56,8 @@ typedef struct _FILE_FIND
     ULONG Length;
 } FILE_FIND, *PFILE_FIND;
 
+#define FILE_FIND_BUFFER_SIZE 0x1000
+
 BOOL File_FindInitialize(
     _Out_ PFILE_FIND FindData,
     _In_z_ PCWSTR Path,
@@ -101,7 +92,7 @@ BOOL File_FindInitialize(
         return FALSE;
     }
 
-    FindData->Buffer = VirtualAlloc(NULL, 0x100, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    FindData->Buffer = RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, FILE_FIND_BUFFER_SIZE);
     if (!FindData->Buffer)
     {
         NtClose(DirectoryHandle);
@@ -110,7 +101,7 @@ BOOL File_FindInitialize(
         return FALSE;
     }
 
-    FindData->Length = 0x100;
+    FindData->Length = FILE_FIND_BUFFER_SIZE;
     FindData->DirectoryHandle = DirectoryHandle;
     return TRUE;
 }
@@ -149,57 +140,60 @@ BOOL File_Find(_Inout_ PFILE_FIND FindData)
 
 VOID File_FindUninitialize(_In_ PFILE_FIND FindData)
 {
-    VirtualFree(FindData->Buffer, 0, MEM_RELEASE);
+    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, FindData->Buffer);
     NtClose(FindData->DirectoryHandle);
     RtlReleaseRelativeName(&FindData->RelativePath);
 }
 
-int wmain()
+BOOL Demo_FindFile()
 {
     FILE_FIND FindData;
-    BOOL b;
+    BOOL bRet;
     PFILE_FULL_DIR_INFORMATION pData;
+    UNICODE_STRING FileName;
 
-    float f = 2.225;
-    unsigned int i;
-    i = (int)f + 0.5;
-
-
-    b = File_FindInitialize(&FindData, L"..\\x64", NULL, FileFullDirectoryInformation);
-
-    if (!b)
+    /* Initialize the enumeration */
+    bRet = File_FindInitialize(&FindData, L".", NULL, FileFullDirectoryInformation);
+    if (!bRet)
     {
-        return 1;
+        DbgPrint("File_FindInitialize failed with 0x%08lX\n", WIE_GetLastStatus());
+        return FALSE;
     }
 
-    do
+    /* Enumerate files */
+    while (TRUE)
     {
-        b = File_Find(&FindData);
-        if (!b || (b && !FindData.HasData))
+        /* Break if an error occurred or no more data */
+        bRet = File_Find(&FindData);
+        if (!bRet || (bRet && !FindData.HasData))
         {
             break;
         }
 
-        pData = FindData.Buffer;
-        do
+        /* Read data from the return buffer */
+        pData = (PFILE_FULL_DIR_INFORMATION)FindData.Buffer;
+        while (TRUE)
         {
-            WCHAR szFileName[MAX_PATH];
-            RtlCopyMemory(szFileName, pData->FileName, pData->FileNameLength);
-            szFileName[pData->FileNameLength / sizeof(WCHAR)] = UNICODE_NULL;
-            
-            DbgPrint("%ws", szFileName);
+            /* Print file name */
+            FileName.Buffer = pData->FileName;
+            FileName.MaximumLength = FileName.Length = (USHORT)pData->FileNameLength;
+            DbgPrint("Found file: %wZ\n", &FileName);
 
+            /* Go to the next entry */
             if (!pData->NextEntryOffset)
             {
                 break;
             }
+            pData = (PFILE_FULL_DIR_INFORMATION)Add2Ptr(pData, pData->NextEntryOffset);
+        };
+    };
+    if (!bRet)
+    {
+        DbgPrint("File_Find failed with 0x%08lX\n", WIE_GetLastStatus());
+    }
 
-            pData = Add2Ptr(pData, pData->NextEntryOffset);
-        } while (TRUE);
-
-    } while (TRUE);
-
+    /* Release resources used by the enumeration */
     File_FindUninitialize(&FindData);
 
-    return 0;
+    return bRet;
 }
