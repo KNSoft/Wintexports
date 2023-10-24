@@ -234,6 +234,30 @@ typedef enum _SYSTEM_INFORMATION_CLASS
     MaxSystemInfoClass = 228
 } SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;
 
+typedef struct _SYSTEM_BASIC_INFORMATION
+{
+    ULONG Reserved;
+    ULONG TimerResolution;
+    ULONG PageSize;
+    ULONG NumberOfPhysicalPages;
+    ULONG LowestPhysicalPageNumber;
+    ULONG HighestPhysicalPageNumber;
+    ULONG AllocationGranularity;
+    ULONG_PTR MinimumUserModeAddress;
+    ULONG_PTR MaximumUserModeAddress;
+    ULONG_PTR ActiveProcessorsAffinityMask;
+    CHAR NumberOfProcessors;
+} SYSTEM_BASIC_INFORMATION, *PSYSTEM_BASIC_INFORMATION;
+
+typedef struct _SYSTEM_PROCESSOR_INFORMATION
+{
+    USHORT ProcessorArchitecture;
+    USHORT ProcessorLevel;
+    USHORT ProcessorRevision;
+    USHORT MaximumProcessors; // >= NT6.2
+    ULONG ProcessorFeatureBits;
+} SYSTEM_PROCESSOR_INFORMATION, *PSYSTEM_PROCESSOR_INFORMATION;
+
 typedef struct _SYSTEM_MODULE_ENTRY
 {
     ULONG_PTR  Unused;
