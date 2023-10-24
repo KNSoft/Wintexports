@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "WIE_Windows.h"
-#include "WIE_WinSta.h"
+#include "MS_WinSta.h"
 
 EXTERN_C_START
 
