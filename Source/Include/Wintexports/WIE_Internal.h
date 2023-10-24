@@ -626,6 +626,7 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS
     PULONGLONG DefaultThreadpoolCpuSetMasks;
     ULONG DefaultThreadpoolCpuSetMaskCount;
     ULONG DefaultThreadpoolThreadMaximum;
+    ULONG HeapMemoryTypeMask;
 } RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
 
 typedef struct _RTL_USER_PROCESS_PARAMETERS64
@@ -668,6 +669,7 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS64
     ULONGLONG* POINTER_64 DefaultThreadpoolCpuSetMasks;
     ULONG DefaultThreadpoolCpuSetMaskCount;
     ULONG DefaultThreadpoolThreadMaximum;
+    ULONG HeapMemoryTypeMask;
 } RTL_USER_PROCESS_PARAMETERS64, *PRTL_USER_PROCESS_PARAMETERS64;
 
 typedef struct _RTL_USER_PROCESS_PARAMETERS32
@@ -710,6 +712,7 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS32
     ULONGLONG* POINTER_32 DefaultThreadpoolCpuSetMasks;
     ULONG DefaultThreadpoolCpuSetMaskCount;
     ULONG DefaultThreadpoolThreadMaximum;
+    ULONG HeapMemoryTypeMask;
 } RTL_USER_PROCESS_PARAMETERS32, *PRTL_USER_PROCESS_PARAMETERS32;
 
 #pragma endregion RTL_USER_PROCESS_PARAMETERS[64/32]
