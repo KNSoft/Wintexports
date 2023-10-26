@@ -16,13 +16,14 @@ int WINAPI wWinMain(
     _In_     LPWSTR    lpCmdLine,
     _In_     int       nShowCmd)
 {
-    BOOL bRet;
+    BOOL bRet = TRUE;
 
     /* Run tests */
-    bRet = Test_new_delete();
+    bRet &= Test_new_delete();
 
     /* Run demos */
-    bRet = Demo_FindFile();
+    bRet &= Demo_FindFile();
+    bRet &= Demo_QueryStorageProperty();
 
     return bRet ? 0 : 1;
 }

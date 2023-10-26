@@ -9,5 +9,6 @@ BOOL Test_new_delete();
 
 /* Demos */
 BOOL Demo_FindFile();
+BOOL Demo_QueryStorageProperty();
 
 EXTERN_C_END

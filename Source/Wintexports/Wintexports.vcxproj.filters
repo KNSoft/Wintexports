@@ -8,6 +8,9 @@
     <ClCompile Include="Demo\Demo_FindFile.c">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="Demo\Demo_QueryStorageProperty.c">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UserMode">
