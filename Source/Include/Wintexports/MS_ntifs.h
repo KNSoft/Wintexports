@@ -592,7 +592,22 @@ NtDuplicateToken(
 
 #pragma endregion Token
 
-#pragma region Uncategorized
+#pragma region Object
+
+#if (NTDDI_VERSION >= NTDDI_WIN4)
+//@[comment("MVI_tracked")]
+_IRQL_requires_max_(PASSIVE_LEVEL)
+__kernel_entry NTSYSCALLAPI
+NTSTATUS
+NTAPI
+NtQueryObject(
+    _In_opt_ HANDLE Handle,
+    _In_ OBJECT_INFORMATION_CLASS ObjectInformationClass,
+    _Out_writes_bytes_opt_(ObjectInformationLength) PVOID ObjectInformation,
+    _In_ ULONG ObjectInformationLength,
+    _Out_opt_ PULONG ReturnLength
+);
+#endif
 
 #if (NTDDI_VERSION >= NTDDI_WIN2K)
 //@[comment("MVI_tracked")]
@@ -605,7 +620,7 @@ NtClose(
 );
 #endif // NTDDI_VERSION >= NTDDI_WIN2K
 
-#pragma endregion Uncategorized
+#pragma endregion Object
 
 #pragma endregion Nt*
 
