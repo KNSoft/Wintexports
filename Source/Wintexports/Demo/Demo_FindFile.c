@@ -150,6 +150,7 @@ BOOL Demo_FindFile()
     FILE_FIND FindData;
     BOOL bRet;
     PFILE_FULL_DIR_INFORMATION pData;
+    UNICODE_STRING FileName;
 
     /* Initialize the enumeration */
     bRet = File_FindInitialize(&FindData, L".", NULL, FileFullDirectoryInformation);
@@ -174,10 +175,9 @@ BOOL Demo_FindFile()
         while (TRUE)
         {
             /* Print file name */
-            WCHAR szFileName[MAX_PATH];
-            RtlCopyMemory(szFileName, pData->FileName, pData->FileNameLength);
-            szFileName[pData->FileNameLength / sizeof(WCHAR)] = UNICODE_NULL;
-            DbgPrint("Found file: %ws\n", szFileName);
+            FileName.Buffer = pData->FileName;
+            FileName.MaximumLength = FileName.Length = pData->FileNameLength;
+            DbgPrint("Found file: %wZ\n", &FileName);
 
             /* Go to the next entry */
             if (!pData->NextEntryOffset)
