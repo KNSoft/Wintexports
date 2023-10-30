@@ -81,7 +81,7 @@ NTAPI
 LdrGetProcedureAddress(
     _In_ PVOID BaseAddress,
     _In_opt_ _When_(Ordinal == 0, _Notnull_) PANSI_STRING Name,
-    _In_opt_ _When_(Name == NULL, _In_range_(>, 0)) ULONG Ordinal,
+    _In_opt_ _When_(Name == NULL, _In_range_(> , 0)) ULONG Ordinal,
     _Out_ PVOID* ProcedureAddress);
 
 #pragma endregion Ldr*
@@ -288,6 +288,12 @@ RtlGetUserPreferredUILanguages(
     _Out_ PULONG NumLanguages,
     _Out_writes_opt_z_(*LanguagesCchSize) PWSTR LanguagesBuffer,
     _Inout_ PULONG LanguagesCchSize);
+
+NTSYSAPI
+VOID
+NTAPI
+RtlRaiseStatus(
+    _In_ NTSTATUS Status);
 
 #pragma endregion Uncategorized
 
