@@ -186,10 +186,14 @@
 
     <Export Name="_alldiv" CallConv="__cdecl" Arch="x86" />
     <Export Name="_alldvrm" CallConv="__cdecl" Arch="x86" />
+    <Export Name="_allmul" CallConv="__cdecl" Arch="x86" />
     <Export Name="_allrem" CallConv="__cdecl" Arch="x86" />
+    <Export Name="_allshl" CallConv="__cdecl" Arch="x86" />
+    <Export Name="_allshr" CallConv="__cdecl" Arch="x86" />
     <Export Name="_aulldiv" CallConv="__cdecl" Arch="x86" />
     <Export Name="_aulldvrm" CallConv="__cdecl" Arch="x86" />
     <Export Name="_aullrem" CallConv="__cdecl" Arch="x86" />
+    <Export Name="_aullshr" CallConv="__cdecl" Arch="x86" />
 
     <Export Name="_ftol" CallConv="__cdecl" Arch="x86" />
 
