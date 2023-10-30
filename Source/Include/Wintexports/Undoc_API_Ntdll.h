@@ -102,7 +102,7 @@ RtlCreateUserThread(
     _In_opt_ SIZE_T CommittedStackSize,
     _In_ LPTHREAD_START_ROUTINE StartAddress,
     _In_opt_ PVOID Parameter,
-    _Out_ PHANDLE hThread,
+    _Out_opt_ PHANDLE hThread,
     _Out_opt_ PCLIENT_ID ClientId);
 
 NTSYSAPI
@@ -375,7 +375,7 @@ NTAPI
 NtQueryInformationThread(
     _In_ HANDLE ThreadHandle,
     _In_ THREADINFOCLASS ThreadInformationClass,
-    _Out_writes_bytes_to_(ThreadInformationLength, *ResultLength) PVOID ThreadInformation,
+    _Out_writes_bytes_to_(ThreadInformationLength, *ReturnLength) PVOID ThreadInformation,
     _In_ ULONG ThreadInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -385,7 +385,7 @@ NTAPI
 NtQueryInformationProcess(
     _In_ HANDLE ProcessHandle,
     _In_ PROCESSINFOCLASS ProcessInformationClass,
-    _Out_writes_bytes_to_(ProcessInformationLength, *ResultLength) PVOID ProcessInformation,
+    _Out_writes_bytes_to_(ProcessInformationLength, *ReturnLength) PVOID ProcessInformation,
     _In_ ULONG ProcessInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -587,7 +587,7 @@ NTSTATUS
 NTAPI
 NtQuerySystemInformation(
     _In_ SYSTEM_INFORMATION_CLASS SystemInformationClass,
-    _Out_writes_bytes_to_(SystemInformationLength, *ResultLength) PVOID SystemInformation,
+    _Out_writes_bytes_to_(SystemInformationLength, *ReturnLength) PVOID SystemInformation,
     _In_ ULONG SystemInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
@@ -604,7 +604,7 @@ NTAPI
 NtQueryInformationAtom(
     _In_ RTL_ATOM Atom,
     _In_ ATOM_INFORMATION_CLASS AtomInformationClass,
-    _Out_writes_bytes_to_(AtomInformationLength, *ResultLength) PVOID AtomInformation,
+    _Out_writes_bytes_to_(AtomInformationLength, *ReturnLength) PVOID AtomInformation,
     _In_ ULONG AtomInformationLength,
     _Out_opt_ PULONG ReturnLength);
 
