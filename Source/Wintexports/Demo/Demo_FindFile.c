@@ -176,7 +176,7 @@ BOOL Demo_FindFile()
         {
             /* Print file name */
             FileName.Buffer = pData->FileName;
-            FileName.MaximumLength = FileName.Length = pData->FileNameLength;
+            FileName.MaximumLength = FileName.Length = (USHORT)pData->FileNameLength;
             DbgPrint("Found file: %wZ\n", &FileName);
 
             /* Go to the next entry */

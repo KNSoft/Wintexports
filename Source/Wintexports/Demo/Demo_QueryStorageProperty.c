@@ -4,12 +4,11 @@
 
 HANDLE IO_OpenDevice(_In_ PUNICODE_STRING DeviceName, _In_ ACCESS_MASK DesiredAccess)
 {
-    OBJECT_ATTRIBUTES ObjectAttribute;
     NTSTATUS Status;
     HANDLE DeviceHandle;
     IO_STATUS_BLOCK IoStatusBlock;
+    OBJECT_ATTRIBUTES ObjectAttribute = RTL_CONSTANT_OBJECT_ATTRIBUTES(DeviceName, OBJ_CASE_INSENSITIVE);
 
-    InitializeObjectAttributes(&ObjectAttribute, DeviceName, OBJ_CASE_INSENSITIVE, NULL, NULL);
     Status = NtOpenFile(&DeviceHandle,
                         DesiredAccess,
                         &ObjectAttribute,
