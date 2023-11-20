@@ -8,9 +8,21 @@
     ((SharedUserData->TickCountMultiplier * (ULONGLONG)SharedUserData->TickCount.LowPart) >> 24))
 #endif
 
-#include <gs_cookie.c>
+#ifdef _WIN64
+#define DEFAULT_SECURITY_COOKIE ((uintptr_t)0x00002B992DDFA232)
+#else
+#define DEFAULT_SECURITY_COOKIE ((uintptr_t)0xBB40E64E)
+#endif
 
-void __fastcall __security_check_cookie(_In_ uintptr_t _StackCookie)
+extern uintptr_t __security_cookie_complement;
+
+void
+#if defined(_M_IX86)
+ __fastcall 
+#else
+__cdecl
+#endif
+__security_check_cookie(_In_ uintptr_t _StackCookie)
 {
     if (_StackCookie != __security_cookie)
     {

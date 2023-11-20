@@ -21,6 +21,9 @@
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp">
       <Filter>MSVCRT</Filter>
     </ClCompile>
+    <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\gs_cookie.c">
+      <Filter>MSVCRT</Filter>
+    </ClCompile>
     <ClCompile Include="Startup_DllMain.c" />
     <ClCompile Include="Startup_wmain.c" />
     <ClCompile Include="Startup_wWinMain.c" />

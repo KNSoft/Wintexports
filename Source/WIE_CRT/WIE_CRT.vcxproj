@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp" />
+    <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\gs_cookie.c" />
     <ClCompile Include="Except.c" />
     <ClCompile Include="GS.c" />
     <ClCompile Include="Operator.cpp" />
