@@ -41,62 +41,62 @@ NTSYSAPI
 VOID
 RSA32API
 A_SHAInit(
-  _Inout_ PA_SHA_CTX Context);
+    _Out_ PA_SHA_CTX Context);
 
 NTSYSAPI
 VOID
 RSA32API
 A_SHAUpdate(
-  _Inout_ PA_SHA_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
+    _Inout_ PA_SHA_CTX Context,
+    _In_reads_(BufferSize) PUCHAR Buffer,
+    ULONG BufferSize);
 
 NTSYSAPI
 VOID
 RSA32API
 A_SHAFinal(
-  _Inout_ PA_SHA_CTX Context,
-  _Out_ PUCHAR Result
+    _Inout_ PA_SHA_CTX Context,
+    _Out_ PUCHAR Result
 );
 
 NTSYSAPI
 VOID
 RSA32API
 MD5Init(
-  _Inout_ PMD5_CTX Context);
+    _Out_ PMD5_CTX Context);
 
 NTSYSAPI
 VOID
 RSA32API
 MD5Update(
-  _Inout_ PMD5_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
+    _Inout_ PMD5_CTX Context,
+    _In_reads_(BufferSize) PUCHAR Buffer,
+    ULONG BufferSize);
 
 NTSYSAPI
 VOID
 RSA32API
 MD5Final(
-  _Inout_ PMD5_CTX Context);
+    _Inout_ PMD5_CTX Context);
 
 NTSYSAPI
 VOID
 RSA32API
 MD4Init(
-  _Inout_ PMD4_CTX Context);
+    _Out_ PMD4_CTX Context);
 
 NTSYSAPI
 VOID
 RSA32API
 MD4Update(
-  _Inout_ PMD4_CTX Context,
-  _In_reads_(BufferSize) PUCHAR Buffer,
-  ULONG BufferSize);
+    _Inout_ PMD4_CTX Context,
+    _In_reads_(BufferSize) PUCHAR Buffer,
+    ULONG BufferSize);
 
 NTSYSAPI
 VOID
 RSA32API
 MD4Final(
-  _Inout_ PMD4_CTX Context);
+    _Inout_ PMD4_CTX Context);
 
 EXTERN_C_END
