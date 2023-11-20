@@ -8,9 +8,13 @@
 #define NOMCX
 #define NOIME
 
-/* Use ntstatus.h instead */
+/* Default configurations */
 #define WIN32_NO_STATUS
+#define OEMRESOURCE
+
 #include <Windows.h>
+
+/* Use ntstatus.h instead */
 #undef WIN32_NO_STATUS
 #include <ntstatus.h>
 
