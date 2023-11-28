@@ -295,6 +295,18 @@ NTAPI
 RtlRaiseStatus(
     _In_ NTSTATUS Status);
 
+NTSYSAPI
+_Must_inspect_result_
+_Ret_maybenull_
+_Post_writable_byte_size_(Size)
+PVOID
+NTAPI
+RtlReAllocateHeap(
+    _In_ PVOID HeapHandle,
+    _In_opt_ ULONG Flags,
+    _Frees_ptr_opt_ PVOID BaseAddress,
+    _In_ SIZE_T Size);
+
 #pragma endregion Uncategorized
 
 #pragma endregion Rtl*
