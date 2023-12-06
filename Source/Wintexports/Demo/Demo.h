@@ -6,6 +6,7 @@ EXTERN_C_START
 
 /* Tests */
 BOOL Test_new_delete();
+BOOL Test_Memory_Allocate();
 
 /* Demos */
 BOOL Demo_FindFile();

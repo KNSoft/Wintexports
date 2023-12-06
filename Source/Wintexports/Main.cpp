@@ -21,6 +21,7 @@ int WINAPI wWinMain(
 
     /* Run tests */
     bRet &= Test_new_delete();
+    bRet &= Test_Memory_Allocate();
 
     /* Run demos */
     bRet &= Demo_FindFile();

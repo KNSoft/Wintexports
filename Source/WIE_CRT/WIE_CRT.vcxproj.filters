@@ -16,6 +16,12 @@
     <Filter Include="ExportMSVCRT\ARM64">
       <UniqueIdentifier>{d55513c3-994a-4a18-a34c-b6fc12a7b940}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Startup">
+      <UniqueIdentifier>{2d0d8e1d-c22a-4fb5-b4e5-96701f34cdbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{665bdd85-4e10-47a7-9610-7b9905b34141}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\fltused.cpp">
@@ -24,19 +30,33 @@
     <ClCompile Include="$(VCToolsInstallDir)crt\src\vcruntime\gs_cookie.c">
       <Filter>MSVCRT</Filter>
     </ClCompile>
-    <ClCompile Include="Startup_DllMain.c" />
-    <ClCompile Include="Startup_wmain.c" />
-    <ClCompile Include="Startup_wWinMain.c" />
-    <ClCompile Include="Startup_ExeMain.c" />
-    <ClCompile Include="Startup_Init.c" />
     <ClCompile Include="GS.c" />
     <ClCompile Include="RTC.cpp" />
     <ClCompile Include="Except.c" />
-    <ClCompile Include="Startup_DllMain_Stub.c" />
-    <ClCompile Include="Operator.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Startup.h" />
+    <ClCompile Include="Startup\Startup_DllMain.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_DllMain_Stub.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_ExeMain.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_Init.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_wmain.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_wWinMain.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Operator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Allocate.c">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ExportMSVCRT\x64\libcmt.lib.lst">
@@ -48,15 +68,25 @@
     <None Include="ExportMSVCRT\x86\msvcrt.lib.lst">
       <Filter>ExportMSVCRT\x86</Filter>
     </None>
-    <None Include="Startup_Exe.inl" />
     <None Include="packages.config" />
     <None Include="ExportMSVCRT\ARM64\libcmt.lib.lst">
       <Filter>ExportMSVCRT\ARM64</Filter>
+    </None>
+    <None Include="Startup\Startup_Exe.inl">
+      <Filter>Startup</Filter>
+    </None>
+    <None Include="Memory\Memory.inl">
+      <Filter>Memory</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Precomp4C_MakeLib Include="Ntdll_CRT.xml">
       <Filter>MSVCRT</Filter>
     </Precomp4C_MakeLib>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Startup\Startup.h">
+      <Filter>Startup</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

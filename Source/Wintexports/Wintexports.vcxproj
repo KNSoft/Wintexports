@@ -208,7 +208,7 @@
   <ItemGroup>
     <ClCompile Include="Demo\Demo_FindFile.c" />
     <ClCompile Include="Demo\Demo_QueryStorageProperty.c" />
-    <ClCompile Include="Demo\Test_Operator.cpp" />
+    <ClCompile Include="Demo\Test_MemAlloc.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -307,6 +307,14 @@ RtlReAllocateHeap(
     _Frees_ptr_opt_ PVOID BaseAddress,
     _In_ SIZE_T Size);
 
+NTSYSAPI
+SIZE_T
+NTAPI
+RtlSizeHeap(
+    _In_ PVOID HeapHandle,
+    _In_opt_ ULONG Flags,
+    _In_ PVOID BaseAddress);
+
 #pragma endregion Uncategorized
 
 #pragma endregion Rtl*

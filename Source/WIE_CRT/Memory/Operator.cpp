@@ -1,8 +1,8 @@
 ﻿#include <Wintexports/Wintexports.h>
 
-#pragma region new / delete
-
 #include <vcruntime_new.h>
+
+#include "Memory.inl"
 
 /*
  * This implementation like old MSVC which returned a null pointer on an allocation failure,
@@ -26,7 +26,7 @@ _Post_writable_byte_size_(_Size)
 _VCRT_ALLOCATOR
 void* __CRTDECL operator new(size_t _Size)
 {
-    return RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, _Size);
+    return HeapMemAllocate(_Size, 0);
 }
 
 _NODISCARD
@@ -35,7 +35,7 @@ _Post_writable_byte_size_(_Size)
 _VCRT_ALLOCATOR
 void* __CRTDECL operator new[](size_t _Size)
 {
-    return RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, _Size);
+    return HeapMemAllocate(_Size, 0);
 }
 
 #pragma warning(pop)
@@ -47,7 +47,7 @@ _Post_writable_byte_size_(_Size)
 _VCRT_ALLOCATOR
 void* __CRTDECL operator new(size_t _Size, ::std::nothrow_t const&) noexcept
 {
-    return RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, _Size);
+    return HeapMemAllocate(_Size, 0);
 }
 
 _NODISCARD
@@ -57,37 +57,35 @@ _Post_writable_byte_size_(_Size)
 _VCRT_ALLOCATOR
 void* __CRTDECL operator new[](size_t _Size, ::std::nothrow_t const&) noexcept
 {
-    return RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, _Size);
+    return HeapMemAllocate(_Size, 0);
 }
 
 void __CRTDECL operator delete(void* _Block) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
 
 void __CRTDECL operator delete(void* _Block, ::std::nothrow_t const&) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
 
 void __CRTDECL operator delete[](void* _Block) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
 
 void __CRTDECL operator delete[](void* _Block, ::std::nothrow_t const&) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
 
 void __CRTDECL operator delete(void* _Block, size_t _Size) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
 
 void __CRTDECL operator delete[](void* _Block, size_t _Size) noexcept
 {
-    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, _Block);
+    HeapMemFree(_Block);
 }
-
-#pragma endregion new / delete
