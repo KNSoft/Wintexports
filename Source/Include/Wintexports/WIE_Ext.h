@@ -51,6 +51,8 @@ typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 #define VS_PLATFORMTARGET "x86"
 #elif defined(_M_X64)
 #define VS_PLATFORMTARGET "x64"
+#elif defined(_M_ARM64)
+#define VS_PLATFORMTARGET "ARM64"
 #endif
 
 #if defined(_DEBUG)
@@ -147,6 +149,18 @@ typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 #define CURRENT_PROCESS_HEAP (NtCurrentPeb()->ProcessHeap)
 
 #pragma endregion Current runtime information
+
+#pragma region Size in bytes
+
+#define KB_TO_BYTES(x) ((x) * 1024)
+#define MB_TO_KB(x) ((x) * 1024)
+#define MB_TO_BYTES(x) (KB_TO_BYTES(MB_TO_KB(x)))
+#define GB_TO_MB(x) ((x) * 1024)
+#define GB_TO_BYTES(x) (MB_TO_BYTES(GB_TO_MB(x)))
+#define TB_TO_GB(x) ((x) * 1024)
+#define TB_TO_BYTES(x) (GB_TO_BYTES(TB_TO_GB(x)))
+
+#pragma endregion Size in bytes
 
 #pragma region Limitations
 
