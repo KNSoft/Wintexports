@@ -1,27 +1,8 @@
 ﻿#pragma once
 
-#include "WIE_Internal.h"
-
-EXTERN_C_START
-
-#pragma region Predefined stuff
-extern IMAGE_DOS_HEADER __ImageBase;
-#pragma endregion Predefined stuff
-
-#pragma region WinSDK
-
-#define DECLSPEC_EXPORT __declspec(dllexport)
-typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
-
-#if _WIN64
-#define IS_WIN64 TRUE
-#else
-#define IS_WIN64 FALSE
-#endif
-
-// Makes a DWORD value by LOWORD and HIWORD
-#define MAKEDWORD(l, h) ((DWORD)MAKELONG(l, h))
-#define MAKEQWORD(l, h) ((QWORD)(((DWORD)(((DWORD_PTR)(l)) & 0xffffffff)) | ((QWORD)((DWORD)(((DWORD_PTR)(h)) & 0xffffffff))) << 32))
+#include "WIE_Ext_CPU.h"
+#include "WIE_Ext_MSToolChain.h"
+#include "WIE_Ext_NT.h"
 
 // Clear high 32-bit of HWND
 #if _WIN64
@@ -42,113 +23,6 @@ typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 
 // Gets is the value is within the valid range of an atom
 #define IS_ATOM(val) (((ULONG_PTR)(val) & 0xFFFF) > 0 && ((ULONG_PTR)(val) & 0xFFFF) < MAXINTATOM)
-
-#pragma endregion WinSDK
-
-#pragma region VS Macros
-
-#if defined(_M_IX86)
-#define VS_PLATFORMTARGET "x86"
-#elif defined(_M_X64)
-#define VS_PLATFORMTARGET "x64"
-#elif defined(_M_ARM64)
-#define VS_PLATFORMTARGET "ARM64"
-#endif
-
-#if defined(_DEBUG)
-#define VS_CONFIGURATION "Debug"
-#define VS_IS_DEBUG TRUE
-#else
-#define VS_CONFIGURATION "Release"
-#define VS_IS_DEBUG FALSE
-#endif
-
-#define LIB_PATH_WITH_CONFIG(LibName) VS_PLATFORMTARGET"\\"VS_CONFIGURATION"\\"LibName
-
-#pragma endregion VS Macros
-
-#pragma region Pseudo Handles
-
-#define CURRENT_PROCESS_HANDLE                  NtCurrentProcess()
-#define CURRENT_THREAD_HANDLE                   NtCurrentThread()
-#define CURRENT_SESSION_HANDLE                  NtCurrentSession()
-#define CURRENT_PROCESS_TOKEN_HANDLE            GetCurrentProcessToken()
-#define CURRENT_THREAD_TOKEN_HANDLE             GetCurrentThreadToken()
-#define CURRENT_THREAD_EFFECTIVETOKEN_HANDLE    GetCurrentThreadEffectiveToken()
-
-#pragma endregion Pseudo Handles
-
-#pragma region TEB/PEB
-
-#if defined(_M_X64)
-#define WIE_ReadTEB(m) (\
-    RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD64) ? __readgsqword(UFIELD_OFFSET(TEB, m)) : (\
-        RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD) ? __readgsdword(UFIELD_OFFSET(TEB, m)) : (\
-            RTL_FIELD_SIZE(TEB, m) == sizeof(WORD) ? __readgsword(UFIELD_OFFSET(TEB, m)) : \
-                __readgsbyte(UFIELD_OFFSET(TEB, m))\
-        )\
-    )\
-)
-#define WIE_WriteTEB(m, val) (\
-    RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD64) ? __writegsqword(UFIELD_OFFSET(TEB, m), (DWORD64)(val)) : (\
-        RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD) ? __writegsdword(UFIELD_OFFSET(TEB, m), (DWORD)(val)) : (\
-            RTL_FIELD_SIZE(TEB, m) == sizeof(WORD) ? __writegsword(UFIELD_OFFSET(TEB, m), (WORD)(val)) : \
-                __writegsbyte(UFIELD_OFFSET(TEB, m), (BYTE)(val))\
-        )\
-    )\
-)
-#elif defined(_M_IX86)
-#define WIE_ReadTEB(m) (\
-    RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD) ? __readfsdword(UFIELD_OFFSET(TEB, m)) : (\
-        RTL_FIELD_SIZE(TEB, m) == sizeof(WORD) ? __readfsword(UFIELD_OFFSET(TEB, m)) : \
-            __readfsbyte(UFIELD_OFFSET(TEB, m))\
-    )\
-)
-#define WIE_WriteTEB(m, val) (\
-    RTL_FIELD_SIZE(TEB, m) == sizeof(DWORD) ? __writefsdword(UFIELD_OFFSET(TEB, m), (DWORD)(val)) : (\
-        RTL_FIELD_SIZE(TEB, m) == sizeof(WORD) ? __writefsword(UFIELD_OFFSET(TEB, m), (WORD)(val)) : \
-            __writefsbyte(UFIELD_OFFSET(TEB, m), (BYTE)(val))\
-    )\
-)
-#else
-#define WIE_ReadTEB(m) (NtCurrentTeb()->m)
-#define WIE_WriteTEB(m, val) (NtCurrentTeb()->m = (val))
-#endif
-
-#define NtCurrentPeb() ((PPEB)WIE_ReadTEB(ProcessEnvironmentBlock))
-
-#pragma endregion TEB/PEB
-
-#pragma region Error codes
-
-/* Gets or sets the last error */
-
-#define WIE_GetLastError() ((DWORD)WIE_ReadTEB(LastErrorValue))
-#define WIE_SetLastError(Error) WIE_WriteTEB(LastErrorValue, Error)
-
-/* Gets or sets the last status */
-
-#define WIE_GetLastStatus() ((NTSTATUS)(WIE_ReadTEB(LastStatusValue)))
-#define WIE_SetLastStatus(Status) WIE_WriteTEB(LastStatusValue, Status)
-
-/* Error code conversion (NOT translation) Win32 Error/NtStatus/HResult */
-
-#define WIE_ErrorToResult HRESULT_FROM_WIN32
-#define WIE_ErrorToStatus NTSTATUS_FROM_WIN32
-#define WIE_StatusToResult HRESULT_FROM_NT
-
-#pragma endregion Error codes
-
-#pragma region Current runtime information
-
-#define CURRENT_PROCESS_ID ((DWORD)(DWORD_PTR)WIE_ReadTEB(ClientId.UniqueProcess))
-#define CURRENT_THREAD_ID ((DWORD)(DWORD_PTR)WIE_ReadTEB(ClientId.UniqueThread))
-#define CURRENT_DIRECTORY_HANDLE (NtCurrentPeb()->ProcessParameters->CurrentDirectory.Handle)
-#define CURRENT_IMAGE_BASE (NtCurrentPeb()->ImageBaseAddress)
-#define CURRENT_NTDLL_BASE (CONTAINING_RECORD(NtCurrentPeb()->Ldr->InInitializationOrderModuleList.Flink, LDR_DATA_TABLE_ENTRY, InInitializationOrderModuleList)->DllBase)
-#define CURRENT_PROCESS_HEAP (NtCurrentPeb()->ProcessHeap)
-
-#pragma endregion Current runtime information
 
 #pragma region Size in bytes
 
@@ -200,5 +74,3 @@ typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 } varname
 
 #pragma endregion Any-size array
-
-EXTERN_C_END

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <minwindef.h>
+#include "NtMinDef.h"
 
 /* 
  * winsta.h, taken from

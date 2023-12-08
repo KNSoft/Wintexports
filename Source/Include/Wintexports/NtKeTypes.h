@@ -1,184 +1,82 @@
 ﻿#pragma once
 
-#include "WIE_Internal.h"
-#include "Undoc_ntddk.h"
+#include "NtMinDef.h"
+#include "PrivateHelper/TargetArch.h"
 
-EXTERN_C_START
+#include "NtBasicTypes.h"
 
-#pragma region File
+#define PROCESSOR_FEATURE_MAX 64
 
-#pragma push_macro("DeleteFile")
-#undef DeleteFile
-typedef struct _FILE_DISPOSITION_INFORMATION {
-    BOOLEAN DeleteFile;
-} FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-#pragma pop_macro("DeleteFile")
+typedef struct _KSYSTEM_TIME
+{
+    ULONG LowPart;
+    LONG High1Time;
+    LONG High2Time;
+} KSYSTEM_TIME, *PKSYSTEM_TIME;
 
-typedef struct _FILE_DISPOSITION_INFORMATION_EX {
-    ULONG Flags;
-} FILE_DISPOSITION_INFORMATION_EX, *PFILE_DISPOSITION_INFORMATION_EX;
+typedef LONG KPRIORITY;
 
-typedef struct _FILE_END_OF_FILE_INFORMATION {
-    LARGE_INTEGER EndOfFile;
-} FILE_END_OF_FILE_INFORMATION, *PFILE_END_OF_FILE_INFORMATION;
+typedef enum _KTHREAD_STATE
+{
+    Initialized,
+    Ready,
+    Running,
+    Standby,
+    Terminated,
+    Waiting,
+    Transition,
+    DeferredReady,
+    GateWait
+} KTHREAD_STATE, *PKTHREAD_STATE;
 
-#pragma endregion File
+typedef enum _KWAIT_REASON
+{
+    Executive,
+    FreePage,
+    PageIn,
+    PoolAllocation,
+    DelayExecution,
+    Suspended,
+    UserRequest,
+    WrExecutive,
+    WrFreePage,
+    WrPageIn,
+    WrPoolAllocation,
+    WrDelayExecution,
+    WrSuspended,
+    WrUserRequest,
+    WrSpare0,
+    WrQueue,
+    WrLpcReceive,
+    WrLpcReply,
+    WrVirtualMemory,
+    WrPageOut,
+    WrRendezvous,
+    WrKeyedEvent,
+    WrTerminated,
+    WrProcessInSwap,
+    WrCpuRateControl,
+    WrCalloutStack,
+    WrKernel,
+    WrResource,
+    WrPushLock,
+    WrMutex,
+    WrQuantumEnd,
+    WrDispatchInt,
+    WrPreempted,
+    WrYieldExecution,
+    WrFastMutex,
+    WrGuardedMutex,
+    WrRundown,
+    WrAlertByThreadId,
+    WrDeferredPreempt,
+    WrPhysicalFault,
+    WrIoRing,
+    MaximumWaitReason
+} KWAIT_REASON;
 
-#pragma region Synchronization
-
-typedef
-_Function_class_(RTL_RUN_ONCE_INIT_FN)
-_IRQL_requires_same_
-ULONG /* LOGICAL */
-NTAPI
-RTL_RUN_ONCE_INIT_FN (
-    _Inout_ PRTL_RUN_ONCE RunOnce,
-    _Inout_opt_ PVOID Parameter,
-    _Inout_opt_ PVOID *Context
-    );
-typedef RTL_RUN_ONCE_INIT_FN *PRTL_RUN_ONCE_INIT_FN;
-
-#pragma endregion Synchronization
-
-#pragma region Process and Thread
-
-typedef enum _PROCESSINFOCLASS {
-    ProcessBasicInformation                      = 0,
-    ProcessQuotaLimits                           = 1,
-    ProcessIoCounters                            = 2,
-    ProcessVmCounters                            = 3,
-    ProcessTimes                                 = 4,
-    ProcessBasePriority                          = 5,
-    ProcessRaisePriority                         = 6,
-    ProcessDebugPort                             = 7,
-    ProcessExceptionPort                         = 8,
-    ProcessAccessToken                           = 9,
-    ProcessLdtInformation                        = 10,
-    ProcessLdtSize                               = 11,
-    ProcessDefaultHardErrorMode                  = 12,
-    ProcessIoPortHandlers                        = 13,   // Note: this is kernel mode only
-    ProcessPooledUsageAndLimits                  = 14,
-    ProcessWorkingSetWatch                       = 15,
-    ProcessUserModeIOPL                          = 16,
-    ProcessEnableAlignmentFaultFixup             = 17,
-    ProcessPriorityClass                         = 18,
-    ProcessWx86Information                       = 19,
-    ProcessHandleCount                           = 20,
-    ProcessAffinityMask                          = 21,
-    ProcessPriorityBoost                         = 22,
-    ProcessDeviceMap                             = 23,
-    ProcessSessionInformation                    = 24,
-    ProcessForegroundInformation                 = 25,
-    ProcessWow64Information                      = 26,
-    ProcessImageFileName                         = 27,
-    ProcessLUIDDeviceMapsEnabled                 = 28,
-    ProcessBreakOnTermination                    = 29,
-    ProcessDebugObjectHandle                     = 30,
-    ProcessDebugFlags                            = 31,
-    ProcessHandleTracing                         = 32,
-    ProcessIoPriority                            = 33,
-    ProcessExecuteFlags                          = 34,
-    ProcessTlsInformation                        = 35,
-    ProcessCookie                                = 36,
-    ProcessImageInformation                      = 37,
-    ProcessCycleTime                             = 38,
-    ProcessPagePriority                          = 39,
-    ProcessInstrumentationCallback               = 40,
-    ProcessThreadStackAllocation                 = 41,
-    ProcessWorkingSetWatchEx                     = 42,
-    ProcessImageFileNameWin32                    = 43,
-    ProcessImageFileMapping                      = 44,
-    ProcessAffinityUpdateMode                    = 45,
-    ProcessMemoryAllocationMode                  = 46,
-    ProcessGroupInformation                      = 47,
-    ProcessTokenVirtualizationEnabled            = 48,
-    ProcessOwnerInformation                      = 49,
-    ProcessWindowInformation                     = 50,
-    ProcessHandleInformation                     = 51,
-    ProcessMitigationPolicy                      = 52,
-    ProcessDynamicFunctionTableInformation       = 53,
-    ProcessHandleCheckingMode                    = 54,
-    ProcessKeepAliveCount                        = 55,
-    ProcessRevokeFileHandles                     = 56,
-    ProcessWorkingSetControl                     = 57,
-    ProcessHandleTable                           = 58,
-    ProcessCheckStackExtentsMode                 = 59,
-    ProcessCommandLineInformation                = 60,
-    ProcessProtectionInformation                 = 61,
-    ProcessMemoryExhaustion                      = 62,
-    ProcessFaultInformation                      = 63,
-    ProcessTelemetryIdInformation                = 64,
-    ProcessCommitReleaseInformation              = 65,
-    ProcessReserved1Information                  = 66,
-    ProcessReserved2Information                  = 67,
-    ProcessSubsystemProcess                      = 68,
-    ProcessInPrivate                             = 70,
-    ProcessRaiseUMExceptionOnInvalidHandleClose  = 71,
-    ProcessSubsystemInformation                  = 75,
-    ProcessWin32kSyscallFilterInformation        = 79,
-    ProcessEnergyTrackingState                   = 82,
-    MaxProcessInfoClass                             // MaxProcessInfoClass should always be the last enum
-} PROCESSINFOCLASS;
-
-typedef struct _PROCESS_BASIC_INFORMATION {
-    NTSTATUS ExitStatus;
-    PPEB PebBaseAddress;
-    ULONG_PTR AffinityMask;
-    KPRIORITY BasePriority;
-    ULONG_PTR UniqueProcessId;
-    ULONG_PTR InheritedFromUniqueProcessId;
-} PROCESS_BASIC_INFORMATION,*PPROCESS_BASIC_INFORMATION;
-
-typedef enum _THREADINFOCLASS {
-    ThreadBasicInformation = 0,
-    ThreadTimes = 1,
-    ThreadPriority = 2,
-    ThreadBasePriority = 3,
-    ThreadAffinityMask = 4,
-    ThreadImpersonationToken = 5,
-    ThreadDescriptorTableEntry = 6,
-    ThreadEnableAlignmentFaultFixup = 7,
-    ThreadEventPair_Reusable = 8,
-    ThreadQuerySetWin32StartAddress = 9,
-    ThreadZeroTlsCell = 10,
-    ThreadPerformanceCount = 11,
-    ThreadAmILastThread = 12,
-    ThreadIdealProcessor = 13,
-    ThreadPriorityBoost = 14,
-    ThreadSetTlsArrayAddress = 15,   // Obsolete
-    ThreadIsIoPending = 16,
-    ThreadHideFromDebugger = 17,
-    ThreadBreakOnTermination = 18,
-    ThreadSwitchLegacyState = 19,
-    ThreadIsTerminated = 20,
-    ThreadLastSystemCall = 21,
-    ThreadIoPriority = 22,
-    ThreadCycleTime = 23,
-    ThreadPagePriority = 24,
-    ThreadActualBasePriority = 25,
-    ThreadTebInformation = 26,
-    ThreadCSwitchMon = 27,   // Obsolete
-    ThreadCSwitchPmu = 28,
-    ThreadWow64Context = 29,
-    ThreadGroupInformation = 30,
-    ThreadUmsInformation = 31,   // Obsolete
-    ThreadCounterProfiling = 32,
-    ThreadIdealProcessorEx = 33,
-    ThreadCpuAccountingInformation = 34,
-    ThreadSuspendCount = 35,
-    ThreadNameInformation = 38,
-    ThreadActualGroupAffinity = 41,
-    ThreadDynamicCodePolicyInfo = 42,
-    ThreadSubsystemInformation = 45,
-
-    MaxThreadInfoClass = 53,
-} THREADINFOCLASS;
-
-#pragma endregion Process and Thread
-
-#pragma region KUSER_SHARED_DATA
-
-typedef struct _KUSER_SHARED_DATA {
+typedef struct _KUSER_SHARED_DATA
+{
 
     //
     // Current low 32-bit of tick count and tick count multiplier.
@@ -360,9 +258,11 @@ typedef struct _KUSER_SHARED_DATA {
     // Mitigation policies.
     //
 
-    union {
+    union
+    {
         UCHAR MitigationPolicies;
-        struct {
+        struct
+        {
             UCHAR NXSupportPolicy : 2;
             UCHAR SEHValidationPolicy : 2;
             UCHAR CurDirDevicesSkippedForDlls : 2;
@@ -428,19 +328,21 @@ typedef struct _KUSER_SHARED_DATA {
     // Virtualization flags
     //
 
-    union {
+    union
+    {
         UCHAR VirtualizationFlags;
 
-        #if defined(_ARM64_)
-                //
-                // Keep in sync with arc.w
-                //
-        struct {
+#if defined(_ARM64_)
+        //
+        // Keep in sync with arc.w
+        //
+        struct
+        {
             UCHAR ArchStartedInEl2 : 1;
             UCHAR QcSlIsSupported : 1;
             UCHAR : 6;
         };
-        #endif // _ARM64_
+#endif // _ARM64_
     };
 
     //
@@ -458,14 +360,16 @@ typedef struct _KUSER_SHARED_DATA {
     //      API for an accurate result
     //
 
-    union {
+    union
+    {
         ULONG SharedDataFlags;
-        struct {
+        struct
+        {
 
-            //
-            // The following bit fields are for the debugger only. Do not use.
-            // Use the bit definitions instead.
-            //
+    //
+    // The following bit fields are for the debugger only. Do not use.
+    // Use the bit definitions instead.
+    //
 
             ULONG DbgErrorPortPresent : 1;
             ULONG DbgElevationEnabled : 1;
@@ -517,10 +421,12 @@ typedef struct _KUSER_SHARED_DATA {
     // The 64-bit tick count.
     //
 
-    union {
+    union
+    {
         volatile KSYSTEM_TIME TickCount;
         volatile ULONG64 TickCountQuad;
-        struct {
+        struct
+        {
             ULONG ReservedTickCountOverlay[3];
             ULONG TickCountPad[1];
         } DUMMYSTRUCTNAME;
@@ -666,14 +572,16 @@ typedef struct _KUSER_SHARED_DATA {
 
     UCHAR Reserved9;
 
-    union {
+    union
+    {
         USHORT QpcData;
-        struct {
+        struct
+        {
 
-            //
-            // A boolean indicating whether performance counter queries
-            // can read the counter directly (bypassing the system call).
-            //
+    //
+    // A boolean indicating whether performance counter queries
+    // can read the counter directly (bypassing the system call).
+    //
 
             volatile UCHAR QpcBypassEnabled;
 
@@ -700,146 +608,6 @@ typedef struct _KUSER_SHARED_DATA {
     ULONG64 UserPointerAuthMask;
 
 } KUSER_SHARED_DATA, *PKUSER_SHARED_DATA;
+typedef const struct _KUSER_SHARED_DATA* PCKUSER_SHARED_DATA;
 
-#pragma endregion KUSER_SHARED_DATA
-
-#pragma region Nt*
-
-#pragma region One-Time initialization
-
-#if (NTDDI_VERSION >= NTDDI_LONGHORN)
-
-_IRQL_requires_max_(APC_LEVEL)
-NTSYSAPI
-VOID
-NTAPI
-RtlRunOnceInitialize(
-    _Out_ PRTL_RUN_ONCE RunOnce
-);
-
-_IRQL_requires_max_(APC_LEVEL)
-_Maybe_raises_SEH_exception_
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceExecuteOnce(
-    _Inout_ PRTL_RUN_ONCE RunOnce,
-    _In_ __callback PRTL_RUN_ONCE_INIT_FN InitFn,
-    _Inout_opt_ PVOID Parameter,
-    _Outptr_opt_result_maybenull_ PVOID *Context
-);
-
-_IRQL_requires_max_(APC_LEVEL)
-_Must_inspect_result_
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceBeginInitialize(
-    _Inout_ PRTL_RUN_ONCE RunOnce,
-    _In_ ULONG Flags,
-    _Outptr_opt_result_maybenull_ PVOID *Context
-);
-
-_IRQL_requires_max_(APC_LEVEL)
-NTSYSAPI
-NTSTATUS
-NTAPI
-RtlRunOnceComplete(
-    _Inout_ PRTL_RUN_ONCE RunOnce,
-    _In_ ULONG Flags,
-    _In_opt_ PVOID Context
-);
-
-#endif // NTDDI_VERSION >= NTDDI_LONGHORN
-
-#pragma endregion One-Time initialization
-
-#pragma endregion Nt*
-
-#pragma region Rtl*
-
-#pragma region LUID
-
-//
-// BOOLEAN
-// RtlEqualLuid(
-//      PLUID L1,
-//      PLUID L2
-//      );
-
-#define RtlEqualLuid(L1, L2) (((L1)->LowPart == (L2)->LowPart) && \
-                              ((L1)->HighPart  == (L2)->HighPart))
-
-//
-// BOOLEAN
-// RtlIsZeroLuid(
-//      PLUID L1
-//      );
-//
-#define RtlIsZeroLuid(L1) ((BOOLEAN) (((L1)->LowPart | (L1)->HighPart) == 0))
-
-FORCEINLINE
-LUID
-NTAPI_INLINE
-RtlConvertLongToLuid(
-    _In_ LONG Long
-)
-{
-    LUID TempLuid;
-    LARGE_INTEGER TempLi;
-
-    TempLi.QuadPart = Long;
-    TempLuid.LowPart = TempLi.u.LowPart;
-    TempLuid.HighPart = TempLi.u.HighPart;
-    return(TempLuid);
-}
-
-FORCEINLINE
-LUID
-NTAPI_INLINE
-RtlConvertUlongToLuid(
-    _In_ ULONG Ulong
-)
-{
-    LUID TempLuid;
-
-    TempLuid.LowPart = Ulong;
-    TempLuid.HighPart = 0;
-    return(TempLuid);
-}
-
-#pragma endregion LUID
-
-#pragma region String
-
-#if (NTDDI_VERSION >= NTDDI_WIN2K)
-_IRQL_requires_max_(PASSIVE_LEVEL)
-_Must_inspect_result_
-NTSYSAPI
-LONG
-NTAPI
-RtlCompareString(
-    _In_ const STRING * String1,
-    _In_ const STRING * String2,
-    _In_ BOOLEAN CaseInSensitive
-);
-#endif
-
-#if (NTDDI_VERSION >= NTDDI_WIN2K)
-_IRQL_requires_max_(PASSIVE_LEVEL)
-_Must_inspect_result_
-NTSYSAPI
-BOOLEAN
-NTAPI
-RtlEqualString(
-    _In_ const STRING * String1,
-    _In_ const STRING * String2,
-    _In_ BOOLEAN CaseInSensitive
-);
-#endif
-
-#pragma endregion String
-
-#pragma endregion Rtl*
-
-EXTERN_C_END
+#define SharedUserData ((PCKUSER_SHARED_DATA)MM_SHARED_USER_DATA_VA)

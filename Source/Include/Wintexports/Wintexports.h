@@ -3,45 +3,47 @@
 #ifndef _WINTEXPORTS_
 #define _WINTEXPORTS_
 
-/* Include Windows.h */
+#include "NtMinDef.h"
 
-#include "WIE_Windows.h"
+/* Windows.h */
+
+#define WIN32_LEAN_AND_MEAN
+#define NOSERVICE
+#define NOMCX
+#define NOIME
+
+#define OEMRESOURCE
+
+#include <Windows.h>
 #include "WIE_WinUser.h"
+#include "winsta.h"
+#include <ntstatus.h>
 
-/* Inculde KM headers */
+/* NT support */
 
-#include "MS_wdm.h"
-#include "MS_ntddk.h"
-#include "MS_ntifs.h"
-#include "MS_fltKernel.h"
+#include "NtTypes.h"
+#include "NtMacro.h"
 
-/* Include internals */
+/* APIs */
 
-#include "MS_winternl.h"
-#include "WIE_Internal.h"
+#include "API_Ntdll.h"
+#include "API_Kernel32.h"
+#include "API_User32.h"
+#include "API_WinSta.h"
 
-/* Include UM dlls */
+#if !defined(WIE_NO_HASH)
+#include "API_Ntdll_Hash.h"
+#endif
 
-#include "Undoc_API_Ntdll.h"
-#include "Undoc_API_Kernel32.h"
-#include "Undoc_API_User32.h"
-
-/* Include useful headers */
+/* Additional headers */
 
 #include <intrin.h>
 #include <suppress.h>
 
-/* Include Ntdll hash API optionally */
-
-#if !defined(WIE_NO_HASH)
-#include "Undoc_API_Ntdll_Hash.h"
-#endif
-
-/* Include Wintexports extended features optionally */
+/* Extension */
 
 #if !defined(WIE_NO_EXT)
 #include "WIE_Ext.h"
-#include "WIE_Ext_CPU.h"
 #endif
 
 #endif /* _WINTEXPORTS_ */

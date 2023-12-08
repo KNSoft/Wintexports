@@ -1,4 +1,4 @@
-﻿#include <Wintexports/WIE_Windows.h>
+﻿#include <Wintexports/NtMinDef.h>
 
 #if defined(_M_IX86)
 

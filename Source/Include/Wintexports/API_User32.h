@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-#include <minwindef.h>
+#include "NtMinDef.h"
+
+#include <apisetcconv.h>
 
 EXTERN_C_START
 

@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-#include <minwindef.h>
+#include "NtMinDef.h"
+
+#include <WinBase.h>
 
 EXTERN_C_START
 

@@ -1,8 +1,46 @@
-﻿#pragma once
+﻿/* Include this file before and after ntdef.h if winnt.h is already included */
 
-#include "WIE_Windows.h"
+#ifdef _NTDEF_
 
-/* Conflicts in winnt.h */
+#undef _ENUM_FLAG_SIZED_INTEGER
+#undef _ENUM_FLAG_INTEGER_FOR_SIZE
+
+#undef Int64ShllMod32
+#undef Int64ShraMod32
+#undef Int64ShrlMod32
+
+#undef _LIST_ENTRY
+#undef LIST_ENTRY
+#undef PLIST_ENTRY
+#undef PRLIST_ENTRY
+#undef LIST_ENTRY32
+#undef PLIST_ENTRY32
+#undef LIST_ENTRY64
+#undef PLIST_ENTRY64
+#undef _SINGLE_LIST_ENTRY
+#undef SINGLE_LIST_ENTRY
+#undef PSINGLE_LIST_ENTRY
+
+#undef _LARGE_INTEGER
+#undef LARGE_INTEGER
+#undef PLARGE_INTEGER
+#undef _ULARGE_INTEGER
+#undef ULARGE_INTEGER
+#undef PULARGE_INTEGER
+#undef _LUID
+#undef LUID
+#undef PLUID
+#undef _FLOAT128
+#undef FLOAT128
+#undef PFLOAT128
+#undef _PROCESSOR_NUMBER
+#undef PROCESSOR_NUMBER
+#undef PPROCESSOR_NUMBER
+#undef _GROUP_AFFINITY
+#undef GROUP_AFFINITY
+#undef PGROUP_AFFINITY
+
+#else
 
 #undef LANGIDFROMLCID
 #undef MAKELANGID
@@ -56,42 +94,4 @@
 #define _ENUM_FLAG_SIZED_INTEGER _MS_ENUM_FLAG_SIZED_INTEGER
 #define _ENUM_FLAG_INTEGER_FOR_SIZE _MS_ENUM_FLAG_INTEGER_FOR_SIZE
 
-#include <ntdef.h>
-
-#undef _ENUM_FLAG_SIZED_INTEGER
-#undef _ENUM_FLAG_INTEGER_FOR_SIZE
-
-#undef Int64ShllMod32
-#undef Int64ShraMod32
-#undef Int64ShrlMod32
-
-#undef _LIST_ENTRY
-#undef LIST_ENTRY
-#undef PLIST_ENTRY
-#undef PRLIST_ENTRY
-#undef LIST_ENTRY32
-#undef PLIST_ENTRY32
-#undef LIST_ENTRY64
-#undef PLIST_ENTRY64
-#undef _SINGLE_LIST_ENTRY
-#undef SINGLE_LIST_ENTRY
-#undef PSINGLE_LIST_ENTRY
-
-#undef _LARGE_INTEGER
-#undef LARGE_INTEGER
-#undef PLARGE_INTEGER
-#undef _ULARGE_INTEGER
-#undef ULARGE_INTEGER
-#undef PULARGE_INTEGER
-#undef _LUID
-#undef LUID
-#undef PLUID
-#undef _FLOAT128
-#undef FLOAT128
-#undef PFLOAT128
-#undef _PROCESSOR_NUMBER
-#undef PROCESSOR_NUMBER
-#undef PPROCESSOR_NUMBER
-#undef _GROUP_AFFINITY
-#undef GROUP_AFFINITY
-#undef PGROUP_AFFINITY
+#endif

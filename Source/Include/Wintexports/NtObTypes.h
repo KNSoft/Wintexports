@@ -1,13 +1,6 @@
 ﻿#pragma once
 
-typedef enum _MEMORY_INFORMATION_CLASS
-{
-    MemoryBasicInformation,
-    MemoryWorkingSetList,
-    MemorySectionName,
-    MemoryBasicVlmInformation,
-    MemoryWorkingSetExList
-} MEMORY_INFORMATION_CLASS, *PMEMORY_INFORMATION_CLASS;
+#include "NtMinDef.h"
 
 typedef enum _OBJECT_INFORMATION_CLASS
 {

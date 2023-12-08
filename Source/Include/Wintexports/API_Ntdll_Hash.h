@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <minwindef.h>
+#include "NtMinDef.h"
 
 EXTERN_C_START
 
@@ -56,8 +56,7 @@ VOID
 RSA32API
 A_SHAFinal(
     _Inout_ PA_SHA_CTX Context,
-    _Out_ PUCHAR Result
-);
+    _Out_ PUCHAR Result);
 
 NTSYSAPI
 VOID

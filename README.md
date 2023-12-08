@@ -1,9 +1,9 @@
 # Wintexports
 Wintexports (Windows INTernal EXPORTS) exposes Windows NT low-level definitions and symbols for user-mode programming, and also supplement a few CRT functions to allow program depends ntdll.dll only.
 
-- Low-level definitions (i.e. NT*/Zw*, Rtl*, Ldr*, PEB, TEB, KUSER_SHARED_DATA, ...)
+- Low-level definitions (i.e. NT*/Zw*, Rtl*, Ldr*, `PEB`, `TEB`, `KUSER_SHARED_DATA`, ...)
 - Missing symbols in Lib (i.e. ntdll.dll!MD5Init, KERNEL32.dll!CreateProcessInternalW, SECHOST.dll!LsaLookupTranslateSids, ...)
-- CRT functions or symbols (i.e. GS, RTC, ...)
+- CRT functions or symbols (i.e. GS, RTC, `malloc`, `free`, ...)
 
 ## Install and usage
 
@@ -38,7 +38,6 @@ Wintexports (Windows INTernal EXPORTS) exposes Windows NT low-level definitions 
 Link following libs Wintexports supplemented:
 - Ntdll_Hash.lib: Hash functions in ntdll, i.e. `(A_SHA/MD5/MD4)(Init/Update/Final)`.
 - WIE_WinAPI.lib: Windows SDK missing API, i.e. `KERNEL32.dll!CreateProcessInternalW`, `SECHOST.dll!LsaLookupTranslateSids`, ...
-
 
 Requires Visual Studio 2019 and above with corresponding SDK, support x64/x86/ARM64 platform targets.
 

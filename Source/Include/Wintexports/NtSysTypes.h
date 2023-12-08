@@ -1,6 +1,9 @@
 ﻿#pragma once
 
-#include "MS_wdm.h"
+#include "NtMinDef.h"
+
+#include "NtBasicTypes.h"
+#include "NtKeTypes.h"
 
 typedef enum _SYSTEM_INFORMATION_CLASS
 {
@@ -260,21 +263,21 @@ typedef struct _SYSTEM_PROCESSOR_INFORMATION
 
 typedef struct _SYSTEM_MODULE_ENTRY
 {
-    ULONG_PTR  Unused;
-    ULONG_PTR  Always0;
-    PVOID  ModuleBaseAddress;
-    ULONG  ModuleSize;
-    ULONG  Unknown;
-    ULONG  ModuleEntryIndex;
+    ULONG_PTR Unused;
+    ULONG_PTR Always0;
+    PVOID ModuleBaseAddress;
+    ULONG ModuleSize;
+    ULONG Unknown;
+    ULONG ModuleEntryIndex;
     USHORT ModuleNameLength;
     USHORT ModuleNameOffset;
-    CHAR   ModuleName[256];
+    CHAR ModuleName[256];
 } SYSTEM_MODULE_ENTRY, *PSYSTEM_MODULE_ENTRY;
 
 typedef struct _SYSTEM_MODULE_INFORMATION
 {
-    ULONG               Count;
-    SYSTEM_MODULE_ENTRY Module[1];
+    ULONG Count;
+    _Field_size_(Count) SYSTEM_MODULE_ENTRY Module[ANYSIZE_ARRAY];
 } SYSTEM_MODULE_INFORMATION, *PSYSTEM_MODULE_INFORMATION;
 
 typedef struct _SYSTEM_PROCESS_INFORMATION

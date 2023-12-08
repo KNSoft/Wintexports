@@ -1,545 +1,8 @@
 ﻿#pragma once
 
-#include "MS_wdm.h"
+#include "NtMinDef.h"
 
-typedef struct _LEAP_SECOND_DATA
-{
-    UCHAR Enabled;
-    UCHAR Padding[3];
-    ULONG Count;
-    LARGE_INTEGER Data[ANYSIZE_ARRAY];
-} LEAP_SECOND_DATA, *PLEAP_SECOND_DATA;
-
-typedef struct _ACTIVATION_CONTEXT_DATA
-{
-    ULONG Magic;
-    ULONG HeaderSize;
-    ULONG FormatVersion;
-    ULONG TotalSize;
-    ULONG DefaultTocOffset;
-    ULONG ExtendedTocOffset;
-    ULONG AssemblyRosterOffset;
-    ULONG Flags;
-} ACTIVATION_CONTEXT_DATA, *PACTIVATION_CONTEXT_DATA;
-
-#pragma region Ldr*
-
-typedef struct _LDR_SERVICE_TAG_RECORD LDR_SERVICE_TAG_RECORD, *PLDR_SERVICE_TAG_RECORD;
-
-struct _LDR_SERVICE_TAG_RECORD
-{
-    PLDR_SERVICE_TAG_RECORD Next;
-    UINT ServiceTag;
-};
-
-typedef enum _LDR_DDAG_STATE
-{
-    LdrModulesMerged = -5,
-    LdrModulesInitError = -4,
-    LdrModulesSnapError = -3,
-    LdrModulesUnloaded = -2,
-    LdrModulesUnloading = -1,
-    LdrModulesPlaceHolder = 0,
-    LdrModulesMapping = 1,
-    LdrModulesMapped = 2,
-    LdrModulesWaitingForDependencies = 3,
-    LdrModulesSnapping = 4,
-    LdrModulesSnapped = 5,
-    LdrModulesCondensed = 6,
-    LdrModulesReadyToInit = 7,
-    LdrModulesInitializing = 8,
-    LdrModulesReadyToRun = 9,
-} LDR_DDAG_STATE, *PLDR_DDAG_STATE;
-
-typedef struct _LDRP_CSLIST
-{
-    SINGLE_LIST_ENTRY Tail;
-} LDRP_CSLIST, *PLDRP_CSLIST;
-
-typedef struct _LDR_DDAG_NODE
-{
-    LIST_ENTRY Modules;
-    PLDR_SERVICE_TAG_RECORD ServiceTagList;
-    UINT LoadCount;
-    UINT LoadWhileUnloadingCount;
-    PVOID LowestLink;
-    LDRP_CSLIST Dependencies;
-    LDRP_CSLIST IncomingDependencies;
-    LDR_DDAG_STATE State;
-    SINGLE_LIST_ENTRY CondenseLink;
-    UINT PreorderNumber;
-} LDR_DDAG_NODE, *PLDR_DDAG_NODE;
-
-typedef enum _LDR_HOT_PATCH_STATE
-{
-    LdrHotPatchBaseImage = 0,
-    LdrHotPatchNotApplied = 1,
-    LdrHotPatchAppliedReverse = 2,
-    LdrHotPatchAppliedForward = 3,
-    LdrHotPatchFailedToPatch = 4,
-    LdrHotPatchStateMax = 5
-}LDR_HOT_PATCH_STATE, *PLDR_HOT_PATCH_STATE;
-
-typedef enum _LDR_DLL_LOAD_REASON
-{
-    LoadReasonStaticDependency = 0,
-    LoadReasonStaticForwarderDependency = 1,
-    LoadReasonDynamicForwarderDependency = 2,
-    LoadReasonDelayloadDependency = 3,
-    LoadReasonDynamicLoad = 4,
-    LoadReasonAsImageLoad = 5,
-    LoadReasonAsDataLoad = 6,
-    LoadReasonEnclavePrimary = 7,
-    LoadReasonEnclaveDependency = 8,
-    LoadReasonPatchImage = 9,
-    LoadReasonUnknown = -1
-} LDR_DLL_LOAD_REASON, *PLDR_DLL_LOAD_REASON;
-
-#pragma endregion Ldr*;
-
-#pragma region RTL_DRIVE_LETTER_CURDIR[64/32]
-
-typedef struct _RTL_DRIVE_LETTER_CURDIR64
-{
-    USHORT Flags;
-    USHORT Length;
-    UINT TimeStamp;
-    STRING64 DosPath;
-} RTL_DRIVE_LETTER_CURDIR64, *PRTL_DRIVE_LETTER_CURDIR64;
-
-typedef struct _RTL_DRIVE_LETTER_CURDIR32
-{
-    USHORT Flags;
-    USHORT Length;
-    UINT TimeStamp;
-    STRING32 DosPath;
-} RTL_DRIVE_LETTER_CURDIR32, *PRTL_DRIVE_LETTER_CURDIR32;
-
-#pragma endregion RTL_DRIVE_LETTER_CURDIR[64/32]
-
-#pragma region RTL_BALANCED_NODE[64/32]
-
-typedef struct _RTL_BALANCED_NODE64
-{
-    union
-    {
-        struct _RTL_BALANCED_NODE64* POINTER_64 Children[2];
-        struct
-        {
-            struct _RTL_BALANCED_NODE64* POINTER_64 Left;
-            struct _RTL_BALANCED_NODE64* POINTER_64 Right;
-        } DUMMYSTRUCTNAME;
-    } DUMMYUNIONNAME;
-
-#define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
-
-    union
-    {
-        UCHAR Red : 1;
-        UCHAR Balance : 2;
-        ULONGLONG ParentValue;
-    } DUMMYUNIONNAME2;
-} RTL_BALANCED_NODE64, *PRTL_BALANCED_NODE64;
-
-typedef struct _RTL_BALANCED_NODE32
-{
-    union
-    {
-        struct _RTL_BALANCED_NODE32* POINTER_32 Children[2];
-        struct
-        {
-            struct _RTL_BALANCED_NODE32* POINTER_32 Left;
-            struct _RTL_BALANCED_NODE32* POINTER_32 Right;
-        } DUMMYSTRUCTNAME;
-    } DUMMYUNIONNAME;
-
-#define RTL_BALANCED_NODE_RESERVED_PARENT_MASK 3
-
-    union
-    {
-        UCHAR Red : 1;
-        UCHAR Balance : 2;
-        ULONG ParentValue;
-    } DUMMYUNIONNAME2;
-} RTL_BALANCED_NODE32, *PRTL_BALANCED_NODE32;
-
-#pragma endregion RTL_BALANCED_NODE[64/32]
-
-#pragma region RTL_BITMAP[64/32]
-
-typedef struct _RTL_BITMAP64
-{
-    ULONG SizeOfBitMap;
-    ULONG* POINTER_64 Buffer;
-} RTL_BITMAP64, *PRTL_BITMAP64;
-
-typedef struct _RTL_BITMAP32
-{
-    ULONG SizeOfBitMap;
-    ULONG* POINTER_32 Buffer;
-} RTL_BITMAP32, *PRTL_BITMAP32;
-
-#pragma endregion RTL_BITMAP[64/32]
-
-#pragma region CLIENT_ID[64/32]
-
-typedef struct _CLIENT_ID64
-{
-    VOID* POINTER_64 UniqueProcess;
-    VOID* POINTER_64 UniqueThread;
-} CLIENT_ID64, *PCLIENT_ID64;
-
-typedef struct _CLIENT_ID32
-{
-    VOID* POINTER_32 UniqueProcess;
-    VOID* POINTER_32 UniqueThread;
-} CLIENT_ID32, *PCLIENT_ID32;
-
-#pragma endregion CLIENT_ID[64/32]
-
-#pragma region ASSEMBLY_STORAGE_MAP[_ENTRY][64/32]
-
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY
-{
-    ULONG Flags;
-    UNICODE_STRING DosPath;
-    HANDLE Handle;
-} ASSEMBLY_STORAGE_MAP_ENTRY, *PASSEMBLY_STORAGE_MAP_ENTRY;
-
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY64
-{
-    ULONG Flags;
-    UNICODE_STRING64 DosPath;
-    VOID* POINTER_64 Handle;
-} ASSEMBLY_STORAGE_MAP_ENTRY64, *PASSEMBLY_STORAGE_MAP_ENTRY64;
-
-typedef struct _ASSEMBLY_STORAGE_MAP_ENTRY32
-{
-    ULONG Flags;
-    UNICODE_STRING32 DosPath;
-    VOID* POINTER_32 Handle;
-} ASSEMBLY_STORAGE_MAP_ENTRY32, *PASSEMBLY_STORAGE_MAP_ENTRY32;
-
-typedef struct _ASSEMBLY_STORAGE_MAP
-{
-    ULONG Flags;
-    ULONG AssemblyCount;
-    PASSEMBLY_STORAGE_MAP_ENTRY *AssemblyArray;
-} ASSEMBLY_STORAGE_MAP, *PASSEMBLY_STORAGE_MAP;
-
-typedef struct _ASSEMBLY_STORAGE_MAP64
-{
-    ULONG Flags;
-    ULONG AssemblyCount;
-    ASSEMBLY_STORAGE_MAP_ENTRY64* POINTER_64* AssemblyArray;
-} ASSEMBLY_STORAGE_MAP64, *PASSEMBLY_STORAGE_MAP64;
-
-typedef struct _ASSEMBLY_STORAGE_MAP32
-{
-    ULONG Flags;
-    ULONG AssemblyCount;
-    ASSEMBLY_STORAGE_MAP_ENTRY32* POINTER_32* AssemblyArray;
-} ASSEMBLY_STORAGE_MAP32, *PASSEMBLY_STORAGE_MAP32;
-
-#pragma endregion ASSEMBLY_STORAGE_MAP[_ENTRY][64/32]
-
-#pragma region RTL_CRITICAL_SECTION[_DEBUG][64/32]
-
-typedef struct _RTL_CRITICAL_SECTION64 RTL_CRITICAL_SECTION64, *PRTL_CRITICAL_SECTION64;
-typedef struct _RTL_CRITICAL_SECTION32 RTL_CRITICAL_SECTION32, *PRTL_CRITICAL_SECTION32;
-
-typedef struct _RTL_CRITICAL_SECTION_DEBUG64
-{
-    WORD Type;
-    WORD CreatorBackTraceIndex;
-    RTL_CRITICAL_SECTION64* POINTER_64 CriticalSection;
-    LIST_ENTRY64 ProcessLocksList;
-    DWORD EntryCount;
-    DWORD ContentionCount;
-    DWORD Flags;
-    WORD CreatorBackTraceIndexHigh;
-    WORD Identifier;
-} RTL_CRITICAL_SECTION_DEBUG64, *PRTL_CRITICAL_SECTION_DEBUG64, RTL_RESOURCE_DEBUG64, *PRTL_RESOURCE_DEBUG64;
-
-typedef struct _RTL_CRITICAL_SECTION_DEBUG32
-{
-    WORD Type;
-    WORD CreatorBackTraceIndex;
-    RTL_CRITICAL_SECTION32* POINTER_32 CriticalSection;
-    LIST_ENTRY32 ProcessLocksList;
-    DWORD EntryCount;
-    DWORD ContentionCount;
-    DWORD Flags;
-    WORD CreatorBackTraceIndexHigh;
-    WORD Identifier;
-} RTL_CRITICAL_SECTION_DEBUG32, *PRTL_CRITICAL_SECTION_DEBUG32, RTL_RESOURCE_DEBUG32, *PRTL_RESOURCE_DEBUG32;
-
-struct _RTL_CRITICAL_SECTION64
-{
-    RTL_CRITICAL_SECTION_DEBUG64* POINTER_64 DebugInfo;
-    LONG LockCount;
-    LONG RecursionCount;
-    VOID* POINTER_64 OwningThread;
-    VOID* POINTER_64 LockSemaphore;
-    ULONGLONG SpinCount;
-};
-
-struct _RTL_CRITICAL_SECTION32
-{
-    RTL_CRITICAL_SECTION_DEBUG32* POINTER_32 DebugInfo;
-    LONG LockCount;
-    LONG RecursionCount;
-    VOID* POINTER_32 OwningThread;
-    VOID* POINTER_32 LockSemaphore;
-    ULONG SpinCount;
-};
-
-#pragma endregion RTL_CRITICAL_SECTION[_DEBUG][64/32]
-
-#pragma region CURDIR[64/32]
-
-typedef struct _CURDIR
-{
-    UNICODE_STRING DosPath;
-    HANDLE Handle;
-} CURDIR, *PCURDIR;
-
-typedef struct _CURDIR64
-{
-    UNICODE_STRING64 DosPath;
-    VOID* POINTER_64 Handle;
-} CURDIR64, *PCURDIR64;
-
-typedef struct _CURDIR32
-{
-    UNICODE_STRING32 DosPath;
-    VOID* POINTER_32 Handle;
-} CURDIR32, *PCURDIR32;
-
-#pragma endregion CURDIR[64/32]
-
-#pragma region LDR_DATA_TABLE_ENTRY[64/32]
-
-typedef struct _LDR_DATA_TABLE_ENTRY
-{
-    LIST_ENTRY InLoadOrderModuleList;
-    LIST_ENTRY InMemoryOrderModuleList;
-    LIST_ENTRY InInitializationOrderModuleList;
-    HMODULE DllBase;
-    PVOID EntryPoint;
-    ULONG SizeOfImage;
-    UNICODE_STRING FullDllName;
-    UNICODE_STRING BaseDllName;
-    union
-    {
-        UCHAR FlagGroup[4];
-        ULONG Flags;
-        struct
-        {
-            ULONG PackagedBinary : 1;
-            ULONG MarkedForRemoval : 1;
-            ULONG ImageDll : 1;
-            ULONG LoadNotificationsSent : 1;
-            ULONG TelemetryEntryProcessed : 1;
-            ULONG ProcessStaticImport : 1;
-            ULONG InLegacyLists : 1;
-            ULONG InIndexes : 1;
-            ULONG ShimDll : 1;
-            ULONG InExceptionTable : 1;
-            ULONG ReservedFlags1 : 2;
-            ULONG LoadInProgress : 1;
-            ULONG LoadConfigProcessed : 1;
-            ULONG EntryProcessed : 1;
-            ULONG ProtectDelayLoad : 1;
-            ULONG ReservedFlags3 : 2;
-            ULONG DontCallForThreads : 1;
-            ULONG ProcessAttachCalled : 1;
-            ULONG ProcessAttachFailed : 1;
-            ULONG CorDeferredValidate : 1;
-            ULONG CorImage : 1;
-            ULONG DontRelocate : 1;
-            ULONG CorILOnly : 1;
-            ULONG ChpeImage : 1;
-            ULONG ChpeEmulatorImage : 1;
-            ULONG ReservedFlags5 : 1;
-            ULONG Redirected : 1;
-            ULONG ReservedFlags6 : 2;
-            ULONG CompatDatabaseProcessed : 1;
-        };
-    };
-    USHORT ObsoleteLoadCount;
-    USHORT TlsIndex;
-    LIST_ENTRY HashLinks;
-    ULONG TimeDateStamp;
-    struct ACTIVATION_CONTEXT* EntryPointActivationContext;
-    PVOID Lock;
-    PLDR_DDAG_NODE DdagNode;
-    LIST_ENTRY NodeModuleLink;
-    struct LDRP_LOAD_CONTEXT* LoadContext;
-    HMODULE ParentDllBase;
-    PVOID SwitchBackContext;
-    RTL_BALANCED_NODE BaseAddressIndexNode;
-    RTL_BALANCED_NODE MappingInfoIndexNode;
-    ULONG_PTR OriginalBase;
-    LARGE_INTEGER LoadTime;
-    ULONG BaseNameHashValue;
-    LDR_DLL_LOAD_REASON LoadReason;
-    ULONG ImplicitPathOptions;
-    ULONG ReferenceCount;
-    ULONG DependentLoadFlags;
-    UCHAR SigningLevel;
-    ULONG CheckSum;
-    PVOID ActivePatchImageBase;
-    LDR_HOT_PATCH_STATE HotPatchState;
-} LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
-
-typedef struct _LDR_DATA_TABLE_ENTRY64
-{
-    LIST_ENTRY64 InLoadOrderModuleList;
-    LIST_ENTRY64 InMemoryOrderModuleList;
-    LIST_ENTRY64 InInitializationOrderModuleList;
-    VOID* POINTER_64 DllBase;
-    VOID* POINTER_64 EntryPoint;
-    ULONG SizeOfImage;
-    UNICODE_STRING64 FullDllName;
-    UNICODE_STRING64 BaseDllName;
-    union
-    {
-        UCHAR FlagGroup[4];
-        ULONG Flags;
-        struct
-        {
-            ULONG PackagedBinary : 1;
-            ULONG MarkedForRemoval : 1;
-            ULONG ImageDll : 1;
-            ULONG LoadNotificationsSent : 1;
-            ULONG TelemetryEntryProcessed : 1;
-            ULONG ProcessStaticImport : 1;
-            ULONG InLegacyLists : 1;
-            ULONG InIndexes : 1;
-            ULONG ShimDll : 1;
-            ULONG InExceptionTable : 1;
-            ULONG ReservedFlags1 : 2;
-            ULONG LoadInProgress : 1;
-            ULONG LoadConfigProcessed : 1;
-            ULONG EntryProcessed : 1;
-            ULONG ProtectDelayLoad : 1;
-            ULONG ReservedFlags3 : 2;
-            ULONG DontCallForThreads : 1;
-            ULONG ProcessAttachCalled : 1;
-            ULONG ProcessAttachFailed : 1;
-            ULONG CorDeferredValidate : 1;
-            ULONG CorImage : 1;
-            ULONG DontRelocate : 1;
-            ULONG CorILOnly : 1;
-            ULONG ChpeImage : 1;
-            ULONG ChpeEmulatorImage : 1;
-            ULONG ReservedFlags5 : 1;
-            ULONG Redirected : 1;
-            ULONG ReservedFlags6 : 2;
-            ULONG CompatDatabaseProcessed : 1;
-        };
-    };
-    USHORT ObsoleteLoadCount;
-    USHORT TlsIndex;
-    LIST_ENTRY64 HashLinks;
-    ULONG TimeDateStamp;
-    struct ACTIVATION_CONTEXT* POINTER_64 EntryPointActivationContext;
-    VOID* POINTER_64 Lock;
-    LDR_DDAG_NODE* POINTER_64 DdagNode; // FIXME: Too complex
-    LIST_ENTRY64 NodeModuleLink;
-    struct LDRP_LOAD_CONTEXT* POINTER_64 LoadContext;
-    VOID* POINTER_64 ParentDllBase;
-    VOID* POINTER_64 SwitchBackContext;
-    RTL_BALANCED_NODE64 BaseAddressIndexNode;
-    RTL_BALANCED_NODE64 MappingInfoIndexNode;
-    ULONGLONG OriginalBase;
-    LARGE_INTEGER LoadTime;
-    ULONG BaseNameHashValue;
-    LDR_DLL_LOAD_REASON LoadReason;
-    ULONG ImplicitPathOptions;
-    ULONG ReferenceCount;
-    ULONG DependentLoadFlags;
-    UCHAR SigningLevel;
-    ULONG CheckSum;
-    VOID* POINTER_64 ActivePatchImageBase;
-    LDR_HOT_PATCH_STATE HotPatchState;
-} LDR_DATA_TABLE_ENTRY64, *PLDR_DATA_TABLE_ENTRY64;
-
-typedef struct _LDR_DATA_TABLE_ENTRY32
-{
-    LIST_ENTRY32 InLoadOrderModuleList;
-    LIST_ENTRY32 InMemoryOrderModuleList;
-    LIST_ENTRY32 InInitializationOrderModuleList;
-    VOID* POINTER_32 DllBase;
-    VOID* POINTER_32 EntryPoint;
-    ULONG SizeOfImage;
-    UNICODE_STRING32 FullDllName;
-    UNICODE_STRING32 BaseDllName;
-    union
-    {
-        UCHAR FlagGroup[4];
-        ULONG Flags;
-        struct
-        {
-            ULONG PackagedBinary : 1;
-            ULONG MarkedForRemoval : 1;
-            ULONG ImageDll : 1;
-            ULONG LoadNotificationsSent : 1;
-            ULONG TelemetryEntryProcessed : 1;
-            ULONG ProcessStaticImport : 1;
-            ULONG InLegacyLists : 1;
-            ULONG InIndexes : 1;
-            ULONG ShimDll : 1;
-            ULONG InExceptionTable : 1;
-            ULONG ReservedFlags1 : 2;
-            ULONG LoadInProgress : 1;
-            ULONG LoadConfigProcessed : 1;
-            ULONG EntryProcessed : 1;
-            ULONG ProtectDelayLoad : 1;
-            ULONG ReservedFlags3 : 2;
-            ULONG DontCallForThreads : 1;
-            ULONG ProcessAttachCalled : 1;
-            ULONG ProcessAttachFailed : 1;
-            ULONG CorDeferredValidate : 1;
-            ULONG CorImage : 1;
-            ULONG DontRelocate : 1;
-            ULONG CorILOnly : 1;
-            ULONG ChpeImage : 1;
-            ULONG ChpeEmulatorImage : 1;
-            ULONG ReservedFlags5 : 1;
-            ULONG Redirected : 1;
-            ULONG ReservedFlags6 : 2;
-            ULONG CompatDatabaseProcessed : 1;
-        };
-    };
-    USHORT ObsoleteLoadCount;
-    USHORT TlsIndex;
-    LIST_ENTRY32 HashLinks;
-    ULONG TimeDateStamp;
-    struct ACTIVATION_CONTEXT* POINTER_32 EntryPointActivationContext;
-    VOID* POINTER_32 Lock;
-    LDR_DDAG_NODE* POINTER_32 DdagNode; // FIXME: Too complex
-    LIST_ENTRY32 NodeModuleLink;
-    struct LDRP_LOAD_CONTEXT* POINTER_32 LoadContext;
-    VOID* POINTER_32 ParentDllBase;
-    VOID* POINTER_32 SwitchBackContext;
-    RTL_BALANCED_NODE32 BaseAddressIndexNode;
-    RTL_BALANCED_NODE32 MappingInfoIndexNode;
-    ULONG OriginalBase;
-    LARGE_INTEGER LoadTime;
-    ULONG BaseNameHashValue;
-    LDR_DLL_LOAD_REASON LoadReason;
-    ULONG ImplicitPathOptions;
-    ULONG ReferenceCount;
-    ULONG DependentLoadFlags;
-    UCHAR SigningLevel;
-    ULONG CheckSum;
-    VOID* POINTER_32 ActivePatchImageBase;
-    LDR_HOT_PATCH_STATE HotPatchState;
-} LDR_DATA_TABLE_ENTRY32, *PLDR_DATA_TABLE_ENTRY32;
-
-#pragma endregion LDR_DATA_TABLE_ENTRY[64/32]
+#include "NtRtlTypes.h"
 
 #pragma region PEB_LDR_DATA[64/32]
 
@@ -555,6 +18,8 @@ typedef struct _PEB_LDR_DATA
     PVOID ShutdownInProgress;
     PVOID ShutdownThreadId;
 } PEB_LDR_DATA, *PPEB_LDR_DATA;
+
+#if !defined(WIE_NO_EXT)
 
 typedef struct _PEB_LDR_DATA64
 {
@@ -582,140 +47,9 @@ typedef struct _PEB_LDR_DATA32
     VOID* POINTER_32 ShutdownThreadId;
 } PEB_LDR_DATA32, *PPEB_LDR_DATA32;
 
+#endif /* !defined(WIE_NO_EXT) */
+
 #pragma endregion PEB_LDR_DATA[64/32]
-
-#pragma region RTL_USER_PROCESS_PARAMETERS[64/32]
-
-typedef struct _RTL_USER_PROCESS_PARAMETERS
-{
-    ULONG MaximumLength;
-    ULONG Length;
-    ULONG Flags;
-    ULONG DebugFlags;
-    HANDLE ConsoleHandle;
-    ULONG ConsoleFlags;
-    HANDLE StandardInput;
-    HANDLE StandardOutput;
-    HANDLE StandardError;
-    CURDIR CurrentDirectory;
-    UNICODE_STRING DllPath;
-    UNICODE_STRING ImagePathName;
-    UNICODE_STRING CommandLine;
-    LPWSTR Environment;
-    ULONG StartingX;
-    ULONG StartingY;
-    ULONG CountX;
-    ULONG CountY;
-    ULONG CountCharsX;
-    ULONG CountCharsY;
-    ULONG FillAttribute;
-    ULONG WindowFlags;
-    ULONG ShowWindowFlags;
-    UNICODE_STRING WindowTitle;
-    UNICODE_STRING DesktopInfo;
-    UNICODE_STRING ShellInfo;
-    UNICODE_STRING RuntimeData;
-    RTL_DRIVE_LETTER_CURDIR CurrentDirectores[32];
-    ULONG_PTR EnvironmentSize;
-    ULONG_PTR EnvironmentVersion;
-    PVOID PackageDependencyData;
-    ULONG ProcessGroupId;
-    ULONG LoaderThreads;
-    UNICODE_STRING RedirectionDllName;
-    UNICODE_STRING HeapPartitionName;
-    PULONGLONG DefaultThreadpoolCpuSetMasks;
-    ULONG DefaultThreadpoolCpuSetMaskCount;
-    ULONG DefaultThreadpoolThreadMaximum;
-    ULONG HeapMemoryTypeMask;
-} RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
-
-typedef struct _RTL_USER_PROCESS_PARAMETERS64
-{
-    ULONG MaximumLength;
-    ULONG Length;
-    ULONG Flags;
-    ULONG DebugFlags;
-    VOID* POINTER_64 ConsoleHandle;
-    ULONG ConsoleFlags;
-    VOID* POINTER_64 StandardInput;
-    VOID* POINTER_64 StandardOutput;
-    VOID* POINTER_64 StandardError;
-    CURDIR64 CurrentDirectory;
-    UNICODE_STRING64 DllPath;
-    UNICODE_STRING64 ImagePathName;
-    UNICODE_STRING64 CommandLine;
-    WCHAR* POINTER_64 Environment;
-    ULONG StartingX;
-    ULONG StartingY;
-    ULONG CountX;
-    ULONG CountY;
-    ULONG CountCharsX;
-    ULONG CountCharsY;
-    ULONG FillAttribute;
-    ULONG WindowFlags;
-    ULONG ShowWindowFlags;
-    UNICODE_STRING64 WindowTitle;
-    UNICODE_STRING64 DesktopInfo;
-    UNICODE_STRING64 ShellInfo;
-    UNICODE_STRING64 RuntimeData;
-    RTL_DRIVE_LETTER_CURDIR64 CurrentDirectores[32];
-    ULONGLONG EnvironmentSize;
-    ULONGLONG EnvironmentVersion;
-    VOID* POINTER_64 PackageDependencyData;
-    ULONG ProcessGroupId;
-    ULONG LoaderThreads;
-    UNICODE_STRING64 RedirectionDllName;
-    UNICODE_STRING64 HeapPartitionName;
-    ULONGLONG* POINTER_64 DefaultThreadpoolCpuSetMasks;
-    ULONG DefaultThreadpoolCpuSetMaskCount;
-    ULONG DefaultThreadpoolThreadMaximum;
-    ULONG HeapMemoryTypeMask;
-} RTL_USER_PROCESS_PARAMETERS64, *PRTL_USER_PROCESS_PARAMETERS64;
-
-typedef struct _RTL_USER_PROCESS_PARAMETERS32
-{
-    ULONG MaximumLength;
-    ULONG Length;
-    ULONG Flags;
-    ULONG DebugFlags;
-    VOID* POINTER_32 ConsoleHandle;
-    ULONG ConsoleFlags;
-    VOID* POINTER_32 StandardInput;
-    VOID* POINTER_32 StandardOutput;
-    VOID* POINTER_32 StandardError;
-    CURDIR32 CurrentDirectory;
-    UNICODE_STRING32 DllPath;
-    UNICODE_STRING32 ImagePathName;
-    UNICODE_STRING32 CommandLine;
-    WCHAR* POINTER_32 Environment;
-    ULONG StartingX;
-    ULONG StartingY;
-    ULONG CountX;
-    ULONG CountY;
-    ULONG CountCharsX;
-    ULONG CountCharsY;
-    ULONG FillAttribute;
-    ULONG WindowFlags;
-    ULONG ShowWindowFlags;
-    UNICODE_STRING32 WindowTitle;
-    UNICODE_STRING32 DesktopInfo;
-    UNICODE_STRING32 ShellInfo;
-    UNICODE_STRING32 RuntimeData;
-    RTL_DRIVE_LETTER_CURDIR32 CurrentDirectores[32];
-    ULONG EnvironmentSize;
-    ULONG EnvironmentVersion;
-    VOID* POINTER_32 PackageDependencyData;
-    ULONG ProcessGroupId;
-    ULONG LoaderThreads;
-    UNICODE_STRING32 RedirectionDllName;
-    UNICODE_STRING32 HeapPartitionName;
-    ULONGLONG* POINTER_32 DefaultThreadpoolCpuSetMasks;
-    ULONG DefaultThreadpoolCpuSetMaskCount;
-    ULONG DefaultThreadpoolThreadMaximum;
-    ULONG HeapMemoryTypeMask;
-} RTL_USER_PROCESS_PARAMETERS32, *PRTL_USER_PROCESS_PARAMETERS32;
-
-#pragma endregion RTL_USER_PROCESS_PARAMETERS[64/32]
 
 #pragma region PEB[64/32]
 
@@ -894,6 +228,8 @@ typedef struct _PEB
     ULONG NtGlobalFlag2;
     ULONGLONG ExtendedFeatureDisableMask;
 } PEB, *PPEB;
+
+#if !defined(WIE_NO_EXT)
 
 typedef struct _PEB64
 {
@@ -1198,100 +534,9 @@ typedef struct _PEB32
     ULONGLONG ExtendedFeatureDisableMask;
 } PEB32, *PPEB32;
 
+#endif /* !defined(WIE_NO_EXT) */
+
 #pragma endregion PEB[64/32]
-
-#pragma region ACTIVATION_CONTEXT_STACK[_FRAME][64/32]
-
-typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME RTL_ACTIVATION_CONTEXT_STACK_FRAME, *PRTL_ACTIVATION_CONTEXT_STACK_FRAME;
-typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME64 RTL_ACTIVATION_CONTEXT_STACK_FRAME64, *PRTL_ACTIVATION_CONTEXT_STACK_FRAME64;
-typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME32 RTL_ACTIVATION_CONTEXT_STACK_FRAME32, *PRTL_ACTIVATION_CONTEXT_STACK_FRAME32;
-
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME
-{
-    struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* Previous;
-    struct ACTIVATION_CONTEXT* ActivationContext;
-    DWORD Flags;
-};
-
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME64
-{
-    struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* POINTER_64 Previous;
-    struct ACTIVATION_CONTEXT* POINTER_64 ActivationContext;
-    ULONG Flags;
-};
-
-struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME32
-{
-    struct RTL_ACTIVATION_CONTEXT_STACK_FRAME* POINTER_32 Previous;
-    struct ACTIVATION_CONTEXT* POINTER_32 ActivationContext;
-    ULONG Flags;
-};
-
-typedef struct _ACTIVATION_CONTEXT_STACK
-{
-    PRTL_ACTIVATION_CONTEXT_STACK_FRAME ActiveFrame;
-    LIST_ENTRY FrameListCache;
-    ULONG Flags;
-    ULONG NextCookieSequenceNumber;
-    ULONG StackId;
-} ACTIVATION_CONTEXT_STACK, *PACTIVATION_CONTEXT_STACK;
-
-typedef struct _ACTIVATION_CONTEXT_STACK64
-{
-    RTL_ACTIVATION_CONTEXT_STACK_FRAME64* POINTER_64 ActiveFrame;
-    LIST_ENTRY64 FrameListCache;
-    ULONG Flags;
-    ULONG NextCookieSequenceNumber;
-    ULONG StackId;
-} ACTIVATION_CONTEXT_STACK64, *PACTIVATION_CONTEXT_STACK64;
-
-typedef struct _ACTIVATION_CONTEXT_STACK32
-{
-    RTL_ACTIVATION_CONTEXT_STACK_FRAME32* POINTER_32 ActiveFrame;
-    LIST_ENTRY32 FrameListCache;
-    ULONG Flags;
-    ULONG NextCookieSequenceNumber;
-    ULONG StackId;
-} ACTIVATION_CONTEXT_STACK32, *PACTIVATION_CONTEXT_STACK32;
-
-#pragma endregion ACTIVATION_CONTEXT_STACK[_FRAME][64/32]
-
-#pragma region GDI_TEB_BATCH[64/32]
-
-typedef struct _GDI_TEB_BATCH
-{
-    struct
-    {
-        ULONG Offset : 31;
-        BOOL HasRenderingCommand : 1;
-    };
-    ULONG_PTR HDC;
-    ULONG Buffer[310];
-} GDI_TEB_BATCH, *PGDI_TEB_BATCH;
-
-typedef struct _GDI_TEB_BATCH64
-{
-    struct
-    {
-        ULONG Offset : 31;
-        BOOL HasRenderingCommand : 1;
-    };
-    ULONGLONG HDC;
-    ULONG Buffer[310];
-} GDI_TEB_BATCH64, *PGDI_TEB_BATCH64;
-
-typedef struct _GDI_TEB_BATCH32
-{
-    struct
-    {
-        ULONG Offset : 31;
-        BOOL HasRenderingCommand : 1;
-    };
-    ULONG HDC;
-    ULONG Buffer[310];
-} GDI_TEB_BATCH32, *PGDI_TEB_BATCH32;
-
-#pragma endregion GDI_TEB_BATCH[64/32]
 
 #pragma region TEB_ACTIVE_FRAME[_CONTEXT][64/32]
 
@@ -1301,6 +546,20 @@ typedef struct _TEB_ACTIVE_FRAME_CONTEXT
     UCHAR Padding[4];
     PCHAR FrameName;
 } TEB_ACTIVE_FRAME_CONTEXT, *PTEB_ACTIVE_FRAME_CONTEXT;
+
+typedef struct _TEB_ACTIVE_FRAME TEB_ACTIVE_FRAME, *PTEB_ACTIVE_FRAME;
+
+struct _TEB_ACTIVE_FRAME
+{
+    DWORD Flags;
+#if _WIN64
+    UCHAR Padding[4];
+#endif
+    struct TEB_ACTIVE_FRAME* Previous;
+    PTEB_ACTIVE_FRAME_CONTEXT Context;
+};
+
+#if !defined(WIE_NO_EXT)
 
 typedef struct _TEB_ACTIVE_FRAME_CONTEXT64
 {
@@ -1316,19 +575,8 @@ typedef struct _TEB_ACTIVE_FRAME_CONTEXT32
     CHAR* POINTER_32 FrameName;
 } TEB_ACTIVE_FRAME_CONTEXT32, *PTEB_ACTIVE_FRAME_CONTEXT32;
 
-typedef struct _TEB_ACTIVE_FRAME TEB_ACTIVE_FRAME, *PTEB_ACTIVE_FRAME;
 typedef struct _TEB_ACTIVE_FRAME64 TEB_ACTIVE_FRAME64, *PTEB_ACTIVE_FRAME64;
 typedef struct _TEB_ACTIVE_FRAME32 TEB_ACTIVE_FRAME32, *PTEB_ACTIVE_FRAME32;
-
-struct _TEB_ACTIVE_FRAME
-{
-    DWORD Flags;
-#if _WIN64
-    UCHAR Padding[4];
-#endif
-    struct TEB_ACTIVE_FRAME* Previous;
-    PTEB_ACTIVE_FRAME_CONTEXT Context;
-};
 
 struct _TEB_ACTIVE_FRAME64
 {
@@ -1344,6 +592,8 @@ struct _TEB_ACTIVE_FRAME32
     struct TEB_ACTIVE_FRAME32* Previous;
     TEB_ACTIVE_FRAME_CONTEXT32* POINTER_32 Context;
 };
+
+#endif /* !defined(WIE_NO_EXT) */
 
 #pragma endregion TEB_ACTIVE_FRAME[_CONTEXT][64/32]
 
@@ -1534,6 +784,8 @@ typedef struct _TEB
 #endif
     ULONGLONG ExtendedFeatureDisableMask;
 } TEB, *PTEB;
+
+#if !defined(WIE_NO_EXT)
 
 typedef struct _TEB64
 {
@@ -1836,4 +1088,7 @@ typedef struct _TEB32
     ULONGLONG ExtendedFeatureDisableMask;
 } TEB32, *PTEB32;
 
+#endif /* !defined(WIE_NO_EXT) */
+
 #pragma endregion TEB[64/32]
+
