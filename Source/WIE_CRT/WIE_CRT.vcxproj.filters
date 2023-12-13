@@ -4,18 +4,6 @@
     <Filter Include="MSVCRT">
       <UniqueIdentifier>{75048101-6aba-4c22-98e0-119ce1de3bb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ExportMSVCRT">
-      <UniqueIdentifier>{4f47436e-9b0a-465c-a5f4-08f907538d92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ExportMSVCRT\x86">
-      <UniqueIdentifier>{f40fb0aa-f3f8-472c-8b1f-5df67fb31c87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ExportMSVCRT\x64">
-      <UniqueIdentifier>{bcfcedee-3841-4956-93ad-c6adfda84f02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ExportMSVCRT\ARM64">
-      <UniqueIdentifier>{d55513c3-994a-4a18-a34c-b6fc12a7b940}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Startup">
       <UniqueIdentifier>{2d0d8e1d-c22a-4fb5-b4e5-96701f34cdbc}</UniqueIdentifier>
     </Filter>
@@ -59,34 +47,27 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExportMSVCRT\x64\libcmt.lib.lst">
-      <Filter>ExportMSVCRT\x64</Filter>
-    </None>
-    <None Include="ExportMSVCRT\x86\libcmt.lib.lst">
-      <Filter>ExportMSVCRT\x86</Filter>
-    </None>
-    <None Include="ExportMSVCRT\x86\msvcrt.lib.lst">
-      <Filter>ExportMSVCRT\x86</Filter>
-    </None>
-    <None Include="packages.config" />
-    <None Include="ExportMSVCRT\ARM64\libcmt.lib.lst">
-      <Filter>ExportMSVCRT\ARM64</Filter>
-    </None>
     <None Include="Startup\Startup_Exe.inl">
       <Filter>Startup</Filter>
     </None>
     <None Include="Memory\Memory.inl">
       <Filter>Memory</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Precomp4C_MakeLib Include="Ntdll_CRT.xml">
-      <Filter>MSVCRT</Filter>
-    </Precomp4C_MakeLib>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Startup\Startup.h">
       <Filter>Startup</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_LibExtract Include="Extract_CRT.xml">
+      <Filter>MSVCRT</Filter>
+    </Precomp4C_LibExtract>
+  </ItemGroup>
+  <ItemGroup>
+    <Precomp4C_LibCreate Include="Ntdll_CRT.xml">
+      <Filter>MSVCRT</Filter>
+    </Precomp4C_LibCreate>
   </ItemGroup>
 </Project>

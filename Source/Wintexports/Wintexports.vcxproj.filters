@@ -146,12 +146,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Precomp4C_MakeLib Include="Lib\Ntdll_Hash.xml">
+    <Precomp4C_LibCreate Include="Lib\Ntdll_Hash.xml">
       <Filter>Lib</Filter>
-    </Precomp4C_MakeLib>
-    <Precomp4C_MakeLib Include="Lib\WIE_WinAPI.xml">
+    </Precomp4C_LibCreate>
+    <Precomp4C_LibCreate Include="Lib\WIE_WinAPI.xml">
       <Filter>Lib</Filter>
-    </Precomp4C_MakeLib>
+    </Precomp4C_LibCreate>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

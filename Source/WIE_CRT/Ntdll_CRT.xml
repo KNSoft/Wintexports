@@ -1,4 +1,4 @@
-<MakeLib>
+<LibCreate>
   <Dll Name="ntdll.dll">
     <!-- Runtime -->
     <Export Name="__chkstk" CallConv="__cdecl" />
@@ -209,4 +209,4 @@
     <Export Name="_setjmpex" CallConv="__cdecl" Arch="x64" />
     <Export Name="longjmp" CallConv="__cdecl" Arch="x64" />
   </Dll>
-</MakeLib>
+</LibCreate>

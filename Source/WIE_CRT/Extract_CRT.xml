@@ -1,0 +1,19 @@
+<LibExtract>
+
+  <Lib Name="libcmt.lib">
+    <Object Name="stack.obj" />
+  </Lib>
+
+  <Lib Name="libcmt.lib" Arch="x64 ARM64">
+    <Object Name="gshandler.obj" />
+  </Lib>
+
+  <Lib Name="libcmt.lib" Arch="ARM64">
+    <Object Name="rtcmemset.obj" />
+  </Lib>
+
+  <Lib Name="msvcrt.lib" Arch="x86">
+    <Object Name="ftol3.obj" />
+  </Lib>
+
+</LibExtract>
