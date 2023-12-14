@@ -50,7 +50,6 @@
 
 #pragma region Alignments
 
-#define PAGE_SIZE 0x1000
 #define CODE_ALIGNMENT 0x10
 #define STRING_ALIGNMENT 0x4
 
