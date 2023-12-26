@@ -11,6 +11,9 @@
     <ClCompile Include="Demo\Demo_QueryStorageProperty.c">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="Demo\Test_String.c">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Lib">
