@@ -26,12 +26,12 @@
 
 #pragma region Size in bytes
 
-#define KB_TO_BYTES(x) ((x) * 1024)
-#define MB_TO_KB(x) ((x) * 1024)
+#define KB_TO_BYTES(x) ((x) * 1024UL)
+#define MB_TO_KB(x) ((x) * 1024UL)
 #define MB_TO_BYTES(x) (KB_TO_BYTES(MB_TO_KB(x)))
-#define GB_TO_MB(x) ((x) * 1024)
+#define GB_TO_MB(x) ((x) * 1024UL)
 #define GB_TO_BYTES(x) (MB_TO_BYTES(GB_TO_MB(x)))
-#define TB_TO_GB(x) ((x) * 1024)
+#define TB_TO_GB(x) ((x) * 1024UL)
 #define TB_TO_BYTES(x) (GB_TO_BYTES(TB_TO_GB(x)))
 
 #pragma endregion Size in bytes
