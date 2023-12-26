@@ -23,8 +23,6 @@
     <Export Name="_ltow" CallConv="__cdecl" />
     <Export Name="_ltow_s" CallConv="__cdecl" />
     <Export Name="_makepath_s" CallConv="__cdecl" />
-    <Export Name="_memccpy" CallConv="__cdecl" />
-    <Export Name="_memicmp" CallConv="__cdecl" />
     <Export Name="_snprintf" CallConv="__cdecl" />
     <Export Name="_snprintf_s" CallConv="__cdecl" />
     <Export Name="_snscanf_s" CallConv="__cdecl" />
@@ -40,14 +38,6 @@
     <Export Name="_strnset_s" CallConv="__cdecl" />
     <Export Name="_strset_s" CallConv="__cdecl" />
     <Export Name="_strupr" CallConv="__cdecl" />
-    <Export Name="wcslen" CallConv="__cdecl" />
-    <Export Name="strlen" CallConv="__cdecl" />
-    <Export Name="wcscmp" CallConv="__cdecl" />
-    <Export Name="strcmp" CallConv="__cdecl" />
-    <Export Name="wcsstr" CallConv="__cdecl" />
-    <Export Name="strstr" CallConv="__cdecl" />
-    <Export Name="vswprintf_s" CallConv="__cdecl" />
-    <Export Name="vsprintf_s" CallConv="__cdecl" />
     <Export Name="_swprintf" CallConv="__cdecl" />
     <Export Name="_ui64toa" CallConv="__cdecl" />
     <Export Name="_ui64toa_s" CallConv="__cdecl" />
@@ -169,6 +159,8 @@
     <Export Name="tan" CallConv="__cdecl" />
 
     <!-- Memory -->
+    <Export Name="_memccpy" CallConv="__cdecl" />
+    <Export Name="_memicmp" CallConv="__cdecl" />
     <Export Name="memset" CallConv="__cdecl" />
     <Export Name="memcpy" CallConv="__cdecl" />
     <Export Name="memcpy_s" CallConv="__cdecl" />

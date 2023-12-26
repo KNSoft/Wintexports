@@ -80,7 +80,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(OutDir)Ntdll_CRT.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -100,7 +99,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(OutDir)Ntdll_CRT.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -113,7 +111,6 @@
     </ClCompile>
     <Lib>
       <AdditionalDependencies>$(OutDir)Ntdll_CRT.lib;$(OutDir)WIE_CRT_ARM.lib</AdditionalDependencies>
-      <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
