@@ -1,4 +1,4 @@
-﻿#include "Startup.h"
+﻿#include "Startup.inl"
 
 static void WIE_Common_Main()
 {

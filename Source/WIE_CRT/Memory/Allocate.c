@@ -1,4 +1,4 @@
-﻿#define _CORECRT_BUILD
+﻿#include "../CRTBuild.inl"
 
 #include <Wintexports/Wintexports.h>
 

@@ -1,4 +1,4 @@
-﻿#include "Startup.h"
+﻿#include "Startup.inl"
 
 int __stdcall _DllMainCRTStartup(
     _In_     void*         DllHandle,

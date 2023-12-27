@@ -46,4 +46,9 @@
 #include "WIE_Ext.h"
 #endif
 
+/* CRT */
+#if !defined(WIE_NO_CRT) && defined(_VC_NODEFAULTLIB)
+#include "WIE_CRT.h"
+#endif
+
 #endif /* _WINTEXPORTS_ */

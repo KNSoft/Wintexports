@@ -4,11 +4,6 @@
 
 #pragma comment(lib, "ntdll.lib")
 
-#if defined(_VC_NODEFAULTLIB)
-#define _NO_CRT_STDIO_INLINE
-#pragma comment(lib, "WIE_CRT.lib")
-#endif
-
 #include "Demo/Demo.h"
 
 int WINAPI wWinMain(

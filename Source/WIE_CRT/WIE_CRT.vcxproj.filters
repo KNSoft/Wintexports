@@ -56,9 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Startup\Startup.h">
+    <ClInclude Include="Startup\Startup.inl">
       <Filter>Startup</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_CRT.h" />
   </ItemGroup>
   <ItemGroup>
     <Precomp4C_LibExtract Include="Extract_CRT.xml">

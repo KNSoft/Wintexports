@@ -13,7 +13,11 @@
 
 namespace std
 {
-    const std::nothrow_t nothrow;
+#ifdef _CRT_ENABLE_SELECTANY_NOTHROW
+    __declspec(selectany) nothrow_t const nothrow;
+#else
+    nothrow_t const nothrow;
+#endif
 }
 
 #pragma warning(push)

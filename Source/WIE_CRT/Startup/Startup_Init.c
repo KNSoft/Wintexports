@@ -1,4 +1,6 @@
-﻿#include "Startup.h"
+﻿#include "Startup.inl"
+
+#include <vcruntime_internal.h>
 
 #if defined(_M_IX86)
 
