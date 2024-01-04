@@ -82,7 +82,7 @@ typedef struct _LDR_DATA_TABLE_ENTRY
     LIST_ENTRY InLoadOrderModuleList;
     LIST_ENTRY InMemoryOrderModuleList;
     LIST_ENTRY InInitializationOrderModuleList;
-    HMODULE DllBase;
+    PVOID DllBase;
     PVOID EntryPoint;
     ULONG SizeOfImage;
     UNICODE_STRING FullDllName;
@@ -133,7 +133,7 @@ typedef struct _LDR_DATA_TABLE_ENTRY
     PLDR_DDAG_NODE DdagNode;
     LIST_ENTRY NodeModuleLink;
     struct LDRP_LOAD_CONTEXT* LoadContext;
-    HMODULE ParentDllBase;
+    PVOID ParentDllBase;
     PVOID SwitchBackContext;
     RTL_BALANCED_NODE BaseAddressIndexNode;
     RTL_BALANCED_NODE MappingInfoIndexNode;

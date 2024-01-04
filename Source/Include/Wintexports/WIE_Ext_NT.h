@@ -75,8 +75,8 @@
 
 #pragma region Current runtime information
 
-#define CURRENT_PROCESS_ID ((ULONG)(ULONG_PTR)WIE_ReadTEB(ClientId.UniqueProcess))
-#define CURRENT_THREAD_ID ((ULONG)(ULONG_PTR)WIE_ReadTEB(ClientId.UniqueThread))
+#define CURRENT_PROCESS_ID ((HANDLE)WIE_ReadTEB(ClientId.UniqueProcess))
+#define CURRENT_THREAD_ID ((HANDLE)WIE_ReadTEB(ClientId.UniqueThread))
 #define CURRENT_DIRECTORY_HANDLE (NtCurrentPeb()->ProcessParameters->CurrentDirectory.Handle)
 #define CURRENT_IMAGE_BASE (NtCurrentPeb()->ImageBaseAddress)
 #define CURRENT_NTDLL_BASE (CONTAINING_RECORD(NtCurrentPeb()->Ldr->InInitializationOrderModuleList.Flink, LDR_DATA_TABLE_ENTRY, InInitializationOrderModuleList)->DllBase)

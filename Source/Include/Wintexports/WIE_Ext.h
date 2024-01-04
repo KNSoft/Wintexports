@@ -26,6 +26,7 @@
 
 #pragma region Size in bytes
 
+#define BYTE_BIT 8UL
 #define KB_TO_BYTES(x) ((x) * 1024UL)
 #define MB_TO_KB(x) ((x) * 1024UL)
 #define MB_TO_BYTES(x) (KB_TO_BYTES(MB_TO_KB(x)))

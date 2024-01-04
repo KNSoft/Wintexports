@@ -77,7 +77,7 @@ typedef struct _PEB
     UCHAR Padding0[4];
 #endif
     HANDLE Mutant;
-    HMODULE ImageBaseAddress;
+    PVOID ImageBaseAddress;
     PPEB_LDR_DATA Ldr;
     PRTL_USER_PROCESS_PARAMETERS ProcessParameters;
     PVOID SubSystemData;
