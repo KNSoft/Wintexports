@@ -16,6 +16,11 @@ EXTERN_C_END
 #define IS_WIN64 FALSE
 #endif
 
+/* Patch _STATIC_ASSERT to avoid confusion amount static_assert, _Static_assert and C_ASSERT */
+
+#undef _STATIC_ASSERT
+#define _STATIC_ASSERT(expr) static_assert((expr), #expr)
+
 #pragma endregion MSVC
 
 #pragma region VS
