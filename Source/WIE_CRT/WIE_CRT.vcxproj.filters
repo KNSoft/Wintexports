@@ -54,6 +54,7 @@
       <Filter>Memory</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="CRTBuild.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Startup\Startup.inl">

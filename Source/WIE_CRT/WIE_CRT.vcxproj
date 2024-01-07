@@ -139,6 +139,7 @@
     <Precomp4C_LibCreate Include="Ntdll_CRT.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CRTBuild.inl" />
     <None Include="Memory\Memory.inl" />
     <None Include="packages.config" />
     <None Include="Startup\Startup_Exe.inl" />
