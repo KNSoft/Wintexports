@@ -237,6 +237,7 @@ typedef enum _SYSTEM_INFORMATION_CLASS
     MaxSystemInfoClass = 228
 } SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;
 
+/* SystemBasicInformation = 0 */
 typedef struct _SYSTEM_BASIC_INFORMATION
 {
     ULONG Reserved;
@@ -252,6 +253,7 @@ typedef struct _SYSTEM_BASIC_INFORMATION
     CHAR NumberOfProcessors;
 } SYSTEM_BASIC_INFORMATION, *PSYSTEM_BASIC_INFORMATION;
 
+/* SystemProcessorInformation = 1 */
 typedef struct _SYSTEM_PROCESSOR_INFORMATION
 {
     USHORT ProcessorArchitecture;
@@ -261,24 +263,7 @@ typedef struct _SYSTEM_PROCESSOR_INFORMATION
     ULONG ProcessorFeatureBits;
 } SYSTEM_PROCESSOR_INFORMATION, *PSYSTEM_PROCESSOR_INFORMATION;
 
-typedef struct _SYSTEM_MODULE_ENTRY
-{
-    ULONG_PTR Unused;
-    ULONG_PTR Always0;
-    PVOID ModuleBaseAddress;
-    ULONG ModuleSize;
-    ULONG Unknown;
-    ULONG ModuleEntryIndex;
-    USHORT ModuleNameLength;
-    USHORT ModuleNameOffset;
-    CHAR ModuleName[256];
-} SYSTEM_MODULE_ENTRY, *PSYSTEM_MODULE_ENTRY;
-
-typedef struct _SYSTEM_MODULE_INFORMATION
-{
-    ULONG Count;
-    _Field_size_(Count) SYSTEM_MODULE_ENTRY Module[ANYSIZE_ARRAY];
-} SYSTEM_MODULE_INFORMATION, *PSYSTEM_MODULE_INFORMATION;
+/* SystemProcessInformation = 5 */
 
 typedef struct _SYSTEM_PROCESS_INFORMATION
 {
@@ -334,6 +319,29 @@ typedef struct _SYSTEM_THREAD_INFORMATION
     ULONG PadPadAlignment;
 } SYSTEM_THREAD_INFORMATION, *PSYSTEM_THREAD_INFORMATION;
 
+/* SystemModuleInformation = 11 */
+
+typedef struct _SYSTEM_MODULE_ENTRY
+{
+    ULONG_PTR Unused;
+    ULONG_PTR Always0;
+    PVOID ModuleBaseAddress;
+    ULONG ModuleSize;
+    ULONG Unknown;
+    ULONG ModuleEntryIndex;
+    USHORT ModuleNameLength;
+    USHORT ModuleNameOffset;
+    CHAR ModuleName[256];
+} SYSTEM_MODULE_ENTRY, *PSYSTEM_MODULE_ENTRY;
+
+typedef struct _SYSTEM_MODULE_INFORMATION
+{
+    ULONG Count;
+    _Field_size_(Count) SYSTEM_MODULE_ENTRY Module[ANYSIZE_ARRAY];
+} SYSTEM_MODULE_INFORMATION, *PSYSTEM_MODULE_INFORMATION;
+
+/* SystemExtendedHandleInformation = 64 */
+
 typedef struct _SYSTEM_HANDLE_TABLE_ENTRY_INFO_EX
 {
     PVOID Object;
@@ -352,3 +360,20 @@ typedef struct _SYSTEM_HANDLE_INFORMATION_EX
     ULONG_PTR Reserved;
     _Field_size_(NumberOfHandles) SYSTEM_HANDLE_TABLE_ENTRY_INFO_EX Handles[ANYSIZE_ARRAY];
 } SYSTEM_HANDLE_INFORMATION_EX, *PSYSTEM_HANDLE_INFORMATION_EX;
+
+/* SystemFirmwareTableInformation = 76 */
+
+typedef enum _SYSTEM_FIRMWARE_TABLE_ACTION
+{
+    SystemFirmwareTable_Enumerate,
+    SystemFirmwareTable_Get
+} SYSTEM_FIRMWARE_TABLE_ACTION;
+
+typedef struct _SYSTEM_FIRMWARE_TABLE_INFORMATION
+{
+    ULONG ProviderSignature;
+    SYSTEM_FIRMWARE_TABLE_ACTION Action;
+    ULONG TableID;
+    ULONG TableBufferLength;
+    _Field_size_(TableBufferLength) UCHAR TableBuffer[ANYSIZE_ARRAY];
+} SYSTEM_FIRMWARE_TABLE_INFORMATION, *PSYSTEM_FIRMWARE_TABLE_INFORMATION;
