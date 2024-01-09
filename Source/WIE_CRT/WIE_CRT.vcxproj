@@ -146,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Wintexports\WIE_CRT.h" />
-    <ClInclude Include="Startup\Startup.inl" />
   </ItemGroup>
   <ItemGroup>
     <Precomp4C_LibExtract Include="Extract_CRT.xml" />

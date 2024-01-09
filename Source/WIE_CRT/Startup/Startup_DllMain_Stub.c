@@ -1,4 +1,4 @@
-﻿#include "Startup.inl"
+﻿#include "../CRTBuild.inl"
 
 BOOL
 WINAPI

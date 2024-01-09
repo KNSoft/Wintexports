@@ -57,9 +57,6 @@
     <None Include="CRTBuild.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Startup\Startup.inl">
-      <Filter>Startup</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Wintexports\WIE_CRT.h" />
   </ItemGroup>
   <ItemGroup>

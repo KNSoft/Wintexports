@@ -4,7 +4,7 @@
 
 #define _NO_CRT_STDIO_INLINE
 
-#if !defined(_VCRT_BUILD)
+#if !defined(_VCRT_BUILD) && defined(_VC_NODEFAULTLIB)
 #pragma comment(linker, "/DEFAULTLIB:WIE_CRT.lib")
 #endif
 
