@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include "WIE_Ext_CPU.h"
 #include "WIE_Ext_MSToolChain.h"
+#include "WIE_Ext_CPU.h"
+#include "WIE_Ext_SMBIOS.h"
 #include "WIE_Ext_NT.h"
 
 // Clear high 32-bit of HWND

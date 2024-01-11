@@ -14,6 +14,9 @@
     <ClCompile Include="Demo\Test_String.c">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="Demo\Demo_SMBIOS.c">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Lib">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="..\Include\Wintexports\PrivateHelper\Winnt_Around.h">
       <Filter>Include\PrivateHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext_SMBIOS.h">
+      <Filter>Include\Extension</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

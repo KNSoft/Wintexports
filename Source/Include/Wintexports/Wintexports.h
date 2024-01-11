@@ -19,6 +19,16 @@
 #include "winsta.h"
 #include <ntstatus.h>
 
+/* Additional headers */
+
+#include <intrin.h>
+#include <suppress.h>
+
+/* Always ignore Microsoft extension warnings */
+
+// nonstandard extension used: zero-sized array in struct/union
+#pragma warning(disable: 4200)
+
 /* NT support */
 
 #include "NtTypes.h"
@@ -34,11 +44,6 @@
 #if !defined(WIE_NO_HASH)
 #include "API_Ntdll_Hash.h"
 #endif
-
-/* Additional headers */
-
-#include <intrin.h>
-#include <suppress.h>
 
 /* Extension */
 

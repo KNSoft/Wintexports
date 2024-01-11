@@ -208,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="Demo\Demo_FindFile.c" />
     <ClCompile Include="Demo\Demo_QueryStorageProperty.c" />
+    <ClCompile Include="Demo\Demo_SMBIOS.c" />
     <ClCompile Include="Demo\Test_MemAlloc.cpp" />
     <ClCompile Include="Demo\Test_String.c" />
     <ClCompile Include="Main.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="..\Include\Wintexports\PrivateHelper\Winnt_Around.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_Ext_MSToolChain.h" />
     <ClInclude Include="..\Include\Wintexports\WIE_Ext_NT.h" />
+    <ClInclude Include="..\Include\Wintexports\WIE_Ext_SMBIOS.h" />
     <ClInclude Include="..\Include\Wintexports\winsta.h" />
     <ClInclude Include="..\Include\Wintexports\API_Kernel32.h" />
     <ClInclude Include="..\Include\Wintexports\API_Ntdll.h" />

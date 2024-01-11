@@ -12,5 +12,6 @@ BOOL Test_String();
 /* Demos */
 BOOL Demo_FindFile();
 BOOL Demo_QueryStorageProperty();
+BOOL Demo_SMBIOS();
 
 EXTERN_C_END

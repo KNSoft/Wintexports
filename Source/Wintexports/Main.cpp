@@ -22,6 +22,7 @@ int WINAPI wWinMain(
     /* Run demos */
     bRet &= Demo_FindFile();
     bRet &= Demo_QueryStorageProperty();
+    bRet &= Demo_SMBIOS();
 
     return bRet ? 0 : 1;
 }
