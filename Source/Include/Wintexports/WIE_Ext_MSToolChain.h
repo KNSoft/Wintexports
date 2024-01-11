@@ -21,6 +21,12 @@ EXTERN_C_END
 #undef _STATIC_ASSERT
 #define _STATIC_ASSERT(expr) static_assert((expr), #expr)
 
+#define _A2U8(quote) __A2U8(quote)
+#define __A2U8(quote) u8##quote
+
+#define _A2W(quote) __A2W(quote)
+#define __A2W(quote) L##quote
+
 #pragma endregion MSVC
 
 #pragma region VS
