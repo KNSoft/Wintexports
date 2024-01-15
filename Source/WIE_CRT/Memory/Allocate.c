@@ -1,7 +1,4 @@
-﻿#include "../CRTBuild.inl"
-
-#include <Wintexports/Wintexports.h>
-
+﻿#include "../WIE_CRT.inl"
 #include "Memory.inl"
 
 _Check_return_

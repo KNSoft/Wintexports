@@ -1,42 +1,5 @@
 ﻿#include "Demo.h"
 
-_Success_(return != FALSE)
-BOOL NTAPI NT_InitializePathObjectEx(
-    _In_z_ PCWSTR Path,
-    _In_opt_ HANDLE RootDirectory,
-    _In_ ULONG Attributes,
-    _In_opt_ PSECURITY_DESCRIPTOR SecurityDescriptor,
-    _Out_ POBJECT_ATTRIBUTES Object,
-    _Out_ PUNICODE_STRING ObjectName,
-    _Out_opt_ PRTL_RELATIVE_NAME_U RelativeName)
-{
-    NTSTATUS Status;
-
-    Status = RtlDosPathNameToNtPathName_U_WithStatus(Path, ObjectName, NULL, RelativeName);
-    if (!NT_SUCCESS(Status))
-    {
-        WIE_SetLastStatus(Status);
-        return FALSE;
-    }
-
-    InitializeObjectAttributes(Object, ObjectName, Attributes, RootDirectory, SecurityDescriptor);
-
-    return TRUE;
-}
-
-_Success_(return != FALSE)
-BOOL NTAPI NT_InitializePathObject(_In_z_ PCWSTR Path, _In_ BOOL InheritHandle, _Out_ POBJECT_ATTRIBUTES Object, _Out_ PUNICODE_STRING ObjectName, _Out_opt_ PRTL_RELATIVE_NAME_U RelativeName)
-{
-    ULONG Attributes = OBJ_CASE_INSENSITIVE;
-
-    if (InheritHandle)
-    {
-        Attributes |= OBJ_INHERIT;
-    }
-
-    return NT_InitializePathObjectEx(Path, NULL, Attributes, NULL, Object, ObjectName, RelativeName);
-}
-
 typedef struct _FILE_FIND
 {
     /* Initialize parameters */
@@ -58,7 +21,7 @@ typedef struct _FILE_FIND
 
 #define FILE_FIND_BUFFER_SIZE 0x1000
 
-BOOL File_FindInitialize(
+static BOOL File_FindInitialize(
     _Out_ PFILE_FIND FindData,
     _In_z_ PCWSTR Path,
     _In_opt_ PUNICODE_STRING SearchFilter,
@@ -106,7 +69,7 @@ BOOL File_FindInitialize(
     return TRUE;
 }
 
-BOOL File_Find(_Inout_ PFILE_FIND FindData)
+static BOOL File_Find(_Inout_ PFILE_FIND FindData)
 {
     NTSTATUS Status;
     IO_STATUS_BLOCK IoStatusBlock;
@@ -138,7 +101,7 @@ BOOL File_Find(_Inout_ PFILE_FIND FindData)
     }
 }
 
-VOID File_FindUninitialize(_In_ PFILE_FIND FindData)
+static VOID File_FindUninitialize(_In_ PFILE_FIND FindData)
 {
     RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, FindData->Buffer);
     NtClose(FindData->DirectoryHandle);

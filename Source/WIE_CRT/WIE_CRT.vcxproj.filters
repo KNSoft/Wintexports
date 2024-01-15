@@ -54,7 +54,7 @@
       <Filter>Memory</Filter>
     </None>
     <None Include="packages.config" />
-    <None Include="CRTBuild.inl" />
+    <None Include="WIE_CRT.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Wintexports\WIE_CRT.h" />

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <Wintexports/API_Ntdll.h>
+#include <Wintexports/WIE_Ext.h>
 
 _Must_inspect_result_
 _Ret_maybenull_

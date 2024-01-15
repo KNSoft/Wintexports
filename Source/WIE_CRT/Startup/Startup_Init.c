@@ -1,4 +1,6 @@
-﻿#include "../CRTBuild.inl"
+﻿#include "../WIE_CRT.inl"
+
+#include <Wintexports/Wintexports.h>
 
 #include <vcruntime_internal.h>
 
@@ -10,7 +12,7 @@ int __favor = 0;
 
 int __isa_available_init()
 {
-    WIE_CPU_INFO CpuInfo01, CpuInfo7;
+    CPUID_INFO CpuInfo01, CpuInfo7;
     UINT CpuIdMaxInputValue;
     BOOLEAN IsSSE2Enabled, IsGenuineIntel;
     ULONGLONG XFeatureMask;
@@ -31,14 +33,14 @@ int __isa_available_init()
                       CpuInfo01.F00_00.VendorIdString[2] == ('letn'));
 
     __cpuid(CpuInfo01.Registers, 0);
-    CpuInfo01.Eax &= WIE_CPU_INTEL_VERSION_INFO_MASK;
+    CpuInfo01.Eax &= CPUID_INTEL_VERSION_INFO_MASK;
 
-    if (IsGenuineIntel && ((((CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0001, 0, 0b0110, 0b1100, 0) ||
-                              CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0110, 0)
-                              ) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0111, 0)
-                             ) || (CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0101, 0) ||
-                                   CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0110, 0))
-                            ) || CpuInfo01.Eax == WIE_CPU_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0111, 0)))
+    if (IsGenuineIntel && ((((CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0001, 0, 0b0110, 0b1100, 0) ||
+                              CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0110, 0)
+                              ) || CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0010, 0, 0b0110, 0b0111, 0)
+                             ) || (CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0101, 0) ||
+                                   CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0110, 0))
+                            ) || CpuInfo01.Eax == CPUID_MAKE_INTEL_VERSION_INFO(0, 0b0011, 0, 0b0110, 0b0111, 0)))
     {
         __favor |= (1 << __FAVOR_ATOM);
     }

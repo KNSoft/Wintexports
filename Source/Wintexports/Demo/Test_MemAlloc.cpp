@@ -3,6 +3,10 @@
 #include <vcruntime_new.h>
 #include <malloc.h>
 
+constexpr size_t sInitSize1 = 0x2345;
+constexpr size_t sInitSize2 = 0x1234;
+constexpr size_t sInitSize3 = 0x5432;
+
 BOOL Test_new_delete()
 {
     void* pv;
@@ -43,10 +47,6 @@ BOOL Test_new_delete()
 
     return TRUE;
 }
-
-constexpr size_t sInitSize1 = 0x2345;
-constexpr size_t sInitSize2 = 0x1234;
-constexpr size_t sInitSize3 = 0x5432;
 
 BOOL Test_Memory_Allocate()
 {

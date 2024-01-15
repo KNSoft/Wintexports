@@ -83,3 +83,15 @@
 #define CURRENT_PROCESS_HEAP (NtCurrentPeb()->ProcessHeap)
 
 #pragma endregion Current runtime information
+
+#pragma region Context
+
+#if defined(_M_IX86)
+#define CONTEXT_PC Eip
+#elif defined(_M_X64)
+#define CONTEXT_PC Rip
+#elif defined(_M_ARM64)
+#define CONTEXT_PC Pc
+#endif
+
+#pragma endregion Context

@@ -1,4 +1,4 @@
-﻿#include "../CRTBuild.inl"
+﻿#include "../WIE_CRT.inl"
 
 int __stdcall _DllMainCRTStartup(
     _In_     void*         DllHandle,

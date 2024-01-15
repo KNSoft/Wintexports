@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#define WIE_CPU_INTEL_VERSION_INFO_MASK 0xFFF3FF0 // Extended Family ID | Extended Model ID | Processor Type | Family ID | Model
-#define WIE_CPU_MAKE_INTEL_VERSION_INFO(ExtendedFamilyId, ExtendedModelId, ProcessorType, FamilyId, Model, SteppingId)\
+#define CPUID_INTEL_VERSION_INFO_MASK 0xFFF3FF0 // Extended Family ID | Extended Model ID | Processor Type | Family ID | Model
+#define CPUID_MAKE_INTEL_VERSION_INFO(ExtendedFamilyId, ExtendedModelId, ProcessorType, FamilyId, Model, SteppingId)\
     (((ExtendedFamilyId & 0b11111111) << 20) |\
      ((ExtendedModelId & 0b1111) << 16) |\
      ((ProcessorType & 0b11) << 12) |\
@@ -9,7 +9,7 @@
      ((Model & 0b1111) << 4) |\
      (SteppingId & 0b1111))
 
-typedef union _WIE_CPU_INFO
+typedef union _CPUID_INFO
 {
     int Registers[4];
     struct
@@ -298,4 +298,4 @@ typedef union _WIE_CPU_INFO
         };
     } F07_01;
 
-} WIE_CPU_INFO, *PWIE_CPU_INFO;
+} CPUID_INFO, *PCPUID_INFO;

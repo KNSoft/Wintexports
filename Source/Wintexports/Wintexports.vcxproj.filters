@@ -14,7 +14,10 @@
     <ClCompile Include="Demo\Test_String.c">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\Demo_SMBIOS.c">
+    <ClCompile Include="Demo\Demo_FirmwareTable.c">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Internal.c">
       <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>

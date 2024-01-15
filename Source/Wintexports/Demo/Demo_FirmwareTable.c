@@ -18,13 +18,13 @@ typedef struct _DEMO_SMBIOS_TABLE_INFO
 
 #define DEFINE_DMI_STRING(Type, Field) { UFIELD_OFFSET(SMBIOS_TABLE, Type.Field), _A2W(#Field) }
 
-DEMO_SMBIOS_STRING_FIELD g_Type0StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type0StringFields[] = {
     DEFINE_DMI_STRING(BIOS_INFO_TYPE_0, Vendor),
     DEFINE_DMI_STRING(BIOS_INFO_TYPE_0, Version),
     DEFINE_DMI_STRING(BIOS_INFO_TYPE_0, ReleaseDate),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type1StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type1StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_INFO_TYPE_1, Manufacturer),
     DEFINE_DMI_STRING(SYSTEM_INFO_TYPE_1, ProductName),
     DEFINE_DMI_STRING(SYSTEM_INFO_TYPE_1, Version),
@@ -33,7 +33,7 @@ DEMO_SMBIOS_STRING_FIELD g_Type1StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_INFO_TYPE_1, Famliy),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type2StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type2StringFields[] = {
     DEFINE_DMI_STRING(BASEBOARD_INFO_TYPE_2, Manufacturer),
     DEFINE_DMI_STRING(BASEBOARD_INFO_TYPE_2, Product),
     DEFINE_DMI_STRING(BASEBOARD_INFO_TYPE_2, Version),
@@ -41,14 +41,14 @@ DEMO_SMBIOS_STRING_FIELD g_Type2StringFields[] = {
     DEFINE_DMI_STRING(BASEBOARD_INFO_TYPE_2, AssetTag),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type3StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type3StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_ENCLOSURE_OR_CHASSIS_TYPE_3, Manufacturer),
     DEFINE_DMI_STRING(SYSTEM_ENCLOSURE_OR_CHASSIS_TYPE_3, Version),
     DEFINE_DMI_STRING(SYSTEM_ENCLOSURE_OR_CHASSIS_TYPE_3, SerialNumber),
     DEFINE_DMI_STRING(SYSTEM_ENCLOSURE_OR_CHASSIS_TYPE_3, AssetTagNumber),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type4StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type4StringFields[] = {
     DEFINE_DMI_STRING(PROCESSOR_INFO_TYPE_4, SocketDesignation),
     DEFINE_DMI_STRING(PROCESSOR_INFO_TYPE_4, Manufacturer),
     DEFINE_DMI_STRING(PROCESSOR_INFO_TYPE_4, Version),
@@ -57,28 +57,28 @@ DEMO_SMBIOS_STRING_FIELD g_Type4StringFields[] = {
     DEFINE_DMI_STRING(PROCESSOR_INFO_TYPE_4, PartNumber),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type7StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type7StringFields[] = {
     DEFINE_DMI_STRING(CACHE_INFO_TYPE_7, SocketDesignation),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type8StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type8StringFields[] = {
     DEFINE_DMI_STRING(PORT_CONNECTOR_INFO_TYPE_8, InternalReferenceDesignator),
     DEFINE_DMI_STRING(PORT_CONNECTOR_INFO_TYPE_8, ExternalReferenceDesignator),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type9StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type9StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_SLOTS_TYPE_9, Designation),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type13StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type13StringFields[] = {
     DEFINE_DMI_STRING(BIOS_LANGUAGE_INFO_TYPE_13, CurrentLanguage),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type14StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type14StringFields[] = {
     DEFINE_DMI_STRING(GROUP_ASSOCIATIONS_TYPE_14, GroupName),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type17StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type17StringFields[] = {
     DEFINE_DMI_STRING(MEMORY_DEVICE_TYPE_17, DeviceLocator),
     DEFINE_DMI_STRING(MEMORY_DEVICE_TYPE_17, BankLocator),
     DEFINE_DMI_STRING(MEMORY_DEVICE_TYPE_17, Manufacturer),
@@ -88,35 +88,35 @@ DEMO_SMBIOS_STRING_FIELD g_Type17StringFields[] = {
     DEFINE_DMI_STRING(MEMORY_DEVICE_TYPE_17, FirmwareVersion),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type26StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type26StringFields[] = {
     DEFINE_DMI_STRING(VOLTAGE_PROBE_TYPE_26, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type27StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type27StringFields[] = {
     DEFINE_DMI_STRING(COOLING_DEVICE_TYPE_27, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type28StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type28StringFields[] = {
     DEFINE_DMI_STRING(TEMPERATURE_PROBE_TYPE_28, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type29StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type29StringFields[] = {
     DEFINE_DMI_STRING(ELECTRICAL_CURRENT_PROBE_TYPE_29, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type30StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type30StringFields[] = {
     DEFINE_DMI_STRING(OUT_OF_BAND_REMOTE_ACCESS_TYPE_30, ManufacturerName),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type34StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type34StringFields[] = {
     DEFINE_DMI_STRING(MANAGEMENT_DEVICE_TYPE_34, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type35StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type35StringFields[] = {
     DEFINE_DMI_STRING(MANAGEMENT_DEVICE_COMPONENT_TYPE_35, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type39StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type39StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_POWER_SUPPLY_TYPE_39, Location),
     DEFINE_DMI_STRING(SYSTEM_POWER_SUPPLY_TYPE_39, DeviceName),
     DEFINE_DMI_STRING(SYSTEM_POWER_SUPPLY_TYPE_39, Manufacturer),
@@ -126,15 +126,15 @@ DEMO_SMBIOS_STRING_FIELD g_Type39StringFields[] = {
     DEFINE_DMI_STRING(SYSTEM_POWER_SUPPLY_TYPE_39, RevisionLevel),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type41StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type41StringFields[] = {
     DEFINE_DMI_STRING(ONBOARD_DEVICES_EXTENDED_INFORMATION_TYPE_41, ReferenceDesignation),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type43StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type43StringFields[] = {
     DEFINE_DMI_STRING(TPM_DEVICE_TYPE_43, Description),
 };
 
-DEMO_SMBIOS_STRING_FIELD g_Type45StringFields[] = {
+static DEMO_SMBIOS_STRING_FIELD g_Type45StringFields[] = {
     DEFINE_DMI_STRING(FIRMWARE_INVENTORY_INFO_TYPE_45, ComponentName),
     DEFINE_DMI_STRING(FIRMWARE_INVENTORY_INFO_TYPE_45, Version),
     DEFINE_DMI_STRING(FIRMWARE_INVENTORY_INFO_TYPE_45, ID),
@@ -143,7 +143,7 @@ DEMO_SMBIOS_STRING_FIELD g_Type45StringFields[] = {
     DEFINE_DMI_STRING(FIRMWARE_INVENTORY_INFO_TYPE_45, LowestSupportedFirmwareVersion),
 };
 
-DEMO_SMBIOS_TABLE_INFO g_Tables[] = {
+static DEMO_SMBIOS_TABLE_INFO g_Tables[] = {
     { 0, L"BIOS Information", g_Type0StringFields, ARRAYSIZE(g_Type0StringFields) },
     { 1, L"System Information", g_Type1StringFields, ARRAYSIZE(g_Type1StringFields) },
     { 2, L"Baseboard Information", g_Type2StringFields, ARRAYSIZE(g_Type2StringFields) },
@@ -180,48 +180,7 @@ DEMO_SMBIOS_TABLE_INFO g_Tables[] = {
     { 127, L"End-of-Table", NULL, 0 },
 };
 
-_Ret_maybenull_
-PSYSTEM_FIRMWARE_TABLE_INFORMATION NT_GetFirmwareTable(
-    ULONG ProviderSignature,
-    ULONG TableID,
-    SYSTEM_FIRMWARE_TABLE_ACTION Action)
-{
-    NTSTATUS Status;
-    ULONG Length;
-    SYSTEM_FIRMWARE_TABLE_INFORMATION FirmwareInfo;
-    PSYSTEM_FIRMWARE_TABLE_INFORMATION Buffer;
-
-    FirmwareInfo.ProviderSignature = ProviderSignature;
-    FirmwareInfo.Action = Action;
-    FirmwareInfo.TableID = TableID;
-    FirmwareInfo.TableBufferLength = 0;
-
-    Status = NtQuerySystemInformation(SystemFirmwareTableInformation, &FirmwareInfo, sizeof(FirmwareInfo), &Length);
-    if (Status != STATUS_BUFFER_TOO_SMALL)
-    {
-        WIE_SetLastStatus(Status);
-        return NULL;
-    }
-
-    _Analysis_assume_(Length >= sizeof(FirmwareInfo));
-    Buffer = RtlAllocateHeap(CURRENT_PROCESS_HEAP, 0, Length);
-    if (Buffer == NULL)
-    {
-        return NULL;
-    }
-
-    RtlCopyMemory(Buffer, &FirmwareInfo, sizeof(FirmwareInfo));
-    Status = NtQuerySystemInformation(SystemFirmwareTableInformation, Buffer, Length, &Length);
-    if (!NT_SUCCESS(Status))
-    {
-        RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, Buffer);
-        return NULL;
-    }
-
-    return Buffer;
-}
-
-BOOL CALLBACK SMBIOSTableStringCallback(_In_ BYTE Index, _In_z_ PCSTR String, _In_opt_ PVOID Context)
+static BOOL CALLBACK SMBIOSTableStringCallback(_In_ BYTE Index, _In_z_ PCSTR String, _In_opt_ PVOID Context)
 {
     PSMBIOS_TABLE SMBIOSTable;
     ULONG i, j;
@@ -263,6 +222,7 @@ BOOL CALLBACK SMBIOSTableStringCallback(_In_ BYTE Index, _In_z_ PCSTR String, _I
     return TRUE;
 }
 
+static
 _Ret_maybenull_
 PSMBIOS_TABLE EnumSMBIOSString(
     _In_ PSMBIOS_RAWDATA SMBIOSData,
@@ -310,7 +270,7 @@ PSMBIOS_TABLE EnumSMBIOSString(
     return NULL;
 }
 
-VOID PrintSMBIOSTableInfo(_In_ PSMBIOS_TABLE Table)
+static VOID PrintSMBIOSTableInfo(_In_ PSMBIOS_TABLE Table)
 {
     if (Table->Header.Type == 0)
     {
@@ -388,12 +348,14 @@ VOID PrintSMBIOSTableInfo(_In_ PSMBIOS_TABLE Table)
     }
 }
 
-BOOL Demo_SMBIOS()
+BOOL Demo_FirmwareTable()
 {
     PSYSTEM_FIRMWARE_TABLE_INFORMATION FirmwareInfo;
     PSMBIOS_RAWDATA SMBIOSRawData;
     PSMBIOS_TABLE SMBIOSTable;
     ULONG i;
+
+    /* Print SMBIOS Info */
 
     FirmwareInfo = NT_GetFirmwareTable('RSMB', 0, SystemFirmwareTable_Get);
     if (FirmwareInfo == NULL)
@@ -433,5 +395,17 @@ BOOL Demo_SMBIOS()
     } while (SMBIOSTable != NULL && (PBYTE)SMBIOSTable < SMBIOSRawData->SMBIOSTableData + SMBIOSRawData->Length);
 
     RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, FirmwareInfo);
+
+    /* Get ACPI Info */
+
+    FirmwareInfo = NT_GetFirmwareTable('ACPI', 'PCAF', SystemFirmwareTable_Get);
+    if (FirmwareInfo == NULL)
+    {
+        DbgPrint("NT_GetFirmwareTable failed with 0x%08lX\n", WIE_GetLastStatus());
+        return FALSE;
+    }
+
+    RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, FirmwareInfo);
+
     return TRUE;
 }

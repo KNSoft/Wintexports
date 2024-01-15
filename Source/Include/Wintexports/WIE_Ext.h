@@ -59,6 +59,8 @@
 
 #pragma region String
 
+#define _STR_CCH_LEN(quote) (ARRAYSIZE(quote) - 1)
+
 #define ASCII_CASE_MASK 0b100000
 #define UNICODE_EOL ((DWORD)0x000A000D)
 #define ANSI_EOL ((WORD)0x0A0D)

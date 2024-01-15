@@ -1,8 +1,10 @@
-﻿#include <Wintexports/Wintexports.h>
+﻿#include "../WIE_CRT.inl"
+#include "Memory.inl"
 
 #include <vcruntime_new.h>
+#include <suppress.h>
 
-#include "Memory.inl"
+#define _CRT_ENABLE_SELECTANY_NOTHROW
 
 /*
  * This implementation like old MSVC which returned a null pointer on an allocation failure,

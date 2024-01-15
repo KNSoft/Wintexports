@@ -1,4 +1,6 @@
-﻿#include "../CRTBuild.inl"
+﻿#include "../WIE_CRT.inl"
+
+#include <Wintexports/Wintexports.h>
 
 static void WIE_Common_Main()
 {
