@@ -128,10 +128,13 @@
     <ClCompile Include="Memory\Allocate.c" />
     <ClCompile Include="Memory\Operator.cpp" />
     <ClCompile Include="RTC.cpp" />
+    <ClCompile Include="Startup\Startup_Cmdline.cpp" />
     <ClCompile Include="Startup\Startup_DllMain.c" />
     <ClCompile Include="Startup\Startup_DllMain_Stub.c" />
     <ClCompile Include="Startup\Startup_ExeMain.c" />
     <ClCompile Include="Startup\Startup_Init.c" />
+    <ClCompile Include="Startup\Startup_main.c" />
+    <ClCompile Include="Startup\Startup_WinMain.c" />
     <ClCompile Include="Startup\Startup_wmain.c" />
     <ClCompile Include="Startup\Startup_wWinMain.c" />
   </ItemGroup>

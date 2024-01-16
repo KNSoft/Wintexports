@@ -45,6 +45,15 @@
     <ClCompile Include="Memory\Allocate.c">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Startup\Startup_Cmdline.cpp">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_main.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup\Startup_WinMain.c">
+      <Filter>Startup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Startup\Startup_Exe.inl">

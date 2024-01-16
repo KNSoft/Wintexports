@@ -309,6 +309,20 @@ RtlUnicodeToMultiByteN(
     _In_reads_bytes_(BytesInUnicodeString) PCWCH UnicodeString,
     _In_ ULONG BytesInUnicodeString);
 
+_IRQL_requires_max_(PASSIVE_LEVEL)
+NTSYSAPI
+VOID
+NTAPI
+RtlFreeUnicodeString(
+    _Inout_ _At_(UnicodeString->Buffer, _Frees_ptr_opt_) PUNICODE_STRING UnicodeString);
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+NTSYSAPI
+VOID
+NTAPI
+RtlFreeAnsiString(
+    _Inout_ _At_(AnsiString->Buffer, _Frees_ptr_opt_) PANSI_STRING AnsiString);
+
 #pragma endregion String
 
 #pragma region Process and Thread
@@ -690,7 +704,7 @@ RtlFindMessage(
     _In_ ULONG Type,
     _In_ ULONG Language,
     _In_ ULONG MessageId,
-    _Out_ PMESSAGE_RESOURCE_ENTRY* MessageResourceEntry);
+    _Out_ PMESSAGE_RESOURCE_ENTRY * MessageResourceEntry);
 
 NTSYSAPI
 NTSTATUS
@@ -747,7 +761,7 @@ NtProtectVirtualMemory(
     _Inout_ _At_(*BaseAddress,
                  _Readable_bytes_(*RegionSize)
                  _Writable_bytes_(*RegionSize)
-                 _Post_readable_byte_size_(*RegionSize)) PVOID* BaseAddress,
+                 _Post_readable_byte_size_(*RegionSize)) PVOID * BaseAddress,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG Protect,
     _Out_ PULONG OldProtect);
@@ -782,7 +796,7 @@ NtAllocateVirtualMemory(
     _Inout_ _At_(*BaseAddress,
                  _Readable_bytes_(*RegionSize)
                  _Writable_bytes_(*RegionSize)
-                 _Post_readable_byte_size_(*RegionSize)) PVOID* BaseAddress,
+                 _Post_readable_byte_size_(*RegionSize)) PVOID * BaseAddress,
     _In_ ULONG_PTR ZeroBits,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG AllocationType,
@@ -793,7 +807,7 @@ NTSTATUS
 NTAPI
 NtFreeVirtualMemory(
     _In_ HANDLE ProcessHandle,
-    _Inout_ __drv_freesMem(Mem) PVOID* BaseAddress,
+    _Inout_ __drv_freesMem(Mem) PVOID * BaseAddress,
     _Inout_ PSIZE_T RegionSize,
     _In_ ULONG FreeType);
 
@@ -1087,7 +1101,7 @@ NTAPI
 NtMapViewOfSection(
     _In_ HANDLE SectionHandle,
     _In_ HANDLE ProcessHandle,
-    _Outptr_result_bytebuffer_(*ViewSize) PVOID* BaseAddress,
+    _Outptr_result_bytebuffer_(*ViewSize) PVOID * BaseAddress,
     _In_ ULONG_PTR ZeroBits,
     _In_ SIZE_T CommitSize,
     _Inout_opt_ PLARGE_INTEGER SectionOffset,

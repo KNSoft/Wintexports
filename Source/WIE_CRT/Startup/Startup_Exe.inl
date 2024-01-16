@@ -12,34 +12,39 @@ static void WIE_Common_Main()
         goto _exit;
     }
 
+    _Analysis_assume_(__wargv != NULL);
+    _Analysis_assume_(__argv != NULL);
+    _Analysis_assume_(_wcmdln != NULL);
+    _Analysis_assume_(_acmdln != NULL);
+
 #if defined(_WIE_CRT_STARTUP_EXEMAIN)
 
     Status = ExeMain();
 #elif defined(_WIE_CRT_STARTUP_WMAIN)
 
-#include <shellapi.h>
+    Startup_InitCmdlineArgW();
+    Status = wmain(__argc, __wargv, NULL);
+    Startup_FreeCmdlineArgW();
+#elif defined(_WIE_CRT_STARTUP_MAIN)
 
-    PWSTR* argv;
-    INT argc;
-
-    argv = CommandLineToArgvW(NtCurrentPeb()->ProcessParameters->CommandLine.Buffer, &argc);
-    if (argv)
-    {
-        Status = wmain(argc, argv, NULL);
-        LocalFree(argv);
-    } else
-    {
-        Status = WIE_ErrorToStatus(WIE_GetLastError());
-    }
+    Startup_InitCmdlineArgA();
+    Status = main(__argc, __argv, NULL);
+    Startup_FreeCmdlineArgA();
 #elif defined(_WIE_CRT_STARTUP_WWINMAIN)
 
-    PRTL_USER_PROCESS_PARAMETERS ProcessParameters;
-
-    ProcessParameters = NtCurrentPeb()->ProcessParameters;
+    Startup_InitCmdlineW();
     Status = wWinMain((HINSTANCE)(&__ImageBase),
                       NULL,
-                      ProcessParameters->CommandLine.Buffer,
-                      ProcessParameters->ShowWindowFlags);
+                      _wcmdln,
+                      NtCurrentPeb()->ProcessParameters->ShowWindowFlags);
+#elif defined(_WIE_CRT_STARTUP_WINMAIN)
+
+    Startup_InitCmdlineA();
+    Status = WinMain((HINSTANCE)(&__ImageBase),
+                     NULL,
+                     _acmdln,
+                     NtCurrentPeb()->ProcessParameters->ShowWindowFlags);
+    Startup_FreeCmdlineA();
 #endif
 
 _exit:

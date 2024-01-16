@@ -26,4 +26,20 @@ EXTERN_C_START
 
 NTSTATUS WIE_CRT_Startup_Init();
 
+VOID Startup_InitCmdlineW(); // Initialize _wcmdln
+VOID Startup_InitCmdlineA(); // Initialize _acmdln
+
+VOID Startup_InitCmdlineArgW(); // Initialize __argc and __wargv
+VOID Startup_InitCmdlineArgA(); // Initialize __argc and __argv
+
+VOID Startup_FreeCmdlineA();
+VOID Startup_FreeCmdlineArgW();
+VOID Startup_FreeCmdlineArgA();
+
+EXTERN_C INT __argc;
+EXTERN_C CHAR** __argv;
+EXTERN_C WCHAR** __wargv;
+EXTERN_C CHAR* _acmdln;
+EXTERN_C WCHAR* _wcmdln;
+
 EXTERN_C_END
