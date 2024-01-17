@@ -56,6 +56,13 @@ typedef struct _RTL_HEAP_PARAMETERS
     SIZE_T Reserved[2];
 } RTL_HEAP_PARAMETERS, *PRTL_HEAP_PARAMETERS;
 
+typedef struct _RTL_HEAP_TAG_INFO
+{
+    ULONG NumberOfAllocations;
+    ULONG NumberOfFrees;
+    SIZE_T BytesAllocated;
+} RTL_HEAP_TAG_INFO, *PRTL_HEAP_TAG_INFO;
+
 #pragma region RTL_DRIVE_LETTER_CURDIR[64/32]
 
 typedef struct _RTL_DRIVE_LETTER_CURDIR

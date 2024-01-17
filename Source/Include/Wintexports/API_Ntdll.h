@@ -82,6 +82,21 @@ LdrGetProcedureAddress(
     _In_opt_ _When_(Name == NULL, _In_range_(> , 0)) ULONG Ordinal,
     _Out_ PVOID* ProcedureAddress);
 
+NTSYSAPI
+NTSTATUS
+NTAPI
+LdrRegisterDllNotification(
+    _In_ ULONG Flags,
+    _In_ PLDR_DLL_NOTIFICATION_FUNCTION NotificationFunction,
+    _In_opt_ PVOID Context,
+    _Out_ PVOID *Cookie);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
+LdrUnregisterDllNotification(
+  _In_ PVOID Cookie);
+
 #pragma endregion Ldr*
 
 #pragma region Dbg*
@@ -550,6 +565,25 @@ RtlCreateHeap(
     _When_((Flags & 0x100) == 0,
            _In_reads_bytes_opt_(sizeof(RTL_HEAP_PARAMETERS)))
     PRTL_HEAP_PARAMETERS Parameters);
+
+NTSYSAPI
+ULONG
+NTAPI
+RtlCreateTagHeap(
+    _In_ HANDLE HeapHandle,
+    _In_ ULONG Flags,
+    _In_opt_ PWSTR TagName,
+    _In_ PWSTR TagSubName);
+
+NTSYSAPI
+PWSTR
+NTAPI
+RtlQueryTagHeap(
+    _In_ HANDLE HeapHandle,
+    _In_ ULONG Flags,
+    _In_ USHORT TagIndex,
+    _In_ BOOLEAN ResetCounters,
+    _Out_ PRTL_HEAP_TAG_INFO TagInfo);
 
 _Success_(return != 0)
 NTSYSAPI
