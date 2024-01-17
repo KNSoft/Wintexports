@@ -62,21 +62,24 @@ ULONG Str_CchPrintfA(
 #pragma warning(disable: 4996)
     i = _vsnprintf(Buffer, BufferCount, Format, argList);
 #pragma warning(default: 4996)
-    if (i >= 0)
+    if (i > 0)
     {
         if (Buffer != NULL && i == BufferCount)
         {
             Buffer[i - 1] = ANSI_NULL;
         }
         return i;
+    } else if (i == 0)
+    {
+        return 0;
     }
 
 #pragma warning(disable: 4996)
     i = _vsnprintf(NULL, 0, Format, argList);
 #pragma warning(default: 4996)
-    if (i >= 0)
+    if (i > 0)
     {
-        if ((SIZE_T)i > BufferCount)
+        if (Buffer != NULL && (SIZE_T)i > BufferCount && BufferCount > 0)
         {
             Buffer[BufferCount - 1] = ANSI_NULL;
         }
@@ -101,21 +104,24 @@ ULONG Str_CchPrintfW(
 #pragma warning(disable: 4996)
     i = _vsnwprintf(Buffer, BufferCount, Format, argList);
 #pragma warning(default: 4996)
-    if (i >= 0)
+    if (i > 0)
     {
         if (Buffer != NULL && i == BufferCount)
         {
             Buffer[i - 1] = UNICODE_NULL;
         }
         return i;
+    } else if (i == 0)
+    {
+        return 0;
     }
 
 #pragma warning(disable: 4996)
     i = _vsnwprintf(NULL, 0, Format, argList);
 #pragma warning(default: 4996)
-    if (i >= 0)
+    if (i > 0)
     {
-        if ((SIZE_T)i > BufferCount)
+        if (Buffer != NULL && (SIZE_T)i > BufferCount && BufferCount > 0)
         {
             Buffer[BufferCount - 1] = UNICODE_NULL;
         }
