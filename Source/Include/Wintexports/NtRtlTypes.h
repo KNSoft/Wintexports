@@ -56,6 +56,99 @@ typedef struct _RTL_HEAP_PARAMETERS
     SIZE_T Reserved[2];
 } RTL_HEAP_PARAMETERS, *PRTL_HEAP_PARAMETERS;
 
+typedef enum _RTL_MEMORY_TYPE
+{
+    MemoryTypePaged,
+    MemoryTypeNonPaged,
+    MemoryType64KPage,
+    MemoryTypeLargePage,
+    MemoryTypeHugePage,
+    MemoryTypeCustom,
+    MemoryTypeMax
+} RTL_MEMORY_TYPE, *PRTL_MEMORY_TYPE;
+
+typedef enum _HEAP_MEMORY_INFO_CLASS
+{
+    HeapMemoryBasicInformation
+} HEAP_MEMORY_INFO_CLASS;
+
+typedef NTSTATUS
+ALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK(
+    _Inout_ HANDLE CallbackContext,
+    _In_ HANDLE ProcessHandle,
+    _Inout_ _At_(*BaseAddress, _Readable_bytes_(*RegionSize) _Writable_bytes_(*RegionSize) _Post_readable_byte_size_(*RegionSize)) PVOID* BaseAddress,
+    _Inout_ PSIZE_T RegionSize,
+    _In_ ULONG AllocationType,
+    _In_ ULONG PageProtection,
+    _Inout_updates_opt_(ExtendedParameterCount) PMEM_EXTENDED_PARAMETER ExtendedParameters,
+    _In_ ULONG ExtendedParameterCount
+);
+
+typedef ALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK *PALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK;
+
+typedef NTSTATUS
+FREE_VIRTUAL_MEMORY_EX_CALLBACK(
+    _Inout_ HANDLE CallbackContext,
+    _In_ HANDLE ProcessHandle,
+    _Inout_ __drv_freesMem(Mem) PVOID *BaseAddress,
+    _Inout_ PSIZE_T RegionSize,
+    _In_ ULONG FreeType
+);
+
+typedef FREE_VIRTUAL_MEMORY_EX_CALLBACK *PFREE_VIRTUAL_MEMORY_EX_CALLBACK;
+
+typedef NTSTATUS
+QUERY_VIRTUAL_MEMORY_CALLBACK(
+    _Inout_ HANDLE CallbackContext,
+    _In_ HANDLE ProcessHandle,
+    _In_opt_ PVOID BaseAddress,
+    _In_ HEAP_MEMORY_INFO_CLASS MemoryInformationClass,
+    _Out_writes_bytes_(MemoryInformationLength) PVOID MemoryInformation,
+    _In_ SIZE_T MemoryInformationLength,
+    _Out_opt_ PSIZE_T ReturnLength
+);
+
+typedef QUERY_VIRTUAL_MEMORY_CALLBACK *PQUERY_VIRTUAL_MEMORY_CALLBACK;
+
+typedef struct _RTL_SEGMENT_HEAP_VA_CALLBACKS
+{
+    HANDLE CallbackContext;
+    PALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK AllocateVirtualMemory;
+    PFREE_VIRTUAL_MEMORY_EX_CALLBACK FreeVirtualMemory;
+    PQUERY_VIRTUAL_MEMORY_CALLBACK QueryVirtualMemory;
+} RTL_SEGMENT_HEAP_VA_CALLBACKS, *PRTL_SEGMENT_HEAP_VA_CALLBACKS;
+
+#define RTL_SEGHEAP_MEM_SOURCE_ANY_NODE             ((ULONG)-1)
+
+typedef struct _RTL_SEGMENT_HEAP_MEMORY_SOURCE
+{
+    ULONG Flags;
+    ULONG MemoryTypeMask;               // Mask of RTL_MEMORY_TYPE members.
+    ULONG NumaNode;
+    union
+    {
+        HANDLE PartitionHandle;
+        RTL_SEGMENT_HEAP_VA_CALLBACKS *Callbacks;
+    };
+
+    SIZE_T Reserved[2];
+} RTL_SEGMENT_HEAP_MEMORY_SOURCE, *PRTL_SEGMENT_HEAP_MEMORY_SOURCE;
+
+#define SEGMENT_HEAP_PARAMETERS_VERSION         3
+#define SEGMENT_HEAP_FLG_USE_PAGE_HEAP          0x1
+#define SEGMENT_HEAP_PARAMS_VALID_FLAGS         SEGMENT_HEAP_FLG_USE_PAGE_HEAP
+
+typedef struct _RTL_SEGMENT_HEAP_PARAMETERS
+{
+    USHORT Version;
+    USHORT Size;
+    ULONG Flags;
+
+    RTL_SEGMENT_HEAP_MEMORY_SOURCE MemorySource;
+
+    SIZE_T Reserved[4];
+} RTL_SEGMENT_HEAP_PARAMETERS, *PRTL_SEGMENT_HEAP_PARAMETERS;
+
 typedef struct _RTL_HEAP_TAG_INFO
 {
     ULONG NumberOfAllocations;
