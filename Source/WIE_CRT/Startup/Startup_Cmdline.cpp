@@ -270,6 +270,8 @@ VOID Startup_FreeCmdlineArgW()
     if (__wargv != NULL)
     {
         HeapMemFree(__wargv);
+        __wargv = NULL;
+        __argc = 0;
     }
 }
 
@@ -278,6 +280,8 @@ VOID Startup_FreeCmdlineArgA()
     if (__argv != NULL)
     {
         HeapMemFree(__argv);
+        __argv = NULL;
+        __argc = 0;
     }
 }
 
