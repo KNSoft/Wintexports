@@ -1,6 +1,7 @@
 ﻿#include "Demo.h"
 
 #include <stdio.h>
+#include <dpfilter.h>
 
 #pragma region CRT Error Mode
 
@@ -50,17 +51,16 @@ VOID RevertCRTErrorMode()
 _Success_(
     return > 0 && return < BufferCount
 )
-ULONG Str_CchPrintfA(
+ULONG Str_CchVPrintfA(
     _Out_writes_opt_(BufferCount) _Always_(_Post_z_) PSTR CONST Buffer,
     _In_ SIZE_T CONST BufferCount,
-    _In_z_ _Printf_format_string_ PCSTR Format, ...)
+    _In_z_ _Printf_format_string_ PCSTR Format,
+    va_list ArgList)
 {
     int i;
-    va_list argList;
 
-    va_start(argList, Format);
 #pragma warning(disable: 4996)
-    i = _vsnprintf(Buffer, BufferCount, Format, argList);
+    i = _vsnprintf(Buffer, BufferCount, Format, ArgList);
 #pragma warning(default: 4996)
     if (i > 0)
     {
@@ -75,7 +75,7 @@ ULONG Str_CchPrintfA(
     }
 
 #pragma warning(disable: 4996)
-    i = _vsnprintf(NULL, 0, Format, argList);
+    i = _vsnprintf(NULL, 0, Format, ArgList);
 #pragma warning(default: 4996)
     if (i > 0)
     {
@@ -92,17 +92,16 @@ ULONG Str_CchPrintfA(
 _Success_(
     return > 0 && return < BufferCount
 )
-ULONG Str_CchPrintfW(
+ULONG Str_CchVPrintfW(
     _Out_writes_opt_(BufferCount) _Always_(_Post_z_) PWSTR CONST Buffer,
     _In_ SIZE_T CONST BufferCount,
-    _In_z_ _Printf_format_string_ PCWSTR Format, ...)
+    _In_z_ _Printf_format_string_ PCWSTR Format,
+    va_list ArgList)
 {
     int i;
-    va_list argList;
 
-    va_start(argList, Format);
 #pragma warning(disable: 4996)
-    i = _vsnwprintf(Buffer, BufferCount, Format, argList);
+    i = _vsnwprintf(Buffer, BufferCount, Format, ArgList);
 #pragma warning(default: 4996)
     if (i > 0)
     {
@@ -117,7 +116,7 @@ ULONG Str_CchPrintfW(
     }
 
 #pragma warning(disable: 4996)
-    i = _vsnwprintf(NULL, 0, Format, argList);
+    i = _vsnwprintf(NULL, 0, Format, ArgList);
 #pragma warning(default: 4996)
     if (i > 0)
     {
@@ -129,6 +128,69 @@ ULONG Str_CchPrintfW(
     }
 
     return 0;
+}
+
+_Success_(
+    return > 0 && return < BufferCount
+)
+ULONG Str_CchPrintfA(
+    _Out_writes_opt_(BufferCount) _Always_(_Post_z_) PSTR CONST Buffer,
+    _In_ SIZE_T CONST BufferCount,
+    _In_z_ _Printf_format_string_ PCSTR Format, ...)
+{
+    va_list argList;
+
+    va_start(argList, Format);
+    return Str_CchVPrintfA(Buffer, BufferCount, Format, argList);
+}
+
+_Success_(
+    return > 0 && return < BufferCount
+)
+ULONG Str_CchPrintfW(
+    _Out_writes_opt_(BufferCount) _Always_(_Post_z_) PWSTR CONST Buffer,
+    _In_ SIZE_T CONST BufferCount,
+    _In_z_ _Printf_format_string_ PCWSTR Format, ...)
+{
+    va_list argList;
+
+    va_start(argList, Format);
+    return Str_CchVPrintfW(Buffer, BufferCount, Format, argList);
+}
+
+#pragma endregion
+
+#pragma region Print
+
+VOID PrintF(_In_z_ _Printf_format_string_ PCSTR Format, ...)
+{
+    CHAR szTemp[512];
+    va_list argList;
+    ULONG uLen;
+    HANDLE hStdOut;
+    IO_STATUS_BLOCK IoStatusBlock;
+
+    va_start(argList, Format);
+    vDbgPrintEx(MAXULONG, DPFLTR_ERROR_LEVEL, Format, argList);
+    
+    hStdOut = NtCurrentPeb()->ProcessParameters->StandardOutput;
+    if (hStdOut != NULL)
+    {
+        uLen = Str_CchVPrintfA(szTemp, ARRAYSIZE(szTemp), Format, argList);
+        if (uLen > 0 && uLen < ARRAYSIZE(szTemp))
+        {
+            NtWriteFile(hStdOut, NULL, NULL, NULL, &IoStatusBlock, szTemp, uLen, NULL, NULL);
+        }
+    }
+}
+
+static PCSTR g_szDividingLine = "\n**********************************************************************\n";
+
+VOID PrintTitle(_In_z_ PCSTR Name, _In_z_ PCSTR Description)
+{
+    PrintF(g_szDividingLine);
+    PrintF("%hs\n\t%hs", Name, Description);
+    PrintF(g_szDividingLine);
 }
 
 #pragma endregion

@@ -30,24 +30,24 @@ BOOL Test_String()
 
     if (strlen(TEST_STRING1) != _STR_CCH_LEN(TEST_STRING1))
     {
-        DbgPrint("Test strlen failed\n");
+        PrintF("Test strlen failed\n");
         bRet = FALSE;
     }
     if (wcslen(_A2W(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1))
     {
-        DbgPrint("Test wcslen failed\n");
+        PrintF("Test wcslen failed\n");
         bRet = FALSE;
     }
     if (strnlen(TEST_STRING1, _countof(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1) ||
         strnlen(TEST_STRING1, _STR_CCH_LEN(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1))
     {
-        DbgPrint("Test strnlen failed\n");
+        PrintF("Test strnlen failed\n");
         bRet = FALSE;
     }
     if (wcsnlen(_A2W(TEST_STRING1), _countof(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1) ||
         wcsnlen(_A2W(TEST_STRING1), _STR_CCH_LEN(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1))
     {
-        DbgPrint("Test wcsnlen failed\n");
+        PrintF("Test wcsnlen failed\n");
         bRet = FALSE;
     }
 
@@ -59,7 +59,7 @@ BOOL Test_String()
         strcmp(TEST_STRING1_LONGER, TEST_STRING1) <= 0 ||
         strcmp(TEST_STRING1_GREATER, TEST_STRING1) <= 0)
     {
-        DbgPrint("Test strcmp failed\n");
+        PrintF("Test strcmp failed\n");
         bRet = FALSE;
     }
     if (wcscmp(_A2W(TEST_STRING1), _A2W(TEST_STRING1)) != 0 ||
@@ -68,7 +68,7 @@ BOOL Test_String()
         wcscmp(_A2W(TEST_STRING1_LONGER), _A2W(TEST_STRING1)) <= 0 ||
         wcscmp(_A2W(TEST_STRING1_GREATER), _A2W(TEST_STRING1)) <= 0)
     {
-        DbgPrint("Test wcscmp failed\n");
+        PrintF("Test wcscmp failed\n");
         bRet = FALSE;
     }
     if (strncmp(TEST_STRING1, TEST_STRING1, _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -78,7 +78,7 @@ BOOL Test_String()
         strncmp(TEST_STRING1_LESS, TEST_STRING1, _STR_CCH_LEN(TEST_STRING1)) >= 0 ||
         strncmp(TEST_STRING1_GREATER, TEST_STRING1, _STR_CCH_LEN(TEST_STRING1)) <= 0)
     {
-        DbgPrint("Test strncmp failed\n");
+        PrintF("Test strncmp failed\n");
         bRet = FALSE;
     }
     if (wcsncmp(_A2W(TEST_STRING1), _A2W(TEST_STRING1), _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -88,7 +88,7 @@ BOOL Test_String()
         wcsncmp(_A2W(TEST_STRING1_LESS), _A2W(TEST_STRING1), _STR_CCH_LEN(TEST_STRING1)) >= 0 ||
         wcsncmp(_A2W(TEST_STRING1_GREATER), _A2W(TEST_STRING1), _STR_CCH_LEN(TEST_STRING1)) <= 0)
     {
-        DbgPrint("Test wcsncmp failed\n");
+        PrintF("Test wcsncmp failed\n");
         bRet = FALSE;
     }
     if (_stricmp(TEST_STRING1, TEST_STRING1_CASE_MIX) != 0 ||
@@ -97,7 +97,7 @@ BOOL Test_String()
         _stricmp(TEST_STRING1_LONGER, TEST_STRING1_CASE_MIX) <= 0 ||
         _stricmp(TEST_STRING1_GREATER, TEST_STRING1_CASE_MIX) <= 0)
     {
-        DbgPrint("Test _stricmp failed\n");
+        PrintF("Test _stricmp failed\n");
         bRet = FALSE;
     }
     if (_wcsicmp(_A2W(TEST_STRING1), _A2W(TEST_STRING1_CASE_MIX)) != 0 ||
@@ -106,7 +106,7 @@ BOOL Test_String()
         _wcsicmp(_A2W(TEST_STRING1_LONGER), _A2W(TEST_STRING1_CASE_MIX)) <= 0 ||
         _wcsicmp(_A2W(TEST_STRING1_GREATER), _A2W(TEST_STRING1_CASE_MIX)) <= 0)
     {
-        DbgPrint("Test _wcsicmp failed\n");
+        PrintF("Test _wcsicmp failed\n");
         bRet = FALSE;
     }
     if (_strnicmp(TEST_STRING1, TEST_STRING1_CASE_MIX, _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -116,7 +116,7 @@ BOOL Test_String()
         _strnicmp(TEST_STRING1_LESS, TEST_STRING1_CASE_MIX, _STR_CCH_LEN(TEST_STRING1_CASE_MIX)) >= 0 ||
         _strnicmp(TEST_STRING1_GREATER, TEST_STRING1_CASE_MIX, _STR_CCH_LEN(TEST_STRING1_CASE_MIX)) <= 0)
     {
-        DbgPrint("Test _strnicmp failed\n");
+        PrintF("Test _strnicmp failed\n");
         bRet = FALSE;
     }
     if (_wcsnicmp(_A2W(TEST_STRING1), _A2W(TEST_STRING1_CASE_MIX), _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -126,7 +126,7 @@ BOOL Test_String()
         _wcsnicmp(_A2W(TEST_STRING1_LESS), _A2W(TEST_STRING1_CASE_MIX), _STR_CCH_LEN(TEST_STRING1_CASE_MIX)) >= 0 ||
         _wcsnicmp(_A2W(TEST_STRING1_GREATER), _A2W(TEST_STRING1_CASE_MIX), _STR_CCH_LEN(TEST_STRING1_CASE_MIX)) <= 0)
     {
-        DbgPrint("Test _wcsnicmp failed\n");
+        PrintF("Test _wcsnicmp failed\n");
         bRet = FALSE;
     }
 
@@ -137,7 +137,7 @@ BOOL Test_String()
         strcpy_s(szTempA, _countof(szTempA), TEST_STRING1_LONGER) != ERANGE ||
         szTempA[0] != 0)
     {
-        DbgPrint("Test strcpy_s failed\n");
+        PrintF("Test strcpy_s failed\n");
         bRet = FALSE;
     }
     if (wcscpy_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1)) != 0 ||
@@ -145,7 +145,7 @@ BOOL Test_String()
         wcscpy_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1_LONGER)) != ERANGE ||
         szTempW[0] != 0)
     {
-        DbgPrint("Test wcscpy_s failed\n");
+        PrintF("Test wcscpy_s failed\n");
         bRet = FALSE;
     }
     if (strncpy_s(szTempA, _countof(szTempA), TEST_STRING1, _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -155,7 +155,7 @@ BOOL Test_String()
         strncpy_s(szTempA, _countof(szTempA), TEST_STRING1_LONGER, _TRUNCATE) != STRUNCATE ||
         strcmp(szTempA, TEST_STRING1) != 0)
     {
-        DbgPrint("Test strncpy_s failed\n");
+        PrintF("Test strncpy_s failed\n");
         bRet = FALSE;
     }
     if (wcsncpy_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1), _STR_CCH_LEN(TEST_STRING1)) != 0 ||
@@ -165,7 +165,7 @@ BOOL Test_String()
         wcsncpy_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1_LONGER), _TRUNCATE) != STRUNCATE ||
         wcscmp(szTempW, _A2W(TEST_STRING1)) != 0)
     {
-        DbgPrint("Test wcsncpy_s failed\n");
+        PrintF("Test wcsncpy_s failed\n");
         bRet = FALSE;
     }
 
@@ -179,7 +179,7 @@ BOOL Test_String()
         strcat_s(szTempA, _countof(szTempA), TEST_STRING1_LONGER) != ERANGE ||
         szTempA[0] != 0)
     {
-        DbgPrint("Test strcat_s failed\n");
+        PrintF("Test strcat_s failed\n");
         bRet = FALSE;
     }
     szTempW[0] = 0;
@@ -190,7 +190,7 @@ BOOL Test_String()
         wcscat_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1_LONGER)) != ERANGE ||
         szTempW[0] != 0)
     {
-        DbgPrint("Test wcscat_s failed\n");
+        PrintF("Test wcscat_s failed\n");
         bRet = FALSE;
     }
     szTempA[0] = 0;
@@ -204,7 +204,7 @@ BOOL Test_String()
         strncat_s(szTempA, _countof(szTempA), TEST_STRING1_LONGER, _TRUNCATE) != STRUNCATE ||
         strcmp(szTempA, TEST_STRING1) != 0)
     {
-        DbgPrint("Test strncat_s failed\n");
+        PrintF("Test strncat_s failed\n");
         bRet = FALSE;
     }
     szTempW[0] = 0;
@@ -218,7 +218,7 @@ BOOL Test_String()
         wcsncat_s(szTempW, _countof(szTempW), _A2W(TEST_STRING1_LONGER), _TRUNCATE) != STRUNCATE ||
         wcscmp(szTempW, _A2W(TEST_STRING1)) != 0)
     {
-        DbgPrint("Test wcsncat_s failed\n");
+        PrintF("Test wcsncat_s failed\n");
         bRet = FALSE;
     }
 
@@ -238,7 +238,7 @@ BOOL Test_String()
         Str_CchPrintfA(szTempA, ARRAYSIZE(szTempA), "%hs$$", TEST_STRING1) != _STR_CCH_LEN(TEST_STRING1) + 2 ||
         strcmp(szTempA, TEST_STRING1) != 0)
     {
-        DbgPrint("Test Str_CchPrintfA failed\n");
+        PrintF("Test Str_CchPrintfA failed\n");
         bRet = FALSE;
     }
 
@@ -252,7 +252,7 @@ BOOL Test_String()
         Str_CchPrintfW(szTempW, ARRAYSIZE(szTempW), L"%ls$$", _A2W(TEST_STRING1)) != _STR_CCH_LEN(TEST_STRING1) + 2 ||
         wcscmp(szTempW, _A2W(TEST_STRING1)) != 0)
     {
-        DbgPrint("Test Str_CchPrintfW failed\n");
+        PrintF("Test Str_CchPrintfW failed\n");
         bRet = FALSE;
     }
 

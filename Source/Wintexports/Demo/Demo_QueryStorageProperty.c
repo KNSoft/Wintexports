@@ -2,6 +2,10 @@
 
 #include <winioctl.h>
 
+static PCSTR g_pszDescription = "This demo queries the first hard disk volume information.";
+
+_Must_inspect_result_
+_Ret_maybenull_
 static PVOID IO_QueryStorageProperty(
     _In_ HANDLE DeviceHandle,
     _In_ PSTORAGE_PROPERTY_QUERY Query,
@@ -58,7 +62,7 @@ _fail_0:
     return NULL;
 }
 
-static VOID IO_FreeStorageProperty(PVOID Buffer)
+static VOID IO_FreeStorageProperty(_Frees_ptr_ PVOID Buffer)
 {
     RtlFreeHeap(CURRENT_PROCESS_HEAP, 0, Buffer);
 }
@@ -74,11 +78,13 @@ BOOL Demo_QueryStorageProperty()
         .QueryType = PropertyStandardQuery
     };
 
+    PrintTitle(__FUNCTION__, g_pszDescription);
+
     /* Open Device */
     DeviceHandle = IO_OpenDevice(&g_usQueryVolumeDeviceName, FILE_READ_ATTRIBUTES | SYNCHRONIZE);
     if (!DeviceHandle)
     {
-        DbgPrint("IO_OpenDevice failed with: 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("IO_OpenDevice failed with: 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
@@ -86,28 +92,28 @@ BOOL Demo_QueryStorageProperty()
     psdd = IO_QueryStorageProperty(DeviceHandle, &spq, sizeof(spq));
     if (!psdd)
     {
-        DbgPrint("IO_QueryStorageProperty failed with: 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("IO_QueryStorageProperty failed with: 0x%08lX\n", WIE_GetLastStatus());
         NtClose(DeviceHandle);
         return FALSE;
     }
 
     /* Print Strings */
-    DbgPrint("Properties of Storage device: %wZ\n", &g_usQueryVolumeDeviceName);
+    PrintF("Properties of Storage device: %wZ\n", &g_usQueryVolumeDeviceName);
     if (psdd->VendorIdOffset != 0)
     {
-        DbgPrint("\tVendorId: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->VendorIdOffset));
+        PrintF("\tVendorId: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->VendorIdOffset));
     }
     if (psdd->ProductIdOffset != 0)
     {
-        DbgPrint("\tProductId: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->ProductIdOffset));
+        PrintF("\tProductId: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->ProductIdOffset));
     }
     if (psdd->ProductRevisionOffset != 0)
     {
-        DbgPrint("\tProductRevision: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->ProductRevisionOffset));
+        PrintF("\tProductRevision: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->ProductRevisionOffset));
     }
     if (psdd->SerialNumberOffset != 0)
     {
-        DbgPrint("\tSerialNumber: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->SerialNumberOffset));
+        PrintF("\tSerialNumber: %hs\n", (PCSTR)Add2Ptr(psdd, psdd->SerialNumberOffset));
     }
 
     IO_FreeStorageProperty(psdd);

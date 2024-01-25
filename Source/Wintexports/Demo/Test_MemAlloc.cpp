@@ -19,7 +19,7 @@ BOOL Test_new_delete()
         delete[] pv;
     } else
     {
-        DbgPrint("new(std::nothrow) char[] failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("new(std::nothrow) char[] failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
@@ -30,7 +30,7 @@ BOOL Test_new_delete()
         delete[] pv;
     } else
     {
-        DbgPrint("new char[] failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("new char[] failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
@@ -41,7 +41,7 @@ BOOL Test_new_delete()
         delete pc;
     } else
     {
-        DbgPrint("new char failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("new char failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
@@ -57,14 +57,14 @@ BOOL Test_Memory_Allocate()
     p = malloc(sInitSize1);
     if (p == NULL)
     {
-        DbgPrint("malloc failed\n");
+        PrintF("malloc failed\n");
         return FALSE;
     }
 
     s = _msize(p);
     if (s != sInitSize1)
     {
-        DbgPrint("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize1);
+        PrintF("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize1);
         free(p);
         return FALSE;
     }
@@ -72,13 +72,13 @@ BOOL Test_Memory_Allocate()
     t = _expand(p, sInitSize2);
     if (t != NULL && t != p)
     {
-        DbgPrint("_expand returns a valid pointer 0x%p and differernt from original pointer 0x%p\n", t, p);
+        PrintF("_expand returns a valid pointer 0x%p and differernt from original pointer 0x%p\n", t, p);
     }
 
     s = _msize(p);
     if (s != sInitSize2)
     {
-        DbgPrint("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize2);
+        PrintF("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize2);
         free(p);
         return FALSE;
     }
@@ -86,7 +86,7 @@ BOOL Test_Memory_Allocate()
     t = realloc(p, sInitSize3);
     if (t == NULL)
     {
-        DbgPrint("realloc failed\n");
+        PrintF("realloc failed\n");
         free(p);
         return FALSE;
     }
@@ -95,7 +95,7 @@ BOOL Test_Memory_Allocate()
     s = _msize(p);
     if (s != sInitSize3)
     {
-        DbgPrint("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize3);
+        PrintF("_msize returns 0x%p but expect 0x%p\n", (PVOID)s, (PVOID)sInitSize3);
         free(p);
         return FALSE;
     }

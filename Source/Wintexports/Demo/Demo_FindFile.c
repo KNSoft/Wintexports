@@ -1,5 +1,7 @@
 ﻿#include "Demo.h"
 
+static PCSTR g_pszDescription = "This demo lists all files in current working directory.";
+
 typedef struct _FILE_FIND
 {
     /* Initialize parameters */
@@ -115,11 +117,15 @@ BOOL Demo_FindFile()
     PFILE_FULL_DIR_INFORMATION pData;
     UNICODE_STRING FileName;
 
+    PrintTitle(__FUNCTION__, g_pszDescription);
+
+    PrintF("Current directory: %wZ\n", &NtCurrentPeb()->ProcessParameters->CurrentDirectory.DosPath);
+
     /* Initialize the enumeration */
     bRet = File_FindInitialize(&FindData, L".", NULL, FileFullDirectoryInformation);
     if (!bRet)
     {
-        DbgPrint("File_FindInitialize failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("File_FindInitialize failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
@@ -140,7 +146,7 @@ BOOL Demo_FindFile()
             /* Print file name */
             FileName.Buffer = pData->FileName;
             FileName.MaximumLength = FileName.Length = (USHORT)pData->FileNameLength;
-            DbgPrint("Found file: %wZ\n", &FileName);
+            PrintF("\t%wZ\n", &FileName);
 
             /* Go to the next entry */
             if (!pData->NextEntryOffset)
@@ -152,7 +158,7 @@ BOOL Demo_FindFile()
     };
     if (!bRet)
     {
-        DbgPrint("File_Find failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("File_Find failed with 0x%08lX\n", WIE_GetLastStatus());
     }
 
     /* Release resources used by the enumeration */

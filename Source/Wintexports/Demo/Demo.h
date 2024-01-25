@@ -44,6 +44,8 @@ ULONG Str_CchPrintfW(
     _In_ SIZE_T CONST BufferCount,
     _In_z_ _Printf_format_string_ PCWSTR Format, ...);
 
+VOID PrintF(_In_z_ _Printf_format_string_ PCSTR Format, ...);
+VOID PrintTitle(_In_z_ PCSTR Name, _In_z_ PCSTR Description);
 
 /* NT function wrapper */
 

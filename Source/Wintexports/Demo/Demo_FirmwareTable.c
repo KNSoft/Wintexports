@@ -1,5 +1,7 @@
 ﻿#include "Demo.h"
 
+static PCSTR g_pszDescription = "This demo prints firmware tables, mainly SMBIOS.";
+
 typedef BOOL CALLBACK FN_DemoSMBIOSTableStringCallback(_In_ BYTE Index, _In_z_ PCSTR String, _In_opt_ PVOID Context);
 
 typedef struct _DEMO_SMBIOS_STRING_FIELD
@@ -209,14 +211,14 @@ static BOOL CALLBACK SMBIOSTableStringCallback(_In_ BYTE Index, _In_z_ PCSTR Str
             if (g_Tables[i].StringField[j].Offset < SMBIOSTable->Header.Length &&
                 *((PBYTE)SMBIOSTable + g_Tables[i].StringField[j].Offset) == Index)
             {
-                DbgPrint("\t%ls: %hs\n", g_Tables[i].StringField[j].Name, String);
+                PrintF("\t%ls: %hs\n", g_Tables[i].StringField[j].Name, String);
             }
         }
     } else if (SMBIOSTable->Header.Type == 10 ||
                SMBIOSTable->Header.Type == 11 ||
                SMBIOSTable->Header.Type == 12)
     {
-        DbgPrint("\t%hs\n", String);
+        PrintF("\t%hs\n", String);
     }
 
     return TRUE;
@@ -274,77 +276,77 @@ static VOID PrintSMBIOSTableInfo(_In_ PSMBIOS_TABLE Table)
 {
     if (Table->Header.Type == 0)
     {
-        DbgPrint("\tRelease Version: %u.%u\n",
+        PrintF("\tRelease Version: %u.%u\n",
                  Table->BIOS_INFO_TYPE_0.MajorRelease,
                  Table->BIOS_INFO_TYPE_0.MinorRelease);
-        DbgPrint("\tEC Firmware Release Version: %u.%u\n",
+        PrintF("\tEC Firmware Release Version: %u.%u\n",
                  Table->BIOS_INFO_TYPE_0.ECFirmwareMajorRelease,
                  Table->BIOS_INFO_TYPE_0.ECFirmwareMinorRelease);
     } else if (Table->Header.Type == 4)
     {
-        DbgPrint("\tID: 0x%016llX\n", Table->PROCESSOR_INFO_TYPE_4.ID);
+        PrintF("\tID: 0x%016llX\n", Table->PROCESSOR_INFO_TYPE_4.ID);
         if (Table->PROCESSOR_INFO_TYPE_4.MaxSpeed != 0)
         {
-            DbgPrint("\tMaxSpeed: %u MHz\n", Table->PROCESSOR_INFO_TYPE_4.MaxSpeed);
+            PrintF("\tMaxSpeed: %u MHz\n", Table->PROCESSOR_INFO_TYPE_4.MaxSpeed);
         }
         if (Table->PROCESSOR_INFO_TYPE_4.CurrentSpeed != 0)
         {
-            DbgPrint("\tCurrentSpeed: %u MHz\n", Table->PROCESSOR_INFO_TYPE_4.CurrentSpeed);
+            PrintF("\tCurrentSpeed: %u MHz\n", Table->PROCESSOR_INFO_TYPE_4.CurrentSpeed);
         }
         if (Table->PROCESSOR_INFO_TYPE_4.CoreCount != 0)
         {
-            DbgPrint("\tCoreCount: %u\n", Table->PROCESSOR_INFO_TYPE_4.CoreCount);
+            PrintF("\tCoreCount: %u\n", Table->PROCESSOR_INFO_TYPE_4.CoreCount);
         }
         if (Table->PROCESSOR_INFO_TYPE_4.ThreadCount != 0)
         {
-            DbgPrint("\tThreadCount: %u\n", Table->PROCESSOR_INFO_TYPE_4.ThreadCount);
+            PrintF("\tThreadCount: %u\n", Table->PROCESSOR_INFO_TYPE_4.ThreadCount);
         }
     } else if (Table->Header.Type == 16)
     {
         if (Table->PHYSICAL_MEMORY_ARRAY_TYPE_16.MaximumCapacity != 0x80000000)
         {
-            DbgPrint("\tMaximumCapacity: %u KB\n", Table->PHYSICAL_MEMORY_ARRAY_TYPE_16.MaximumCapacity);
+            PrintF("\tMaximumCapacity: %u KB\n", Table->PHYSICAL_MEMORY_ARRAY_TYPE_16.MaximumCapacity);
         }
     } else if (Table->Header.Type == 17)
     {
-        DbgPrint("\tSpeed: %u MT/s\n", Table->MEMORY_DEVICE_TYPE_17.Speed);
+        PrintF("\tSpeed: %u MT/s\n", Table->MEMORY_DEVICE_TYPE_17.Speed);
         if (Table->MEMORY_DEVICE_TYPE_17.ConfiguredMemorySpeed != 0x0000 &&
             Table->MEMORY_DEVICE_TYPE_17.ConfiguredMemorySpeed != 0xFFFF)
         {
-            DbgPrint("\tConfiguredMemorySpeed: %u MT/s\n", Table->MEMORY_DEVICE_TYPE_17.ConfiguredMemorySpeed);
+            PrintF("\tConfiguredMemorySpeed: %u MT/s\n", Table->MEMORY_DEVICE_TYPE_17.ConfiguredMemorySpeed);
         }
         if (Table->MEMORY_DEVICE_TYPE_17.MinimumVoltage != 0)
         {
-            DbgPrint("\tMinimumVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.MinimumVoltage);
+            PrintF("\tMinimumVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.MinimumVoltage);
         }
         if (Table->MEMORY_DEVICE_TYPE_17.MaximumVoltage != 0)
         {
-            DbgPrint("\tMaximumVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.MaximumVoltage);
+            PrintF("\tMaximumVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.MaximumVoltage);
         }
         if (Table->MEMORY_DEVICE_TYPE_17.ConfiguredVoltage != 0)
         {
-            DbgPrint("\tConfiguredVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.ConfiguredVoltage);
+            PrintF("\tConfiguredVoltage: %u mV\n", Table->MEMORY_DEVICE_TYPE_17.ConfiguredVoltage);
         }
     } else if (Table->Header.Type == 39)
     {
         if (Table->SYSTEM_POWER_SUPPLY_TYPE_39.MaxPowerCapacity != 0x8000)
         {
-            DbgPrint("\tMaxPowerCapacity: %u mW\n", Table->SYSTEM_POWER_SUPPLY_TYPE_39.MaxPowerCapacity);
+            PrintF("\tMaxPowerCapacity: %u mW\n", Table->SYSTEM_POWER_SUPPLY_TYPE_39.MaxPowerCapacity);
         }
     } else if (Table->Header.Type == 43)
     {
-        DbgPrint("\tVendorID: %c%c%c%c\n",
+        PrintF("\tVendorID: %c%c%c%c\n",
                  Table->TPM_DEVICE_TYPE_43.VendorID[0],
                  Table->TPM_DEVICE_TYPE_43.VendorID[1],
                  Table->TPM_DEVICE_TYPE_43.VendorID[2],
                  Table->TPM_DEVICE_TYPE_43.VendorID[3]);
-        DbgPrint("\tSpecVersion: %u.%u\n",
+        PrintF("\tSpecVersion: %u.%u\n",
                  Table->TPM_DEVICE_TYPE_43.MajorSpecVersion,
                  Table->TPM_DEVICE_TYPE_43.MinorSpecVersion);
-        DbgPrint("\tOEMDefined: 0x%08lX\n", Table->TPM_DEVICE_TYPE_43.OEMDefined);
+        PrintF("\tOEMDefined: 0x%08lX\n", Table->TPM_DEVICE_TYPE_43.OEMDefined);
     } else if (Table->Header.Type == 45)
     {
-        DbgPrint("\tImageSize: 0x%016llX\n", Table->FIRMWARE_INVENTORY_INFO_TYPE_45.ImageSize);
+        PrintF("\tImageSize: 0x%016llX\n", Table->FIRMWARE_INVENTORY_INFO_TYPE_45.ImageSize);
     }
 }
 
@@ -355,25 +357,27 @@ BOOL Demo_FirmwareTable()
     PSMBIOS_TABLE SMBIOSTable;
     ULONG i;
 
+    PrintTitle(__FUNCTION__, g_pszDescription);
+
     /* Print SMBIOS Info */
 
     FirmwareInfo = NT_GetFirmwareTable('RSMB', 0, SystemFirmwareTable_Get);
     if (FirmwareInfo == NULL)
     {
-        DbgPrint("NT_GetFirmwareTable failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("NT_GetFirmwareTable failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
     SMBIOSRawData = (PSMBIOS_RAWDATA)FirmwareInfo->TableBuffer;
     if (FirmwareInfo->TableBufferLength < sizeof(*SMBIOSRawData) ||
         FirmwareInfo->TableBufferLength != sizeof(*SMBIOSRawData) + SMBIOSRawData->Length)
     {
-        DbgPrint("SMBIOS Data size incorrect\n");
+        PrintF("SMBIOS Data size incorrect\n");
         return FALSE;
     }
 
-    DbgPrint("SMBIOS Version: %u.%u\n", SMBIOSRawData->SMBIOSMajorVersion, SMBIOSRawData->SMBIOSMinorVersion);
-    DbgPrint("DMI Revision: %u\n", SMBIOSRawData->DmiRevision);
-    DbgPrint("Data Size: %u\n\n", SMBIOSRawData->Length);
+    PrintF("SMBIOS Version: %u.%u\n", SMBIOSRawData->SMBIOSMajorVersion, SMBIOSRawData->SMBIOSMinorVersion);
+    PrintF("DMI Revision: %u\n", SMBIOSRawData->DmiRevision);
+    PrintF("Data Size: %u\n\n", SMBIOSRawData->Length);
 
     SMBIOSTable = (PSMBIOS_TABLE)SMBIOSRawData->SMBIOSTableData;
     do
@@ -382,13 +386,13 @@ BOOL Demo_FirmwareTable()
         {
             if (g_Tables[i].Type == SMBIOSTable->Header.Type)
             {
-                DbgPrint("[Type %u - %ls]\n", SMBIOSTable->Header.Type, g_Tables[i].Name);
+                PrintF("[Type %u - %ls]\n", SMBIOSTable->Header.Type, g_Tables[i].Name);
                 break;
             }
         }
         if (i >= ARRAYSIZE(g_Tables))
         {
-            DbgPrint("[Type %u]\n", SMBIOSTable->Header.Type);
+            PrintF("[Type %u]\n", SMBIOSTable->Header.Type);
         }
         PrintSMBIOSTableInfo(SMBIOSTable);
         SMBIOSTable = EnumSMBIOSString(SMBIOSRawData, SMBIOSTable, SMBIOSTableStringCallback, SMBIOSTable);
@@ -401,7 +405,7 @@ BOOL Demo_FirmwareTable()
     FirmwareInfo = NT_GetFirmwareTable('ACPI', 'PCAF', SystemFirmwareTable_Get);
     if (FirmwareInfo == NULL)
     {
-        DbgPrint("NT_GetFirmwareTable failed with 0x%08lX\n", WIE_GetLastStatus());
+        PrintF("NT_GetFirmwareTable failed with 0x%08lX\n", WIE_GetLastStatus());
         return FALSE;
     }
 
