@@ -5,16 +5,6 @@
 #include "WIE_Ext_SMBIOS.h"
 #include "WIE_Ext_NT.h"
 
-// Clear high 32-bit of HWND
-#if _WIN64
-#define PURGE_HWND(hWnd) ((HWND)((DWORD_PTR)(hWnd) & 0xFFFFFFFF))
-#else
-#define PURGE_HWND(hWnd) (hWnd)
-#endif
-
-// Reserves low 32-bit only
-#define PURGE_PTR32(p) ((PVOID)((ULONG_PTR)(p) & 0xFFFFFFFF))
-
 // Gets equality of two value after masked
 #define IS_EQUAL_MASKED(val1, val2, mask) (!(((val1) ^ (val2)) & (mask)))
 // Sets or removes a flag from a combination value

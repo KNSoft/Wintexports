@@ -27,29 +27,29 @@ EXTERN_C_END
 #define _A2W(quote) __A2W(quote)
 #define __A2W(quote) L##quote
 
-#pragma endregion MSVC
+#pragma endregion
 
-#pragma region VS
+#pragma region MSBuild
 
 #if defined(_M_IX86)
-#define VS_PLATFORMTARGET "x86"
+#define MSB_PLATFORMTARGET "x86"
 #elif defined(_M_X64)
-#define VS_PLATFORMTARGET "x64"
+#define MSB_PLATFORMTARGET "x64"
 #elif defined(_M_ARM64)
-#define VS_PLATFORMTARGET "ARM64"
+#define MSB_PLATFORMTARGET "ARM64"
 #endif
 
 #if defined(_DEBUG)
-#define VS_CONFIGURATION "Debug"
-#define VS_IS_DEBUG TRUE
+#define MSB_CONFIGURATION "Debug"
+#define MSB_IS_DEBUG TRUE
 #else
-#define VS_CONFIGURATION "Release"
-#define VS_IS_DEBUG FALSE
+#define MSB_CONFIGURATION "Release"
+#define MSB_IS_DEBUG FALSE
 #endif
 
-#define VS_LIB_PATH(LibName) VS_PLATFORMTARGET"\\"VS_CONFIGURATION"\\"LibName
+#define MSB_LIB_PATH(LibName) (MSB_PLATFORMTARGET "/" MSB_CONFIGURATION "/" ##LibName)
 
-#pragma endregion VS
+#pragma endregion
 
 #pragma region WinSDK
 
@@ -60,4 +60,4 @@ typedef unsigned __int64 QWORD, near *PQWORD, far *LPQWORD;
 #define MAKEDWORD(l, h) ((DWORD)MAKELONG(l, h))
 #define MAKEQWORD(l, h) ((QWORD)(((DWORD)(((DWORD_PTR)(l)) & 0xffffffff)) | ((QWORD)((DWORD)(((DWORD_PTR)(h)) & 0xffffffff))) << 32))
 
-#pragma endregion WinSDK
+#pragma endregion

@@ -852,7 +852,7 @@ typedef struct _SMBIOS_TABLE
                     WORD Unit : 2;  /* 14:15 Unit, SMBIOS_BIOS_EXTENDEDROMSIZE_UNIT_* */
                 };
             };
-        } BIOS_INFO_TYPE_0;
+        } TYPE_0_BIOS_INFO;
         struct
         {
             BYTE Manufacturer;
@@ -863,7 +863,7 @@ typedef struct _SMBIOS_TABLE
             BYTE WakeUpType; /* SMBIOS_SYSTEM_WAKEUPTYPE_* */
             BYTE SKUNumber;
             BYTE Famliy;
-        } SYSTEM_INFO_TYPE_1;
+        } TYPE_1_SYSTEM_INFO;
         struct
         {
             BYTE Manufacturer;
@@ -889,7 +889,7 @@ typedef struct _SMBIOS_TABLE
             BYTE BoardType; /* SMBIOS_BASEBOARD_TYPE_*/
             BYTE NumberOfContainedObjectHandles;
             _Field_size_(NumberOfContainedObjectHandles) WORD ContainedObjectHandles[];
-        } BASEBOARD_INFO_TYPE_2;
+        } TYPE_2_BASEBOARD_INFO;
         struct
         {
             BYTE Manufacturer;
@@ -916,7 +916,7 @@ typedef struct _SMBIOS_TABLE
             BYTE ContainedElementRecordLength;
             _Field_size_bytes_(ContainedElementCount * ContainedElementRecordLength) BYTE ContainedElements[];
             /* BYTE SKUNumber; */
-        } SYSTEM_ENCLOSURE_OR_CHASSIS_TYPE_3;
+        } TYPE_3_SYSTEM_ENCLOSURE_OR_CHASSIS;
         struct
         {
             BYTE SocketDesignation;
@@ -990,7 +990,7 @@ typedef struct _SMBIOS_TABLE
             WORD CoreEnabled2;
             WORD ThreadCount2;
             WORD ThreadEnabled;
-        } PROCESSOR_INFO_TYPE_4;
+        } TYPE_4_PROCESSOR_INFO;
         struct
         {
             BYTE SocketDesignation;
@@ -1050,7 +1050,7 @@ typedef struct _SMBIOS_TABLE
                     DWORD InstalledCacheSizeGranularity2 : 1;
                 };
             };
-        } CACHE_INFO_TYPE_7;
+        } TYPE_7_CACHE_INFO;
         struct
         {
             BYTE InternalReferenceDesignator;
@@ -1058,7 +1058,7 @@ typedef struct _SMBIOS_TABLE
             BYTE ExternalReferenceDesignator;
             BYTE ExternalConnectorType; /* SMBIOS_PORT_CONNECTOR_TYPE_* */
             BYTE PortType;
-        } PORT_CONNECTOR_INFO_TYPE_8;
+        } TYPE_8_PORT_CONNECTOR_INFO;
         struct
         {
             BYTE Designation;
@@ -1115,20 +1115,20 @@ typedef struct _SMBIOS_TABLE
             /* BYTE PhysicalWidth; */
             /* WORD Pitch; */
             /* BYTE Height; */
-        } SYSTEM_SLOTS_TYPE_9;
+        } TYPE_9_SYSTEM_SLOTS;
         struct
         {
             _Field_size_((Header.Length - sizeof(Header)) / 2) BYTE Type[]; /* SMBIOS_ONBOARD_DEVICES_TYPE_* */
             /* _Field_size_((Header.Length - sizeof(Header)) / 2) BYTE DescriptionString[]; */
-        } ON_BOARD_DEVICES_INFO_TYPE_10_OBSOLETE;
+        } TYPE_10_OBSOLETE_ON_BOARD_DEVICES_INFO;
         struct
         {
             BYTE Count;
-        } OEM_STRINGS_TYPE_11;
+        } TYPE_11_OEM_STRINGS;
         struct
         {
             BYTE Count;
-        } SYSTEM_CONFIGURATION_OPTIONS_TYPE_12;
+        } TYPE_12_SYSTEM_CONFIGURATION_OPTIONS;
         struct
         {
             BYTE InstallableLanguages;
@@ -1143,14 +1143,14 @@ typedef struct _SMBIOS_TABLE
             };
             BYTE Reserved1[15];
             BYTE CurrentLanguage;
-        } BIOS_LANGUAGE_INFO_TYPE_13;
+        } TYPE_13_BIOS_LANGUAGE_INFO;
         struct
         {
             BYTE GroupName;
             BYTE ItemType1;
             WORD ItemHandle1;
             /* ItemType2, ItemHandle2, ..., ItemTypeN, ItemHandleN */
-        } GROUP_ASSOCIATIONS_TYPE_14;
+        } TYPE_14_GROUP_ASSOCIATIONS;
         struct
         {
             BYTE Location;          /* SMBIOS_PHYSICAL_MEMORY_ARRAY_LOCATION_* */
@@ -1160,7 +1160,7 @@ typedef struct _SMBIOS_TABLE
             WORD ErrorInformationHandle;
             WORD NumberOfMemoryDevices;
             QWORD ExtendedMaximumCapacity;
-        } PHYSICAL_MEMORY_ARRAY_TYPE_16;
+        } TYPE_16_PHYSICAL_MEMORY_ARRAY;
         struct
         {
             WORD PhysicalMemoryArrayHandle;
@@ -1244,7 +1244,7 @@ typedef struct _SMBIOS_TABLE
             WORD PMIC0RevisionNumber;
             WORD RCDManufacturerID;
             WORD RCDRevisionNumber;
-        } MEMORY_DEVICE_TYPE_17;
+        } TYPE_17_MEMORY_DEVICE;
         struct
         {
             DWORD StartingAddress;
@@ -1253,7 +1253,7 @@ typedef struct _SMBIOS_TABLE
             BYTE PartitionWidth;
             QWORD ExtendedStartingAddress;
             QWORD ExtendedEndingAddress;
-        } MEMORY_ARRAY_MAPPED_ADDRESS_TYPE_19;
+        } TYPE_19_MEMORY_ARRAY_MAPPED_ADDRESS;
         struct
         {
             DWORD StartingAddress;
@@ -1265,7 +1265,7 @@ typedef struct _SMBIOS_TABLE
             BYTE InterleavedDataDepth;
             QWORD ExtendedStartingAddress;
             QWORD ExtendedEndingAddress;
-        } MEMORY_DEVICE_MAPPED_ADDRESS_TYPE_20;
+        } TYPE_20_MEMORY_DEVICE_MAPPED_ADDRESS;
         struct
         {
             union
@@ -1284,7 +1284,7 @@ typedef struct _SMBIOS_TABLE
             WORD ResetLimit;
             WORD TimerInterval;
             WORD Timeout;
-        } SYSTEM_RESET_TYPE_23;
+        } TYPE_23_SYSTEM_RESET;
         struct
         {
             union
@@ -1299,7 +1299,7 @@ typedef struct _SMBIOS_TABLE
                     BYTE PowerOnPasswordStatus : 2;
                 };
             };
-        } HARDWARE_SECURITY_TYPE_24;
+        } TYPE_24_HARDWARE_SECURITY;
         struct
         {
             BYTE NextScheduledPowerOnMonth;
@@ -1307,7 +1307,7 @@ typedef struct _SMBIOS_TABLE
             BYTE NextScheduledPowerOnHour;
             BYTE NextScheduledPowerOnMinute;
             BYTE NextScheduledPowerOnSecond;
-        } SYSTEM_POWER_CONTROLS_TYPE_25;
+        } TYPE_25_SYSTEM_POWER_CONTROLS;
         struct
         {
             BYTE Description;
@@ -1320,7 +1320,7 @@ typedef struct _SMBIOS_TABLE
                     BYTE Status : 3;    /* SMBIOS_VOLTAGE_PROBE_STATUS_* */
                 };
             };
-        } VOLTAGE_PROBE_TYPE_26;
+        } TYPE_26_VOLTAGE_PROBE;
         struct
         {
             WORD TemperatureProbeHandle;
@@ -1337,7 +1337,7 @@ typedef struct _SMBIOS_TABLE
             DWORD OEMDefined;
             WORD NominalSpeed;
             BYTE Description;
-        } COOLING_DEVICE_TYPE_27;
+        } TYPE_27_COOLING_DEVICE;
         struct
         {
             BYTE Description;
@@ -1357,7 +1357,7 @@ typedef struct _SMBIOS_TABLE
             WORD Accuracy;
             DWORD OEMDefined;
             WORD NominalValue;
-        } TEMPERATURE_PROBE_TYPE_28;
+        } TYPE_28_TEMPERATURE_PROBE;
         struct
         {
             BYTE Description;
@@ -1377,12 +1377,7 @@ typedef struct _SMBIOS_TABLE
             WORD Accuracy;
             DWORD OEMDefined;
             WORD NominalValue;
-        } ELECTRICAL_CURRENT_PROBE_TYPE_29;
-        struct
-        {
-            BYTE Reserved[6];
-            BYTE BootStatus[10];
-        } SYSTEM_BOOT_INFORMATION_TYPE_32;
+        } TYPE_29_ELECTRICAL_CURRENT_PROBE;
         struct
         {
             BYTE ManufacturerName;
@@ -1396,21 +1391,26 @@ typedef struct _SMBIOS_TABLE
                     BYTE Reserved : 6;
                 };
             };
-        } OUT_OF_BAND_REMOTE_ACCESS_TYPE_30;
+        } TYPE_30_OUT_OF_BAND_REMOTE_ACCESS;
+        struct
+        {
+            BYTE Reserved[6];
+            BYTE BootStatus[10];
+        } TYPE_32_SYSTEM_BOOT_INFORMATION;
         struct
         {
             BYTE Description;
             BYTE Type;          /* SMBIOS_MANAGEMENT_DEVICE_TYPE_* */
             DWORD Address;
             BYTE AddressType;   /* SMBIOS_MANAGEMENT_DEVICE_ADDRESS_TYPE_* */
-        } MANAGEMENT_DEVICE_TYPE_34;
+        } TYPE_34_MANAGEMENT_DEVICE;
         struct
         {
             BYTE Description;
             WORD ManagementDeviceHandle;
             WORD ComponentHandle;
             WORD ThresholdHandle;
-        } MANAGEMENT_DEVICE_COMPONENT_TYPE_35;
+        } TYPE_35_MANAGEMENT_DEVICE_COMPONENT;
         struct
         {
             BYTE PowerUnitGroup;
@@ -1436,7 +1436,7 @@ typedef struct _SMBIOS_TABLE
                     WORD Reserved : 2;
                 };
             };
-        } SYSTEM_POWER_SUPPLY_TYPE_39;
+        } TYPE_39_SYSTEM_POWER_SUPPLY;
         struct
         {
             BYTE ReferenceDesignation;
@@ -1461,7 +1461,7 @@ typedef struct _SMBIOS_TABLE
                     BYTE DeviceNumber : 5;
                 };
             };
-        } ONBOARD_DEVICES_EXTENDED_INFORMATION_TYPE_41;
+        } TYPE_41_ONBOARD_DEVICES_EXTENDED_INFORMATION;
         struct
         {
             BYTE VendorID[4];
@@ -1485,12 +1485,12 @@ typedef struct _SMBIOS_TABLE
                 };
             };
             DWORD OEMDefined;
-        } TPM_DEVICE_TYPE_43;
+        } TYPE_43_TPM_DEVICE;
         struct
         {
             WORD ReferencedHandle;
             BYTE ProcessorSpecificBlock[];
-        } PROCESSOR_ADDITIONAL_INFO_TYPE_44;
+        } TYPE_44_PROCESSOR_ADDITIONAL_INFO;
         struct
         {
             BYTE ComponentName;
@@ -1515,7 +1515,7 @@ typedef struct _SMBIOS_TABLE
             BYTE State; /* SMBIOS_FIRMWARE_INVENTORY_STATE_* */
             BYTE NumberOfAssociatedComponents;
             _Field_size_(NumberOfAssociatedComponents) WORD AssociatedComponentHandles[];
-        } FIRMWARE_INVENTORY_INFO_TYPE_45;
+        } TYPE_45_FIRMWARE_INVENTORY_INFO;
     };
 } SMBIOS_TABLE, *PSMBIOS_TABLE;
 

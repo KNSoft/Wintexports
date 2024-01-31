@@ -66,13 +66,13 @@ void __cdecl __security_init_cookie()
     /* Increase entropy using performance counter */
     NtQueryPerformanceCounter(&PerfCounter, &PerfFreq);
 #if defined (_WIN64)
-    Cookie ^= (((UINT_PTR)PerfCounter.LowPart << 32) ^ PerfCounter.QuadPart);
+    Cookie ^= ((UINT_PTR)PerfCounter.LowPart << 32) ^ PerfCounter.QuadPart;
 #else
     Cookie ^= PerfCounter.LowPart;
     Cookie ^= PerfCounter.HighPart;
 #endif
 
-    /* Increase entropy using ASLR */
+    /* Increase entropy using stack ASLR */
     Cookie ^= (UINT_PTR)&Cookie;
 
 #if defined (_WIN64)
