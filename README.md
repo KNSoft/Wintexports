@@ -1,4 +1,9 @@
+**Wintexports is archived and migrated to [KNSoft.NDK](https://github.com/KNSoft/KNSoft.NDK) and [KNSoft.LiteCRT](https://github.com/KNSoft/KNSoft.LiteCRT).**
+
+---
+
 # Wintexports
+
 Wintexports (Windows INTernal EXPORTS) exposes Windows NT low-level definitions and symbols for user-mode programming, and also supplement a few CRT functions to allow program depends ntdll.dll only.
 
 - Low-level definitions (i.e. NT*/Zw*, Rtl*, Ldr*, `PEB`, `TEB`, `KUSER_SHARED_DATA`, ...)
